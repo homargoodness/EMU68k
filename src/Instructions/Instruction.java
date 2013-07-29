@@ -1,7 +1,11 @@
 package Instructions;
 
+import Architecture.Chip;
+
 public interface Instruction {
 	
-	public void execute();
+	//int [] dataRegisterList = {
+	
+	public void execute(Chip model);
 
 }

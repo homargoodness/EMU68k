@@ -19,10 +19,10 @@ public class AddressRegister implements Register {
 		contents = 0;
 	}
 	
-	public void write(int value) throws StorageException {
-		if (value >  SIZE) {
-			throw new StorageException();
-		}
+	public void write(int value) {
+		//if (value >  SIZE) {
+			//throw new StorageException();
+		//}
 		contents = value; 
 	}
 

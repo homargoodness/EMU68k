@@ -1,5 +1,11 @@
 package Architecture;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
+
 import Architecture.Memory.Memory;
 import Architecture.Memory.MemoryAccessException;
 import Architecture.Memory.StorageException;
@@ -16,31 +22,30 @@ import Architecture.Registers.StatusRegister;
  */
 public class Chip68k implements Chip {
 	
-	private Register d0,d1,d2,d3,d4,d5,d6,d7; // TODO store as array list?
-	private Register a0,a1,a2,a3,a4,a5,a6,a7u,a7s,pc;
+	private PropertyChangeSupport propChange;
+	
+	private List<Register> dataReg;
+	private List<Register> addressReg;
+	private Register a7s,pc;
 	private StatusRegister sr;
 	private Memory memory; // TODO DEFAULT CONTENTS SHOULD BE FF
 	
 	public Chip68k() {
-		d0 = new DataRegister();
-		d1 = new DataRegister();
-		d2 = new DataRegister();
-		d3 = new DataRegister();
-		d4 = new DataRegister();
-		d5 = new DataRegister();
-		d6 = new DataRegister();
-		d7 = new DataRegister();
 		
-		a0 = new AddressRegister();
-		a1 = new AddressRegister();
-		a2 = new AddressRegister();
-		a3 = new AddressRegister();
-		a4 = new AddressRegister();
-		a5 = new AddressRegister();
-		a6 = new AddressRegister();
-		a7u = new AddressRegister();
+		propChange = new PropertyChangeSupport(this);
 		
-		a7s = new AddressRegister();
+		dataReg = new ArrayList<Register>();
+		for (int i = 0; i < 8; i++) {
+			dataReg.add(new DataRegister());
+		}
+		
+		addressReg = new ArrayList<Register>();
+		for (int i = 0; i < 8; i++) {
+			addressReg.add(new AddressRegister());
+		}
+		
+		
+		a7s = new AddressRegister(); // shadow address register for system
 		
 		pc = new AddressRegister();
 		
@@ -49,9 +54,102 @@ public class Chip68k implements Chip {
 		memory = new Memory();
 	}
 	
-	public void writeMemory(int address, String data) {
-		memory.writeByte(data, address);
+	public void addListener(PropertyChangeListener listener) {
+		propChange.addPropertyChangeListener(listener);
 	}
+	
+	
+	/** Memory *************************************************/
+	public void writeMemory(int address, byte data) {
+		memory.write(address, data);
+		propChange.fireIndexedPropertyChange("memory", address, null, data);
+	}
+	
+	public int readMemory(int address) {
+		return memory.read(address);
+	}
+	
+	
+	/** PC ******************************************************/
+	public void setPC(int address) {
+		pc.write(address);
+		propChange.firePropertyChange("pc", null, getPC());
+	}
+	
+	public int getPC() {
+		return pc.read();
+	}
+
+	
+	/** Data ****************************************************/
+	
+	public void setDataRegister(int reg, byte data) {
+		int contents = dataReg.get(reg).read() & 0xFFFFFF00;
+		contents = contents + data;
+		dataReg.get(reg).write(contents);
+	}
+
+	
+	public void setDataRegister(int reg, short data) {
+		int contents = dataReg.get(reg).read() & 0xFFFF0000;
+		contents = contents + data;
+		dataReg.get(reg).write(contents);
+	}
+
+	
+	public void setDataRegister(int reg, int data) {
+		dataReg.get(reg).write(data);
+	}
+
+	
+	public byte getDataRegisterByte(int register) {
+		int contents = dataReg.get(register).read();
+		return (byte) (contents & 0xFF);
+	}
+
+	
+	public short getDataRegisterWord(int register) {
+		int contents = dataReg.get(register).read();
+		return (short) (contents & 0xFFFF);
+	}
+
+	
+	public int getDataRegisterLongWord(int register) {
+		return dataReg.get(register).read();
+	}
+
+	
+	/** Address ***********************************************/
+	
+	public void setAddressRegister(int reg, short data) {
+		int contents = addressReg.get(reg).read() & 0xFFFF0000;
+		contents = contents + data;
+		addressReg.get(reg).write(contents);
+		
+	}
+
+	
+	public void setAddressRegister(int reg, int data) {
+		addressReg.get(reg).write(data);
+		
+	}
+
+	
+	public short getAddressRegisterWord(int register) {
+		int contents = addressReg.get(register).read();
+		return (short) (contents & 0xFFFF);
+	}
+
+	
+	public int getAddressRegisterLongWord(int register) {
+		return addressReg.get(register).read();
+	}
+
+	
+	
+	
+
+	
 	
 
 }

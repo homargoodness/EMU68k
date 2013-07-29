@@ -15,14 +15,14 @@ import java.util.List;
  * @author Omar Manir
  * 
  * 
- * TODO USE SINGLETON PATTERN, add exceptions
+ *
  */
 public class Memory {
 	
 	private List<MemoryLocation> memory;
 
 	private final int SIZE = 0xFFFFFF;
-	//private String[] mem; //TODO change to short or array of boolean?
+	//private String[] mem; 
 
 	public Memory() {
 		memory = new ArrayList<MemoryLocation>();
@@ -36,7 +36,7 @@ public class Memory {
 	 * @return
 	 * @throws MemoryAccessException
 	 */
-	public String read(int address) {
+	public byte read(int address) {
 		
 		for (int i = 0; i < memory.size(); i++) {
 			if (memory.get(i).address == address) {
@@ -44,7 +44,7 @@ public class Memory {
 			}
 		}
 		
-		return "FF";
+		return (byte)0xFF;
 		
 		
 		
@@ -64,10 +64,17 @@ public class Memory {
 	 * @throws MemoryAccessException
 	 * @throws StorageException
 	 */
-	public void writeByte(String data, int address) { // change args around
+	public void write(int address, byte data) {
 		
-		memory.add(new MemoryLocation(address, data)); // TODO search through all elems first and overwrite if location already exists!!!!!!!!!!!!!!!!!!!
+		for (int i = 0; i < memory.size(); i++) {
+			if (memory.get(i).address == address) {
+				
+				memory.get(i).contents = data;
+				return;
+			}
+		}
 		
+		memory.add(new MemoryLocation(address, data));
 		
 		//if (address >= SIZE || address < 0) { // if address is not within addressable space
 			//throw new MemoryAccessException();
@@ -81,9 +88,9 @@ public class Memory {
 	
 	private class MemoryLocation {
 		private int address;
-		private String contents;
+		private byte contents;
 		
-		private MemoryLocation(int anAddress, String data) {
+		private MemoryLocation(int anAddress, byte data) {
 			address = anAddress;
 			contents = data;
 		}

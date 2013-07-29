@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,13 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Hashtable;
-import java.util.Observable;
-import java.util.Observer;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener; //TODO
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -36,14 +30,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-import controller.Controller;
-import controller.Controller.StartButtonListener;
-import Architecture.Chip;
-import Architecture.Memory.Memory;
-import Architecture.Memory.MemoryAccessException;
-import Architecture.Memory.StorageException;
-
-public class Graphical68k implements EmulatorInterface {
+public class Graphical68k extends EmulatorUI {
 	
 	private JFrame frame;
 	
@@ -79,11 +66,10 @@ public class Graphical68k implements EmulatorInterface {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				frame = new JFrame();
-				//chip = aChip;
 				
 				frame.setTitle("68k Emulator");
-				frame.setSize(1000,700);
-				//setResizable(false);
+				frame.setSize(1400,700);
+				//frame.setResizable(false);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				layoutMenu();
@@ -112,27 +98,7 @@ public class Graphical68k implements EmulatorInterface {
 		mainMenu.add(aboutMenu);
 		
 		openItem = new JMenuItem("Open");
-		/*
-		openItem.addActionListener(new ActionListener() {
-			public void actionPerformed( ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						JFileChooser fc = new JFileChooser();
-						fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-						fc.setFileFilter(new ASMFilter());
-						int option = fc.showOpenDialog(null);
-						if (option == JFileChooser.APPROVE_OPTION) {
-							String optionFileName = fc.getSelectedFile().getName();
-							
-							// call method in controller and pass filename into it
-							// method should read in file and processes it then call method in GUI
-							// to display it.
-						}
-					}
-				});
-			}
-		});
-		*/
+	
 		fileMenu.add(openItem);
 		
 		exitItem = new JMenuItem("Exit");
@@ -448,7 +414,7 @@ public class Graphical68k implements EmulatorInterface {
 		JPanel codePanel = new JPanel(new GridLayout());
 		codePanel.setBorder(new TitledBorder(new EtchedBorder(), "Source Code"));
 		
-		codeDisp = new JTextArea(50,30);
+		codeDisp = new JTextArea(0,60);
 		
 		JScrollPane scrollPane = new JScrollPane(codeDisp);
 		
@@ -511,7 +477,6 @@ public class Graphical68k implements EmulatorInterface {
 		return filename;
 	}
 	
-	
 	public void setStartListener(final ActionListener listener) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -538,11 +503,82 @@ public class Graphical68k implements EmulatorInterface {
 		});
 	}
 	
-	public void updateTable(int address, String data) {
-		int row = address /16;
-		int column = address % 16;
-		memTable.setValueAt(data, row, column);
+	public void updateMemory(int address, byte data) {
+		final int row = address /16;
+		final int column = address % 16;
+		final String hexString = String.format("%02X", data);
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				memTable.setValueAt(hexString, row, column);
+			}
+		});
 	}
+	
+	public void setSource(String source) {
+		codeDisp.setText(source);
+	}
+	
+	public void updatePC(long address) {
+
+		final StringBuilder formatted = new StringBuilder(Long.toHexString(address).toUpperCase());
+		while (formatted.length() < 6) {
+			formatted.insert(0,'0');
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				pcField.setText(formatted.toString());
+			}
+		});
+		
+	}
+
+	@Override
+	public void updateDataRegisterDisplay(String register) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateAddressRegisterDisplay(String register) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateXBit(boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateNBit(boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateZBit(boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateVBit(boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateCBit(boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
+	
+
 	
 
 	
