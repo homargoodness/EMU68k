@@ -22,9 +22,9 @@ public abstract class EmulatorUI  { // if there is no non-abstract methods, turn
 	
 	public abstract void updatePC(long address);
 	
-	public abstract void updateDataRegisterDisplay(String register);
+	public abstract void updateDataRegisterDisplay(int register, int data);
 	
-	public abstract void updateAddressRegisterDisplay(String register);
+	public abstract void updateAddressRegisterDisplay(int register, int data);
 	
 	public abstract void updateXBit(boolean value);
 	

@@ -13,9 +13,9 @@ public class Main {
 		
 		Chip model = new Chip68k();
 		
-		//Graphical68k view = new Graphical68k();
+		Graphical68k view = new Graphical68k();
 		
-		//Controller controller = new Controller(view, model);
+		Controller controller = new Controller(view, model);
 		
 		model.setDataRegister(0,81234);
 		System.out.println(model.getDataRegisterLongWord(0));
@@ -25,6 +25,7 @@ public class Main {
 		
 		System.out.println(model.getDataRegisterLongWord(0));
 		System.out.println(Integer.toBinaryString(model.getDataRegisterLongWord(0)));
+		
 	
 		
 		//System.out.println((model.getDataRegisterLongWord(0)));

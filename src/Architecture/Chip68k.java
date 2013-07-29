@@ -24,7 +24,7 @@ public class Chip68k implements Chip {
 	
 	private PropertyChangeSupport propChange;
 	
-	private List<Register> dataReg;
+	private List<Register> dataReg; //TODO use array instead
 	private List<Register> addressReg;
 	private Register a7s,pc;
 	private StatusRegister sr;
@@ -62,7 +62,7 @@ public class Chip68k implements Chip {
 	/** Memory *************************************************/
 	public void writeMemory(int address, byte data) {
 		memory.write(address, data);
-		propChange.fireIndexedPropertyChange("memory", address, null, data);
+		propChange.fireIndexedPropertyChange("Memory", address, null, data);
 	}
 	
 	public int readMemory(int address) {
@@ -73,7 +73,7 @@ public class Chip68k implements Chip {
 	/** PC ******************************************************/
 	public void setPC(int address) {
 		pc.write(address);
-		propChange.firePropertyChange("pc", null, getPC());
+		propChange.firePropertyChange("ProgramCounter", null, getPC());
 	}
 	
 	public int getPC() {
@@ -87,7 +87,7 @@ public class Chip68k implements Chip {
 		int contents = dataReg.get(reg).read() & 0xFFFFFF00;
 		contents = contents + data;
 		dataReg.get(reg).write(contents);
-		propChange.firePropertyChange("d" + reg, null, dataReg.get(reg).read());
+		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg.get(reg).read());
 	}
 
 	
@@ -95,13 +95,13 @@ public class Chip68k implements Chip {
 		int contents = dataReg.get(reg).read() & 0xFFFF0000;
 		contents = contents + data;
 		dataReg.get(reg).write(contents);
-		propChange.firePropertyChange("d" + reg, null, dataReg.get(reg).read());
+		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg.get(reg).read());
 	}
 
 	
 	public void setDataRegister(int reg, int data) {
 		dataReg.get(reg).write(data);
-		propChange.firePropertyChange("d" + reg, null, dataReg.get(reg).read());
+		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg.get(reg).read());
 	}
 
 	
@@ -128,7 +128,7 @@ public class Chip68k implements Chip {
 		int contents = addressReg.get(reg).read() & 0xFFFF0000;
 		contents = contents + data;
 		addressReg.get(reg).write(contents);
-		propChange.firePropertyChange("a" + reg, null, addressReg.get(reg).read());
+		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg.get(reg).read());
 		
 	}
 
@@ -136,6 +136,7 @@ public class Chip68k implements Chip {
 	public void setAddressRegister(int reg, int data) {
 		addressReg.get(reg).write(data);
 		propChange.firePropertyChange("a" + reg, null, addressReg.get(reg).read());
+		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg.get(reg).read());
 	}
 
 	
@@ -148,12 +149,5 @@ public class Chip68k implements Chip {
 	public int getAddressRegisterLongWord(int register) {
 		return addressReg.get(register).read();
 	}
-
-	
-	
-	
-
-	
-	
 
 }

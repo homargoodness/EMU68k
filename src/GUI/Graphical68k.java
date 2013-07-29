@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -40,10 +41,12 @@ public class Graphical68k extends EmulatorUI {
 	private JMenuItem aboutItem;
 	
 	/** data registers components **/
-	private JTextField d0Field, d1Field, d2Field, d3Field, d4Field, d5Field, d6Field, d7Field;
+	//private JTextField d0Field, d1Field, d2Field, d3Field, d4Field, d5Field, d6Field, d7Field;
+	JTextField [] dataRegisterField;
 	
 	/** address registers components **/
-	private JTextField a0Field, a1Field, a2Field, a3Field, a4Field, a5Field, a6Field, a7Field;
+	//private JTextField a0Field, addressRegister[1], addressRegister[2], addressRegister[3], addressRegister[4], addressRegister[5], addressRegister[6], addressRegister[7];
+	JTextField [] addressRegisterField;
 	
 	/** status register components */
 	private JTextField xBitField, nBitField, zBitField, vBitField, cBitField;
@@ -143,6 +146,8 @@ public class Graphical68k extends EmulatorUI {
 	
 	private JPanel layoutDataRegisters() {
 		
+		dataRegisterField = new JTextField[8];
+		
 		JPanel dataPanel = new JPanel(new GridBagLayout());
 		dataPanel.setBorder(new TitledBorder(new EtchedBorder(), "Data Registers"));
 		
@@ -163,70 +168,72 @@ public class Graphical68k extends EmulatorUI {
 		
 		dataPanel.add(new JLabel("D0", 2),labels);
 		fields.gridx= 1;
-		d0Field = new JTextField("000000", 6);
-		d0Field.setEditable(false);
-		dataPanel.add(d0Field, fields);
+		dataRegisterField[0] = new JTextField("000000", 6);
+		dataRegisterField[0].setEditable(false);
+		dataPanel.add(dataRegisterField[0], fields);
 		
 		labels.gridx= 2;
 		dataPanel.add(new JLabel("D1", 2), labels);
 		fields.gridx= 3;
-		d1Field = new JTextField("000000", 6);
-		d1Field.setEditable(false);
-		dataPanel.add(d1Field, fields);
+		dataRegisterField[1] = new JTextField("000000", 6);
+		dataRegisterField[1].setEditable(false);
+		dataPanel.add(dataRegisterField[1], fields);
 		
 		labels.gridx = 0;
 		labels.gridy = 1;
 		dataPanel.add(new JLabel("D2",2), labels);
 		fields.gridx = 1;
 		fields.gridy = 1;
-		d2Field = new JTextField("000000", 6);
-		d2Field.setEditable(false);
-		dataPanel.add(d2Field, fields);
+		dataRegisterField[2] = new JTextField("000000", 6);
+		dataRegisterField[2].setEditable(false);
+		dataPanel.add(dataRegisterField[2], fields);
 		
 		labels.gridx = 2;
 		dataPanel.add(new JLabel("D3", 2), labels);
 		fields.gridx = 3;
-		d3Field = new JTextField("000000", 6);
-		d3Field.setEditable(false);
-		dataPanel.add(d3Field, fields);
+		dataRegisterField[3] = new JTextField("000000", 6);
+		dataRegisterField[3].setEditable(false);
+		dataPanel.add(dataRegisterField[3], fields);
 		
 		labels.gridx= 0;
 		labels.gridy= 2;
 		dataPanel.add(new JLabel("D4", 2), labels);
 		fields.gridx= 1;
 		fields.gridy = 2;
-		d4Field = new JTextField("000000", 6);
-		d4Field.setEditable(false);
-		dataPanel.add(d4Field, fields);
+		dataRegisterField[4] = new JTextField("000000", 6);
+		dataRegisterField[4].setEditable(false);
+		dataPanel.add(dataRegisterField[4], fields);
 		
 		labels.gridx= 2;
 		dataPanel.add(new JLabel("D5", 2), labels);
 		fields.gridx= 3;
-		d5Field = new JTextField("000000", 6);
-		d5Field.setEditable(false);
-		dataPanel.add(d5Field, fields);
+		dataRegisterField[5] = new JTextField("000000", 6);
+		dataRegisterField[5].setEditable(false);
+		dataPanel.add(dataRegisterField[5], fields);
 		
 		labels.gridx= 0;
 		labels.gridy= 3;
 		dataPanel.add(new JLabel("D6", 2), labels);
 		fields.gridx= 1;
 		fields.gridy = 3;
-		d6Field = new JTextField("000000", 6);
-		d6Field.setEditable(false);
-		dataPanel.add(d6Field, fields);
+		dataRegisterField[6] = new JTextField("000000", 6);
+		dataRegisterField[6].setEditable(false);
+		dataPanel.add(dataRegisterField[6], fields);
 		
 		labels.gridx= 2;
 		dataPanel.add(new JLabel("D7", 2), labels);
 		fields.gridx= 3;
-		d7Field = new JTextField("000000", 6);
-		d7Field.setEditable(false);
-		dataPanel.add(d7Field, fields);
+		dataRegisterField[7] = new JTextField("000000", 6);
+		dataRegisterField[7].setEditable(false);
+		dataPanel.add(dataRegisterField[7], fields);
 		
 		return dataPanel;
 				
 	}
 	
 	private JPanel layoutAddressRegisters() {
+		
+		addressRegisterField = new JTextField [8];
 		
 		JPanel addressPanel = new JPanel(new GridBagLayout());
 		addressPanel.setBorder(new TitledBorder(new EtchedBorder(), "Address Registers"));
@@ -248,64 +255,64 @@ public class Graphical68k extends EmulatorUI {
 		
 		addressPanel.add(new JLabel("A0", 2),labels);
 		fields.gridx= 1;
-		a0Field = new JTextField("000000", 6);
-		a0Field.setEditable(false);
-		addressPanel.add(a0Field, fields);
+		addressRegisterField[0] = new JTextField("000000", 6);
+		addressRegisterField[0].setEditable(false);
+		addressPanel.add(addressRegisterField[0], fields);
 		
 		labels.gridx= 2;
 		addressPanel.add(new JLabel("A1", 2), labels);
 		fields.gridx= 3;
-		a1Field = new JTextField("000000", 6);
-		a1Field.setEditable(false);
-		addressPanel.add(a1Field, fields);
+		addressRegisterField[1] = new JTextField("000000", 6);
+		addressRegisterField[1].setEditable(false);
+		addressPanel.add(addressRegisterField[1], fields);
 		
 		labels.gridx = 0;
 		labels.gridy = 1;
 		addressPanel.add(new JLabel("A2", 2), labels);
 		fields.gridx = 1;
 		fields.gridy = 1;
-		a2Field = new JTextField("000000", 6);
-		a2Field.setEditable(false);
-		addressPanel.add(a2Field, fields);
+		addressRegisterField[2] = new JTextField("000000", 6);
+		addressRegisterField[2].setEditable(false);
+		addressPanel.add(addressRegisterField[2], fields);
 		
 		labels.gridx = 2;
 		addressPanel.add(new JLabel("A3", 2), labels);
 		fields.gridx = 3;
-		a3Field = new JTextField("000000", 6);
-		a3Field.setEditable(false);
-		addressPanel.add(a3Field, fields);
+		addressRegisterField[3] = new JTextField("000000", 6);
+		addressRegisterField[3].setEditable(false);
+		addressPanel.add(addressRegisterField[3], fields);
 		
 		labels.gridx= 0;
 		labels.gridy= 2;
 		addressPanel.add(new JLabel("A4", 2), labels);
 		fields.gridx= 1;
 		fields.gridy = 2;
-		a4Field = new JTextField("000000", 6);
-		a4Field.setEditable(false);
-		addressPanel.add(a4Field, fields);
+		addressRegisterField[4] = new JTextField("000000", 6);
+		addressRegisterField[4].setEditable(false);
+		addressPanel.add(addressRegisterField[4], fields);
 		
 		labels.gridx= 2;
 		addressPanel.add(new JLabel("A5", 2), labels);
 		fields.gridx= 3;
-		a5Field = new JTextField("000000", 6);
-		a5Field.setEditable(false);
-		addressPanel.add(a5Field, fields);
+		addressRegisterField[5] = new JTextField("000000", 6);
+		addressRegisterField[5].setEditable(false);
+		addressPanel.add(addressRegisterField[5], fields);
 		
 		labels.gridx= 0;
 		labels.gridy= 3;
 		addressPanel.add(new JLabel("A6", 2), labels);
 		fields.gridx= 1;
 		fields.gridy = 3;
-		a6Field = new JTextField("000000", 6);
-		a6Field.setEditable(false);
-		addressPanel.add(a6Field, fields);
+		addressRegisterField[6] = new JTextField("000000", 6);
+		addressRegisterField[6].setEditable(false);
+		addressPanel.add(addressRegisterField[6], fields);
 		
 		labels.gridx= 2;
 		addressPanel.add(new JLabel("A7", 2), labels);
 		fields.gridx= 3;
-		a7Field = new JTextField("000000", 6);
-		a7Field.setEditable(false);
-		addressPanel.add(a7Field, fields);
+		addressRegisterField[7] = new JTextField("000000", 6);
+		addressRegisterField[7].setEditable(false);
+		addressPanel.add(addressRegisterField[7], fields);
 		
 		return addressPanel;
 		
@@ -533,15 +540,20 @@ public class Graphical68k extends EmulatorUI {
 		
 	}
 
-	@Override
-	public void updateDataRegisterDisplay(String register) {
-		// TODO Auto-generated method stub
-		
+	public void updateDataRegisterDisplay(final int register, final int data) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				dataRegisterField[register].setText(Integer.toHexString(data));
+			}
+		});
 	}
 
-	@Override
-	public void updateAddressRegisterDisplay(String register) {
-		// TODO Auto-generated method stub
+	public void updateAddressRegisterDisplay(final int register, final int data) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				addressRegisterField[register].setText(Integer.toHexString(data));
+			}
+		});
 		
 	}
 

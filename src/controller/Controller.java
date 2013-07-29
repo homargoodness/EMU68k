@@ -58,72 +58,6 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 			System.out.println("illegal instruction");
 		}
 		
-		// if op is valid (not null) execute
-		
-		//int op = (model.readMemory((int)model.getPC()));
-		//model.setPC(model.getPC() + 1);
-		 
-		
-		//loop, inside loop is an object that can fetch, decode and execute, each itteration of loop checks for a pause or stop sign.
-		
-		// first 2 bytes read in, passed into a class that looksup value in array, passes back instruction, pass model into instruction to execute. loop
-		
-		//if (op >= 0x1 && op <= 0x3) {
-			
-		//}
-		
-		/*
-		int op = (model.readMemory((int)model.getPC()));
-		op = ((op/0x10) * 0x1000) + ((op % 0x10) * 0x100);
-		
-		op += (model.readMemory((int)model.getPC() + 1));
-		
-		if (op >= 0x1000 && op <= 0x3FFF) {
-			op = op % 0x1000; // strip first byte 3 bytes left
-			if (op >= D0 && op < D1) {
-				// move to D0
-			}
-			else if (op >= D1 && op < D2 ) {
-				System.out.println(op); // d1 TRUN TO STRING AT THIS POINT???
-			}
-			else if (op >= D2 && op < D3 ) {
-				//move to D2
-			}
-			else if (op >= D3 && op < D4 ) {
-				//move to D3
-			}
-			else if (op >= D4 && op < D5 ) {
-				//move to D4
-			}
-			else if (op >= D5 && op < D6 ) {
-				//move to D5
-			}
-			else if (op >= D6 && op < D7 ) {
-				//move to D6
-			}
-			else {
-				//move to D7
-			}
-			
-		}
-		*/
-		/*
-		
-		// Running in EDT!!!!!!!!!!!!!!!!!!!!!!!!!
-		StringBuilder opCode = new StringBuilder(Integer.toBinaryString(model.readMemory((int)model.getPC()))); // combine in loop
-		while (opCode.length() < 8) {
-			opCode.insert(0,'0');
-		}
-		model.setPC(model.getPC() + 1);
-		StringBuilder opCode2 = new StringBuilder(Integer.toBinaryString(model.readMemory((int)model.getPC()))); // combine in loop
-		while (opCode.length() < 8) {
-			opCode.insert(0,'0');
-		}
-		model.setPC(model.getPC() + 1);
-		
-		opCode.append(opCode2);
-		*/
-		
 	}
 	
 	/**
@@ -164,11 +98,17 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 	}
 	
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().compareTo("memory") == 0) {
+		if (evt.getPropertyName().compareTo("Memory") == 0) {
 			view.updateMemory(((IndexedPropertyChangeEvent) evt).getIndex(), (byte)evt.getNewValue());
 		}
-		else if (evt.getPropertyName().compareTo("pc") == 0) {
+		else if (evt.getPropertyName().compareTo("ProgramCounter") == 0) {
 			view.updatePC((int)evt.getNewValue());
+		}
+		else if (evt.getPropertyName().compareTo("DataRegister") == 0) {
+			view.updateDataRegisterDisplay(((IndexedPropertyChangeEvent) evt).getIndex(), (int)evt.getNewValue());
+		}
+		else if (evt.getPropertyName().compareTo("AddressRegister") == 0) {
+			view.updateAddressRegisterDisplay(((IndexedPropertyChangeEvent) evt).getIndex(), (int)evt.getNewValue());
 		}
 	}
 	
