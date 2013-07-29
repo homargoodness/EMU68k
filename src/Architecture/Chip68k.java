@@ -149,5 +149,86 @@ public class Chip68k implements Chip {
 	public int getAddressRegisterLongWord(int register) {
 		return addressReg.get(register).read();
 	}
+	
+	/** SR ****************************************************/
+
+
+	public int getSRCarryBit() {
+		return sr.read() & 0x1;
+	}
+
+	@Override
+	public int getSROverflowBit() {
+		return sr.read() & 0x2;
+	}
+	@Override
+	public int getSRZeroBit() {
+		return sr.read() & 0x4;
+	}
+
+	@Override
+	public int getSRNegativeBit() {
+		return sr.read() & 0x8;
+	}
+
+	@Override
+	public int getSRExtendBit() {
+		return sr.read() & 0x10;
+	}
+
+	
+
+	@Override
+	public void setSRCarryBit(int bit) {
+		if (bit == 0) {
+			sr.write((short)(sr.read() & 0xFFFE));
+		}
+		else {
+			sr.write((short)(sr.read() | 0x1));
+		}	
+	}
+
+	
+	public void setSROverflowBit(int bit) {
+		if (bit == 0) {
+			sr.write((short)(sr.read() & 0xFFFC));
+		}
+		else {
+			sr.write((short)(sr.read() | 0x2));
+		}
+		
+	}
+	
+	public void setSRZeroBit(int bit) {
+		if (bit == 0) {
+			sr.write((short)(sr.read() & 0xFFFB));
+		}
+		else {
+			sr.write((short)(sr.read() | 0x4));
+		}
+	}
+
+	
+	public void setSRNegativeBit(int bit) {
+		if (bit == 0) {
+			sr.write((short)(sr.read() & 0xFFF7));
+		}
+		else {
+			sr.write((short)(sr.read() | 0x8));
+		}
+		
+	}
+
+
+	public void setSRExtendBit(int bit) {
+		if (bit == 0) {
+			sr.write((short)(sr.read() & 0xFFEF));
+		}
+		else {
+			sr.write((short)(sr.read() | 0x10));
+		}
+	}
+
+	
 
 }

@@ -7,6 +7,17 @@ package Architecture.Registers;
  */
 public class StatusRegister {
 
+	short contents; 
+	
+	public short read() {
+		return contents;
+	}
+	
+	public void write(short data) {
+		contents = data;
+	}
+	
+	/*
 	private boolean t; // trace
 	private boolean s; // supervisor
 	private boolean i0; // interrupt 0
@@ -100,5 +111,6 @@ public class StatusRegister {
 	public boolean getCarry() {
 		return c;
 	}
+	*/
 
 }

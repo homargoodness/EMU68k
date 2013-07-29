@@ -510,6 +510,10 @@ public class Graphical68k extends EmulatorUI {
 		});
 	}
 	
+	public void setSource(String source) {
+		codeDisp.setText(source);
+	}
+	
 	public void updateMemory(int address, byte data) {
 		final int row = address /16;
 		final int column = address % 16;
@@ -520,10 +524,6 @@ public class Graphical68k extends EmulatorUI {
 				memTable.setValueAt(hexString, row, column);
 			}
 		});
-	}
-	
-	public void setSource(String source) {
-		codeDisp.setText(source);
 	}
 	
 	public void updatePC(long address) {

@@ -40,13 +40,16 @@ public class Move implements Instruction {
 		int source = opCode & 0x7;
 		byte operand = 0;
 		
+		System.out.println("size = " + size);
+		System.out.println("destMode = " + destMode);
+		System.out.println("dest = " + dest);
+		
+		// Source
 		if (sourceMode == 7) { 
 			
-			if (source == 4) { // immeadiate
+			if (source == 4) { // immediate
 				
 				if (size == 1) { // byte
-					//int [] operand = new int[2];
-					//operand[0] = model.readMemory((int)model.getPC()); // TODO any reason to get first byte?????
 					model.setPC(model.getPC() + 1);
 					operand = model.readMemory((int)model.getPC());
 					
@@ -64,8 +67,13 @@ public class Move implements Instruction {
 			}
 		}
 		
+		
+		// Destination
 		if (destMode == 0) { //data reg
 			model.setDataRegister(dest, operand);
+		}
+		else if (destMode == 1) {
+			model.setAddressRegister(dest, operand);
 		}
 		
 		

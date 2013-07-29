@@ -2,4 +2,4 @@ To Do:
 	status register to update and display correctly
 	thread safety
 	JTable row names
-
+	combine address and data registers into a single class

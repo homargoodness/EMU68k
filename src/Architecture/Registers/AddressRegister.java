@@ -1,7 +1,5 @@
 package Architecture.Registers;
 
-import Architecture.Memory.StorageException;
-
 /**
  * Simulates an address register of arbitrary width
  * 
@@ -13,16 +11,12 @@ import Architecture.Memory.StorageException;
 public class AddressRegister implements Register {
 
 	private int contents;
-	private final int SIZE = 32; //TODO
 	
 	public AddressRegister() {
 		contents = 0;
 	}
 	
 	public void write(int value) {
-		//if (value >  SIZE) {
-			//throw new StorageException();
-		//}
 		contents = value; 
 	}
 
