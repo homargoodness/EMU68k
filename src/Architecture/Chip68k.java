@@ -65,7 +65,7 @@ public class Chip68k implements Chip {
 		propChange.fireIndexedPropertyChange("Memory", address, null, data);
 	}
 	
-	public int readMemory(int address) {
+	public byte readMemory(int address) {
 		return memory.read(address);
 	}
 	

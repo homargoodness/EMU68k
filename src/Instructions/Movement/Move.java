@@ -5,6 +5,24 @@ import Instructions.Instruction;
 
 public class Move implements Instruction {
 	
+	//source mode 0 = data reg
+	//source mode 1 = address
+	//source mode 2 = memory
+	//source mode 3 = memory with postinc
+	//source mode 4 = memory woth predec
+	//source mode 5 = memory with displacement
+	//source mode 6 = memory with index
+	//source mode 7
+		//source 0 = abs short
+		//source 1 = abs long
+		//source 2 = PC with disp
+		//source 3 = PC with index
+		//source 4 = immeadiate
+	
+	//01 byte
+	//10 long
+	//11word
+	
 	private int opCode;
 	
 	public Move(int aCode) {
@@ -20,20 +38,34 @@ public class Move implements Instruction {
 		int dest = (opCode >> 0x9) & 0x7;
 		int sourceMode = (opCode >> 0x3) & 0x7;
 		int source = opCode & 0x7;
+		byte operand = 0;
 		
-		if (sourceMode == 7) { // TODO this needs further options
-			if (source == 4) {
-				System.out.println("immeadiate addressing");
-				if (size == 1) {
-					int [] operand = new int[2];
-					operand[0] = model.readMemory((int)model.getPC()); // TODO any reason to get first byte?????
+		if (sourceMode == 7) { 
+			
+			if (source == 4) { // immeadiate
+				
+				if (size == 1) { // byte
+					//int [] operand = new int[2];
+					//operand[0] = model.readMemory((int)model.getPC()); // TODO any reason to get first byte?????
 					model.setPC(model.getPC() + 1);
-					operand[1] = model.readMemory((int)model.getPC());
+					operand = model.readMemory((int)model.getPC());
 					
 					
 				}
 				
+				else if (size == 2) {
+					
+				}
+				
+				else if (size == 3) {
+					
+				}
+				
 			}
+		}
+		
+		if (destMode == 0) { //data reg
+			model.setDataRegister(dest, operand);
 		}
 		
 		

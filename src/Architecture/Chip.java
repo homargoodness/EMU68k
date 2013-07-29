@@ -12,7 +12,7 @@ public interface Chip {
 	
 	public void writeMemory(int address, byte data);
 	
-	public int readMemory(int address);
+	public byte readMemory(int address);
 	
 	public void setPC(int address);
 	
