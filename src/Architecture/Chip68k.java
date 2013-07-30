@@ -85,7 +85,9 @@ public class Chip68k implements Chip {
 	
 	public void setDataRegister(int reg, byte data) {
 		int contents = dataReg.get(reg).read() & 0xFFFFFF00;
-		contents = contents + data;
+		contents |= (data & 0xFF);
+		//int contents = dataReg.get(reg).read() & 0xFFFFFF00;
+		//contents = contents + data;
 		dataReg.get(reg).write(contents);
 		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg.get(reg).read());
 	}
@@ -93,7 +95,7 @@ public class Chip68k implements Chip {
 	
 	public void setDataRegister(int reg, short data) {
 		int contents = dataReg.get(reg).read() & 0xFFFF0000;
-		contents = contents + data;
+		contents |= (data & 0xFFFF);
 		dataReg.get(reg).write(contents);
 		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg.get(reg).read());
 	}
@@ -126,7 +128,7 @@ public class Chip68k implements Chip {
 	
 	public void setAddressRegister(int reg, short data) {
 		int contents = addressReg.get(reg).read() & 0xFFFF0000;
-		contents = contents + data;
+		contents |= (data + 0xFFFF);
 		addressReg.get(reg).write(contents);
 		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg.get(reg).read());
 		
