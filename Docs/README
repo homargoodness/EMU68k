@@ -3,3 +3,4 @@ To Do:
 	thread safety
 	JTable row names
 	combine address and data registers into a single class
+	replace >> with >>> so that sign bit is not perserved

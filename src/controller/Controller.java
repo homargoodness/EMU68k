@@ -110,13 +110,10 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		else if (evt.getPropertyName().compareTo("AddressRegister") == 0) {
 			view.updateAddressRegisterDisplay(((IndexedPropertyChangeEvent) evt).getIndex(), (int)evt.getNewValue());
 		}
+		else if (evt.getPropertyName().compareTo("StatusRegister") == 0) {
+			view.updateStatusRegister((int)evt.getNewValue());
+		}
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	

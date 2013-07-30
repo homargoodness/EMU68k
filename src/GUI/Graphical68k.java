@@ -541,6 +541,7 @@ public class Graphical68k extends EmulatorUI {
 	}
 
 	public void updateDataRegisterDisplay(final int register, final int data) {
+		System.out.println(data);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				dataRegisterField[register].setText(Integer.toHexString(data));
@@ -557,42 +558,43 @@ public class Graphical68k extends EmulatorUI {
 		
 	}
 
-	@Override
-	public void updateXBit(boolean value) {
-		// TODO Auto-generated method stub
+	
+	public void updateStatusRegister(int value) {
 		
-	}
-
-	@Override
-	public void updateNBit(boolean value) {
-		// TODO Auto-generated method stub
+		if ((value & 0x1) == 0) {
+			cBitField.setText("0");
+		}
+		else {
+			cBitField.setText("1");
+		}
 		
-	}
-
-	@Override
-	public void updateZBit(boolean value) {
-		// TODO Auto-generated method stub
+		if ((value & 0x2) == 0) {
+			vBitField.setText("0");
+		}
+		else {
+			vBitField.setText("1");
+		}
 		
-	}
-
-	@Override
-	public void updateVBit(boolean value) {
-		// TODO Auto-generated method stub
+		if ((value & 0x4) == 0) {
+			zBitField.setText("0");
+		}
+		else {
+			zBitField.setText("0");
+		}
 		
-	}
-
-	@Override
-	public void updateCBit(boolean value) {
-		// TODO Auto-generated method stub
+		if ((value & 0x8) == 0) {
+			nBitField.setText("0");
+		}
+		else {
+			nBitField.setText("0");
+		}
 		
+		if ((value & 0x10) == 0) {
+			xBitField.setText("0");
+		}
+		else {
+			xBitField.setText("0");
+		}
 	}
-	
-	
-	
-	
-
-	
-
-	
 
 }

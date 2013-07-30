@@ -26,15 +26,7 @@ public abstract class EmulatorUI  { // if there is no non-abstract methods, turn
 	
 	public abstract void updateAddressRegisterDisplay(int register, int data);
 	
-	public abstract void updateXBit(boolean value);
-	
-	public abstract void updateNBit(boolean value);
-	
-	public abstract void updateZBit(boolean value);
-	
-	public abstract void updateVBit(boolean value);
-	
-	public abstract void updateCBit(boolean value);
+	public abstract void updateStatusRegister(int value);
 	
 
 }

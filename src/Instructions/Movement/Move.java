@@ -40,10 +40,6 @@ public class Move implements Instruction {
 		int source = opCode & 0x7;
 		byte operand = 0;
 		
-		System.out.println("size = " + size);
-		System.out.println("destMode = " + destMode);
-		System.out.println("dest = " + dest);
-		
 		// Source
 		if (sourceMode == 7) { 
 			
@@ -52,7 +48,7 @@ public class Move implements Instruction {
 				if (size == 1) { // byte
 					model.setPC(model.getPC() + 1);
 					operand = model.readMemory((int)model.getPC());
-					
+					model.setPC(model.getPC() + 1);
 					
 				}
 				

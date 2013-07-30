@@ -150,45 +150,40 @@ public class Chip68k implements Chip {
 		return addressReg.get(register).read();
 	}
 	
+	
 	/** SR ****************************************************/
 
-
 	public int getSRCarryBit() {
-		return sr.read() & 0x1;
+		return sr.read() & 0x1; //TODO set to mask
 	}
 
-	@Override
 	public int getSROverflowBit() {
 		return sr.read() & 0x2;
 	}
-	@Override
+	
 	public int getSRZeroBit() {
 		return sr.read() & 0x4;
 	}
 
-	@Override
 	public int getSRNegativeBit() {
 		return sr.read() & 0x8;
 	}
 
-	@Override
 	public int getSRExtendBit() {
 		return sr.read() & 0x10;
 	}
 
 	
-
-	@Override
 	public void setSRCarryBit(int bit) {
-		if (bit == 0) {
+		if (bit == 0) { //TODO any way to shorten this?
 			sr.write((short)(sr.read() & 0xFFFE));
 		}
 		else {
 			sr.write((short)(sr.read() | 0x1));
-		}	
+		}
+		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 
-	
 	public void setSROverflowBit(int bit) {
 		if (bit == 0) {
 			sr.write((short)(sr.read() & 0xFFFC));
@@ -196,6 +191,7 @@ public class Chip68k implements Chip {
 		else {
 			sr.write((short)(sr.read() | 0x2));
 		}
+		propChange.firePropertyChange("StatusRegister", null, sr.read());
 		
 	}
 	
@@ -206,8 +202,8 @@ public class Chip68k implements Chip {
 		else {
 			sr.write((short)(sr.read() | 0x4));
 		}
+		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
-
 	
 	public void setSRNegativeBit(int bit) {
 		if (bit == 0) {
@@ -216,9 +212,8 @@ public class Chip68k implements Chip {
 		else {
 			sr.write((short)(sr.read() | 0x8));
 		}
-		
+		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
-
 
 	public void setSRExtendBit(int bit) {
 		if (bit == 0) {
@@ -227,8 +222,7 @@ public class Chip68k implements Chip {
 		else {
 			sr.write((short)(sr.read() | 0x10));
 		}
+		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
-
-	
 
 }
