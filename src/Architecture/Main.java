@@ -59,8 +59,8 @@ public class Main {
 		model.writeMemory(30, (byte)0x00);
 		model.writeMemory(31, (byte)0xC8);
 		
-		model.setSRCarryBit(1);
-		model.setSRNegativeBit(1);
+		model.setSRExtendBit(1);
+		
 		
 		/*
 		model.setDataRegister(0,81234);

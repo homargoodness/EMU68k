@@ -192,44 +192,69 @@ public class Chip68k implements Chip {
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 
-	public void setSROverflowBit(int bit) {
+	public void setSROverflowBit(int bit) { // blank the bit then AND
+		short contents = sr.read();
+		contents &= 0xFD;
+		contents |= (bit << 1);
+		sr.write(contents);
+		
+		/*
 		if (bit == 0) {
 			sr.write((short)(sr.read() & 0xFFFC));
 		}
 		else {
 			sr.write((short)(sr.read() | 0x2));
 		}
+		*/
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 		
 	}
 	
 	public void setSRZeroBit(int bit) {
+		short contents = sr.read();
+		contents &= 0xFB;
+		contents |= (bit << 2);
+		sr.write(contents);
+		/*
 		if (bit == 0) {
 			sr.write((short)(sr.read() & 0xFFFB));
 		}
 		else {
 			sr.write((short)(sr.read() | 0x4));
 		}
+		*/
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 	
 	public void setSRNegativeBit(int bit) {
+		short contents = sr.read();
+		contents &= 0xF7;
+		contents |= (bit << 3);
+		sr.write(contents);
+		/*
 		if (bit == 0) {
 			sr.write((short)(sr.read() & 0xFFF7));
 		}
 		else {
 			sr.write((short)(sr.read() | 0x8));
 		}
+		*/
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 
 	public void setSRExtendBit(int bit) {
+		short contents = sr.read();
+		contents &= 0xEF;
+		contents |= (bit << 4);
+		sr.write(contents);
+		/*
 		if (bit == 0) {
 			sr.write((short)(sr.read() & 0xFFEF));
 		}
 		else {
 			sr.write((short)(sr.read() | 0x10));
 		}
+		*/
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 
