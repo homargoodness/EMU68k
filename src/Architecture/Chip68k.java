@@ -128,7 +128,7 @@ public class Chip68k implements Chip {
 	
 	public void setAddressRegister(int reg, short data) {
 		int contents = addressReg.get(reg).read() & 0xFFFF0000;
-		contents |= (data + 0xFFFF);
+		contents |= (data & 0xFFFF);
 		addressReg.get(reg).write(contents);
 		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg.get(reg).read());
 		
@@ -177,12 +177,18 @@ public class Chip68k implements Chip {
 
 	
 	public void setSRCarryBit(int bit) {
+		short contents = sr.read();
+		contents &= 0xFE;
+		contents |= (bit & 0x1);
+		sr.write(contents);
+		/*
 		if (bit == 0) { //TODO any way to shorten this?
 			sr.write((short)(sr.read() & 0xFFFE));
 		}
 		else {
 			sr.write((short)(sr.read() | 0x1));
 		}
+		*/
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 

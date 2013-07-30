@@ -510,8 +510,13 @@ public class Graphical68k extends EmulatorUI {
 		});
 	}
 	
-	public void setSource(String source) {
-		codeDisp.setText(source);
+	public void setSource(final String source) {
+		EventQueue.invokeLater(new Runnable () {
+			public void run() {
+				codeDisp.setText(source);
+			}
+		});
+		
 	}
 	
 	public void updateMemory(int address, byte data) {
@@ -559,42 +564,19 @@ public class Graphical68k extends EmulatorUI {
 	}
 
 	
-	public void updateStatusRegister(int value) {
+	public void updateStatusRegister(final short value) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				
+				cBitField.setText((value & 0x1) + "");
+				vBitField.setText(((value & 0x2) >>> 1) + "");
+				zBitField.setText(((value & 0x4) >>> 2) + "");
+				nBitField.setText(((value & 0x8) >>> 3) + "");
+				xBitField.setText(((value & 0x10) >>> 4) + "");
 		
-		if ((value & 0x1) == 0) {
-			cBitField.setText("0");
-		}
-		else {
-			cBitField.setText("1");
-		}
+			}
+		});
 		
-		if ((value & 0x2) == 0) {
-			vBitField.setText("0");
-		}
-		else {
-			vBitField.setText("1");
-		}
-		
-		if ((value & 0x4) == 0) {
-			zBitField.setText("0");
-		}
-		else {
-			zBitField.setText("0");
-		}
-		
-		if ((value & 0x8) == 0) {
-			nBitField.setText("0");
-		}
-		else {
-			nBitField.setText("0");
-		}
-		
-		if ((value & 0x10) == 0) {
-			xBitField.setText("0");
-		}
-		else {
-			xBitField.setText("0");
-		}
 	}
 
 }
