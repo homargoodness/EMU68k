@@ -126,7 +126,7 @@ public class Chip68k implements Chip {
 	
 	public void setAddressRegister(int reg, short data) {
 		int contents = addressReg.get(reg).read() & 0xFFFF0000;
-		contents |= (data & 0xFFFF);
+		contents |= (data & 0xFFFF); //TODO need the and here????!?!
 		addressReg.get(reg).write(contents);
 		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg.get(reg).read());
 		
