@@ -45,10 +45,10 @@ public class Move implements Instruction {
 			if (size == 1) { //byte
 				operand = model.getDataRegisterByte(source);
 			}
-			if (size == 2) { //byte
+			if (size == 2) { //word
 				operand = model.getDataRegisterWord(source);
 			}
-			if (size == 3) { //byte
+			if (size == 3) { //long
 				operand = model.getDataRegisterLongWord(source);
 			}
 		}
@@ -76,18 +76,28 @@ public class Move implements Instruction {
 
 				if (size == 1) { // byte
 					model.setPC(model.getPC() + 1);
-					operand = model.readMemory(model.getPC());
+					operand = model.readMemory(model.getPC()) & 0xFF;
 					model.setPC(model.getPC() + 1);
 				}
-				else if (size == 2) { // word
-					operand |= model.readMemory(model.getPC());
+				else if (size == 3) { // word
+					operand |= model.readMemory(model.getPC()) & 0xFF;
 					operand = (operand << 8);
 					model.setPC(model.getPC() + 1);
 					operand |= (model.readMemory(model.getPC()) & 0xFF);
 					model.setPC(model.getPC() + 1);
 				}
-				else if (size == 3) { // long word
-
+				else if (size == 2) { // long word
+					operand |= model.readMemory(model.getPC()) & 0xFF;
+					operand = (operand << 8);
+					model.setPC(model.getPC() + 1);
+					operand |= model.readMemory(model.getPC()) & 0xFF;
+					operand = (operand << 8);
+					model.setPC(model.getPC() + 1);
+					operand |= model.readMemory(model.getPC()) & 0xFF;
+					operand = (operand << 8);
+					model.setPC(model.getPC() + 1);
+					operand |= model.readMemory(model.getPC()) & 0xFF;
+					model.setPC(model.getPC() + 1);
 				}
 
 			}
@@ -99,10 +109,10 @@ public class Move implements Instruction {
 			if (size == 1 ) {
 				model.setDataRegister(dest, (byte)operand);
 			}
-			else if (size == 2) {
+			else if (size == 3) {
 				model.setDataRegister(dest, (short)operand);
 			}
-			else if (size == 3) {
+			else if (size == 2) {
 				model.setDataRegister(dest, operand);
 			}
 		}

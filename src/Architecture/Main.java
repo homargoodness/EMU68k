@@ -23,7 +23,9 @@ public class Main {
 		model.writeMemory(1, (byte)0x3C);
 		model.writeMemory(2, (byte)0x10);
 		model.writeMemory(3, (byte)0xC8);
-		
+		model.writeMemory(4, (byte)0x10);
+		model.writeMemory(5, (byte)0xC8);
+		/*
 		model.writeMemory(4, (byte)0x22);//d1
 		model.writeMemory(5, (byte)0x3C);
 		model.writeMemory(6, (byte)0x20);
@@ -58,6 +60,7 @@ public class Main {
 		model.writeMemory(29, (byte)0x3C);
 		model.writeMemory(30, (byte)0x80);
 		model.writeMemory(31, (byte)0xC8);
+		*/
 				
 	}
 
