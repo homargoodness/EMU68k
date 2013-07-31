@@ -412,8 +412,6 @@ public class Graphical68k extends EmulatorUI {
 		memoryPanel.add(scrollPane);
 		
 		frame.add(memoryPanel, BorderLayout.CENTER);
-		
-		
 	}
 	
 	private void layoutWest() {
@@ -428,7 +426,6 @@ public class Graphical68k extends EmulatorUI {
 		codePanel.add(scrollPane);
 		
 		frame.add(codePanel, BorderLayout.WEST);
-		
 	}
 	
 	private JPanel layoutControlArea() {
@@ -570,7 +567,6 @@ public class Graphical68k extends EmulatorUI {
 		
 			}
 		});
-		
 	}
 
 }

@@ -47,29 +47,39 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		view.setStopListener(new StopButtonListener());
 	}
 	
-	public void start() { // nwe thread!!!!!!!!!!!!!
+	public void start() {
 		
-		int opCode = fetch();
-		Instruction inst = Decoder.decode(opCode); // TODO static, is this right?!?
-		if (inst != null) {
-			inst.execute(model);
-		}
-		else {
-			System.out.println("illegal instruction");
-		}
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				try {
+					boolean halt = false;
+					for (;;) {
+						int opCode = fetch();
+						Instruction inst = Decoder.decode(opCode);
+						if (inst != null) {
+							inst.execute(model);
+						}
+						else {
+							System.out.println("Finished");
+							break;
+						}
+					}
+				}
+				catch (IllegalInstructionException x) {
+					System.out.println("illegal instruction");
+				}
+			}
+		});
+		
+		thread.start();
 		
 	}
 	
-	/**
-	 * Helper method to fetch the next 2 bytes to decode
-	 * @return
-	 */
 	private int fetch() {
 		int op = (model.readMemory((int)model.getPC()));
 		model.setPC(model.getPC() + 1);
 		op = (op *256) + (model.readMemory((int)model.getPC()));
 		model.setPC(model.getPC() + 1);
-		
 		
 		return op;
 	}

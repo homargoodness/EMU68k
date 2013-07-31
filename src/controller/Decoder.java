@@ -9,8 +9,9 @@ public class Decoder {
 	 * Checks the first 4 bits of opcode and branches
 	 * @param op
 	 * @return
+	 * @throws IllegalInstructionException 
 	 */
-	public static Instruction decode(int op) {
+	public static Instruction decode(int op) throws IllegalInstructionException {
 		
 		if (op/0xFFF <= 0x3) {
 			if (op/0xFFF == 0) {
@@ -34,9 +35,14 @@ public class Decoder {
 		else if (op/0xFFF == 0xE) {
 			
 		}
-	
-		return null;
+		else if (op == 0xFFFF) {
+			return null;
+		}
+		else {
+			throw new IllegalInstructionException();
+		}
 		
+		return null;
 	}
 
 }
