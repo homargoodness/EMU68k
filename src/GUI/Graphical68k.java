@@ -168,14 +168,14 @@ public class Graphical68k extends EmulatorUI {
 		
 		dataPanel.add(new JLabel("D0", 2),labels);
 		fields.gridx= 1;
-		dataRegisterField[0] = new JTextField("000000", 6);
+		dataRegisterField[0] = new JTextField("00000000", 8);
 		dataRegisterField[0].setEditable(false);
 		dataPanel.add(dataRegisterField[0], fields);
 		
 		labels.gridx= 2;
 		dataPanel.add(new JLabel("D1", 2), labels);
 		fields.gridx= 3;
-		dataRegisterField[1] = new JTextField("000000", 6);
+		dataRegisterField[1] = new JTextField("00000000", 8);
 		dataRegisterField[1].setEditable(false);
 		dataPanel.add(dataRegisterField[1], fields);
 		
@@ -184,14 +184,14 @@ public class Graphical68k extends EmulatorUI {
 		dataPanel.add(new JLabel("D2",2), labels);
 		fields.gridx = 1;
 		fields.gridy = 1;
-		dataRegisterField[2] = new JTextField("000000", 6);
+		dataRegisterField[2] = new JTextField("00000000", 8);
 		dataRegisterField[2].setEditable(false);
 		dataPanel.add(dataRegisterField[2], fields);
 		
 		labels.gridx = 2;
 		dataPanel.add(new JLabel("D3", 2), labels);
 		fields.gridx = 3;
-		dataRegisterField[3] = new JTextField("000000", 6);
+		dataRegisterField[3] = new JTextField("00000000", 8);
 		dataRegisterField[3].setEditable(false);
 		dataPanel.add(dataRegisterField[3], fields);
 		
@@ -200,14 +200,14 @@ public class Graphical68k extends EmulatorUI {
 		dataPanel.add(new JLabel("D4", 2), labels);
 		fields.gridx= 1;
 		fields.gridy = 2;
-		dataRegisterField[4] = new JTextField("000000", 6);
+		dataRegisterField[4] = new JTextField("00000000", 8);
 		dataRegisterField[4].setEditable(false);
 		dataPanel.add(dataRegisterField[4], fields);
 		
 		labels.gridx= 2;
 		dataPanel.add(new JLabel("D5", 2), labels);
 		fields.gridx= 3;
-		dataRegisterField[5] = new JTextField("000000", 6);
+		dataRegisterField[5] = new JTextField("00000000", 8);
 		dataRegisterField[5].setEditable(false);
 		dataPanel.add(dataRegisterField[5], fields);
 		
@@ -216,14 +216,14 @@ public class Graphical68k extends EmulatorUI {
 		dataPanel.add(new JLabel("D6", 2), labels);
 		fields.gridx= 1;
 		fields.gridy = 3;
-		dataRegisterField[6] = new JTextField("000000", 6);
+		dataRegisterField[6] = new JTextField("00000000", 8);
 		dataRegisterField[6].setEditable(false);
 		dataPanel.add(dataRegisterField[6], fields);
 		
 		labels.gridx= 2;
 		dataPanel.add(new JLabel("D7", 2), labels);
 		fields.gridx= 3;
-		dataRegisterField[7] = new JTextField("000000", 6);
+		dataRegisterField[7] = new JTextField("00000000", 8);
 		dataRegisterField[7].setEditable(false);
 		dataPanel.add(dataRegisterField[7], fields);
 		
@@ -255,14 +255,14 @@ public class Graphical68k extends EmulatorUI {
 		
 		addressPanel.add(new JLabel("A0", 2),labels);
 		fields.gridx= 1;
-		addressRegisterField[0] = new JTextField("000000", 6);
+		addressRegisterField[0] = new JTextField("00000000", 8);
 		addressRegisterField[0].setEditable(false);
 		addressPanel.add(addressRegisterField[0], fields);
 		
 		labels.gridx= 2;
 		addressPanel.add(new JLabel("A1", 2), labels);
 		fields.gridx= 3;
-		addressRegisterField[1] = new JTextField("000000", 6);
+		addressRegisterField[1] = new JTextField("00000000", 8);
 		addressRegisterField[1].setEditable(false);
 		addressPanel.add(addressRegisterField[1], fields);
 		
@@ -271,14 +271,14 @@ public class Graphical68k extends EmulatorUI {
 		addressPanel.add(new JLabel("A2", 2), labels);
 		fields.gridx = 1;
 		fields.gridy = 1;
-		addressRegisterField[2] = new JTextField("000000", 6);
+		addressRegisterField[2] = new JTextField("00000000", 8);
 		addressRegisterField[2].setEditable(false);
 		addressPanel.add(addressRegisterField[2], fields);
 		
 		labels.gridx = 2;
 		addressPanel.add(new JLabel("A3", 2), labels);
 		fields.gridx = 3;
-		addressRegisterField[3] = new JTextField("000000", 6);
+		addressRegisterField[3] = new JTextField("00000000", 8);
 		addressRegisterField[3].setEditable(false);
 		addressPanel.add(addressRegisterField[3], fields);
 		
@@ -287,14 +287,14 @@ public class Graphical68k extends EmulatorUI {
 		addressPanel.add(new JLabel("A4", 2), labels);
 		fields.gridx= 1;
 		fields.gridy = 2;
-		addressRegisterField[4] = new JTextField("000000", 6);
+		addressRegisterField[4] = new JTextField("00000000", 8);
 		addressRegisterField[4].setEditable(false);
 		addressPanel.add(addressRegisterField[4], fields);
 		
 		labels.gridx= 2;
 		addressPanel.add(new JLabel("A5", 2), labels);
 		fields.gridx= 3;
-		addressRegisterField[5] = new JTextField("000000", 6);
+		addressRegisterField[5] = new JTextField("00000000", 8);
 		addressRegisterField[5].setEditable(false);
 		addressPanel.add(addressRegisterField[5], fields);
 		
@@ -303,14 +303,14 @@ public class Graphical68k extends EmulatorUI {
 		addressPanel.add(new JLabel("A6", 2), labels);
 		fields.gridx= 1;
 		fields.gridy = 3;
-		addressRegisterField[6] = new JTextField("000000", 6);
+		addressRegisterField[6] = new JTextField("00000000", 8);
 		addressRegisterField[6].setEditable(false);
 		addressPanel.add(addressRegisterField[6], fields);
 		
 		labels.gridx= 2;
 		addressPanel.add(new JLabel("A7", 2), labels);
 		fields.gridx= 3;
-		addressRegisterField[7] = new JTextField("000000", 6);
+		addressRegisterField[7] = new JTextField("00000000", 8);
 		addressRegisterField[7].setEditable(false);
 		addressPanel.add(addressRegisterField[7], fields);
 		
@@ -546,10 +546,9 @@ public class Graphical68k extends EmulatorUI {
 	}
 
 	public void updateDataRegisterDisplay(final int register, final int data) {
-		System.out.println(data);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				dataRegisterField[register].setText(Integer.toHexString(data));
+				dataRegisterField[register].setText((String.format("%08x", data)).toUpperCase());
 			}
 		});
 	}
@@ -557,7 +556,7 @@ public class Graphical68k extends EmulatorUI {
 	public void updateAddressRegisterDisplay(final int register, final int data) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				addressRegisterField[register].setText(Integer.toHexString(data));
+				addressRegisterField[register].setText((String.format("%08x", data)).toUpperCase());
 			}
 		});
 		
