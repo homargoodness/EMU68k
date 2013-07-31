@@ -20,7 +20,7 @@ public abstract class EmulatorUI  { // if there is no non-abstract methods, turn
 	
 	public abstract void setSource(String source);
 	
-	public abstract void updatePC(long address);
+	public abstract void updatePC(int address);
 	
 	public abstract void updateDataRegisterDisplay(int register, int data);
 	

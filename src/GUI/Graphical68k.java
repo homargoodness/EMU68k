@@ -394,7 +394,7 @@ public class Graphical68k extends EmulatorUI {
 		
 		pcPanel.add(new JLabel("PC"), c);
 		
-		pcField = new JTextField("000000", 6);
+		pcField = new JTextField("00000000", 8);
 		c.gridx = 1;
 		pcPanel.add(pcField, c);
 		
@@ -531,15 +531,10 @@ public class Graphical68k extends EmulatorUI {
 		});
 	}
 	
-	public void updatePC(long address) {
-
-		final StringBuilder formatted = new StringBuilder(Long.toHexString(address).toUpperCase());
-		while (formatted.length() < 6) {
-			formatted.insert(0,'0');
-		}
+	public void updatePC(final int address) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				pcField.setText(formatted.toString());
+				pcField.setText((String.format("%08x", address)).toUpperCase());
 			}
 		});
 		

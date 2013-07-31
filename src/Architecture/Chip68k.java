@@ -86,8 +86,6 @@ public class Chip68k implements Chip {
 	public void setDataRegister(int reg, byte data) {
 		int contents = dataReg.get(reg).read() & 0xFFFFFF00;
 		contents |= (data & 0xFF);
-		//int contents = dataReg.get(reg).read() & 0xFFFFFF00;
-		//contents = contents + data;
 		dataReg.get(reg).write(contents);
 		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg.get(reg).read());
 	}
@@ -181,14 +179,7 @@ public class Chip68k implements Chip {
 		contents &= 0xFE;
 		contents |= (bit & 0x1);
 		sr.write(contents);
-		/*
-		if (bit == 0) { //TODO any way to shorten this?
-			sr.write((short)(sr.read() & 0xFFFE));
-		}
-		else {
-			sr.write((short)(sr.read() | 0x1));
-		}
-		*/
+	
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 
@@ -197,15 +188,7 @@ public class Chip68k implements Chip {
 		contents &= 0xFD;
 		contents |= (bit << 1);
 		sr.write(contents);
-		
-		/*
-		if (bit == 0) {
-			sr.write((short)(sr.read() & 0xFFFC));
-		}
-		else {
-			sr.write((short)(sr.read() | 0x2));
-		}
-		*/
+
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 		
 	}
@@ -215,14 +198,7 @@ public class Chip68k implements Chip {
 		contents &= 0xFB;
 		contents |= (bit << 2);
 		sr.write(contents);
-		/*
-		if (bit == 0) {
-			sr.write((short)(sr.read() & 0xFFFB));
-		}
-		else {
-			sr.write((short)(sr.read() | 0x4));
-		}
-		*/
+		
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 	
@@ -231,14 +207,7 @@ public class Chip68k implements Chip {
 		contents &= 0xF7;
 		contents |= (bit << 3);
 		sr.write(contents);
-		/*
-		if (bit == 0) {
-			sr.write((short)(sr.read() & 0xFFF7));
-		}
-		else {
-			sr.write((short)(sr.read() | 0x8));
-		}
-		*/
+	
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 
@@ -247,14 +216,7 @@ public class Chip68k implements Chip {
 		contents &= 0xEF;
 		contents |= (bit << 4);
 		sr.write(contents);
-		/*
-		if (bit == 0) {
-			sr.write((short)(sr.read() & 0xFFEF));
-		}
-		else {
-			sr.write((short)(sr.read() | 0x10));
-		}
-		*/
+	
 		propChange.firePropertyChange("StatusRegister", null, sr.read());
 	}
 
