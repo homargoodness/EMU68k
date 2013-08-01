@@ -13,8 +13,10 @@ public class Decoder {
 	 */
 	public static Instruction decode(int op) throws IllegalInstructionException {
 		
-		if (op/0xFFF <= 0x3) {
-			if (op/0xFFF == 0) {
+		int op1 = (op >> 12);
+		
+		if (op1 <= 0x3) {
+			if (op1 == 0) {
 				
 			}
 			else{
@@ -23,19 +25,19 @@ public class Decoder {
 			}
 			
 		}
-		else if (op/0xFFF == 0x4) {
+		else if (op1 == 0x4) {
 			
 		}
-		else if (op/0xFFF >= 0x5 && op/0xFFF <= 0x7) {
+		else if (op1 >= 0x5 && op1 <= 0x7) {
 			
 		}
-		else if (op/0xFFF >= 0x8 && op/0xFFF <= 0xA) {
+		else if (op1 >= 0x8 && op1 <= 0xA) {
 			
 		}
-		else if (op/0xFFF >= 0xC && op/0xFFF <= 0xD ) {
+		else if (op1 >= 0xC && op1 <= 0xD ) {
 			
 		}
-		else if (op/0xFFF == 0xE) {
+		else if (op1 == 0xE) {
 			
 		}
 		else if (op == 0xFFFF) {

@@ -74,7 +74,7 @@ public class Chip68k implements Chip {
 	}
 	
 	public byte readMemory(int address) {
-		pc.write(address + 1);
+		setPC(address + 1);
 		return memory.read(address);
 	}
 	
@@ -82,9 +82,9 @@ public class Chip68k implements Chip {
 		int contents = memory.read(address) & 0xFF;
 		contents = (contents << 8);
 		address++;
-		contents |= memory.read(address) & 0xFF;
-		contents = (contents << 8);
-		pc.write(address);
+		contents |= (memory.read(address) & 0xFF);
+		address++;
+		setPC(address);
 		return (short)contents;
 	}
 	
@@ -100,6 +100,7 @@ public class Chip68k implements Chip {
 		address++;
 		contents |= memory.read(address) & 0xFF;
 		address++;
+		setPC(address);
 		return contents;
 	}
 	

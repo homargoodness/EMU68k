@@ -19,9 +19,9 @@ public class Main {
 		
 		
 		
-		model.writeMemory(0, (byte)0x10); //d0
+		model.writeMemory(0, (byte)0x30); //d0
 		model.writeMemory(1, (byte)0x3C);
-		model.writeMemory(2, (byte)0x00);
+		model.writeMemory(2, (byte)0x10);
 		model.writeMemory(3, (byte)0xC8);
 		//model.writeMemory(4, (byte)0x10);
 		//model.writeMemory(5, (byte)0xC8);

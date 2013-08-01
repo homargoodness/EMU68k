@@ -39,17 +39,20 @@ public class Move implements Instruction {
 		int sourceMode = (opCode >> 0x3) & 0x7;
 		int source = opCode & 0x7;
 		int operand = 0;
-
+		
+		
 		// Source
 		if (sourceMode == 0) { //data reg
 			if (size == 1) { //byte
 				operand = model.getDataRegisterByte(source);
+				System.out.println(operand);
 			}
 			if (size == 2) { //word
-				operand = model.getDataRegisterWord(source);
+				operand = model.getDataRegisterLongWord(source);
+				System.out.println(operand);
 			}
 			if (size == 3) { //long
-				operand = model.getDataRegisterLongWord(source);
+				operand = model.getDataRegisterWord(source);
 			}
 		}
 		else if (sourceMode == 1) {
@@ -77,7 +80,7 @@ public class Move implements Instruction {
 				if (size == 1) { // byte
 				
 					operand = model.readMemory(model.getPC()) & 0xFF;
-					model.setPC(model.getPC() + 2);
+					
 				}
 				else if (size == 3) { // word
 					operand = model.readMemoryWord(model.getPC());
