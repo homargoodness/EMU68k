@@ -40,19 +40,15 @@ public class Move implements Instruction {
 		int source = opCode & 0x7;
 		int operand = 0;
 		
-		
 		// Source
 		if (sourceMode == 0) { //data reg
 			if (size == 1) { //byte
 				operand = model.getDataRegisterByte(source);
-				System.out.println(operand);
 			}
 			if (size == 2) { //word
 				operand = model.getDataRegisterLongWord(source);
-				System.out.println(operand);
 			}
 			if (size == 3) { //long
-				operand = model.getDataRegisterWord(source);
 			}
 		}
 		else if (sourceMode == 1) {
@@ -92,6 +88,8 @@ public class Move implements Instruction {
 
 			}
 		}
+		
+		
 
 
 		// Destination
@@ -109,6 +107,20 @@ public class Move implements Instruction {
 		else if (destMode == 1) {
 			model.setAddressRegister(dest, operand);
 		}
+		
+		
+		// set SR flags
+		model.setSROverflowBit(0);
+		model.setSRCarryBit(0);
+		if (operand < 0) {
+			System.out.println(operand);
+			model.setSRNegativeBit(1);
+		}
+		else model.setSRNegativeBit(0);
+		if (operand == 0) {
+			model.setSRZeroBit(1);
+		}
+		else model.setSRZeroBit(0);
 
 
 	}
