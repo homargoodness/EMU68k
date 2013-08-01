@@ -75,29 +75,16 @@ public class Move implements Instruction {
 			if (source == 4) { // immediate
 
 				if (size == 1) { // byte
-					model.setPC(model.getPC() + 1);
+				
 					operand = model.readMemory(model.getPC()) & 0xFF;
-					model.setPC(model.getPC() + 1);
+					model.setPC(model.getPC() + 2);
 				}
 				else if (size == 3) { // word
-					operand |= model.readMemory(model.getPC()) & 0xFF;
-					operand = (operand << 8);
-					model.setPC(model.getPC() + 1);
-					operand |= (model.readMemory(model.getPC()) & 0xFF);
-					model.setPC(model.getPC() + 1);
+					operand = model.readMemoryWord(model.getPC());
 				}
 				else if (size == 2) { // long word
-					operand |= model.readMemory(model.getPC()) & 0xFF;
-					operand = (operand << 8);
-					model.setPC(model.getPC() + 1);
-					operand |= model.readMemory(model.getPC()) & 0xFF;
-					operand = (operand << 8);
-					model.setPC(model.getPC() + 1);
-					operand |= model.readMemory(model.getPC()) & 0xFF;
-					operand = (operand << 8);
-					model.setPC(model.getPC() + 1);
-					operand |= model.readMemory(model.getPC()) & 0xFF;
-					model.setPC(model.getPC() + 1);
+					operand = model.readMemoryLongWord(model.getPC());
+					
 				}
 
 			}

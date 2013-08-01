@@ -52,9 +52,8 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				try {
-					boolean halt = false;
 					for (;;) {
-						int opCode = fetch();
+						int opCode = (model.readMemoryWord(model.getPC()) & 0xFFFF);
 						Instruction inst = Decoder.decode(opCode);
 						if (inst != null) {
 							inst.execute(model);
@@ -73,15 +72,6 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		
 		thread.start();
 		
-	}
-	
-	private int fetch() {
-		int op = (model.readMemory((int)model.getPC()));
-		model.setPC(model.getPC() + 1);
-		op = (op *256) + (model.readMemory((int)model.getPC()));
-		model.setPC(model.getPC() + 1);
-		
-		return op;
 	}
 	
 	public void stop() {

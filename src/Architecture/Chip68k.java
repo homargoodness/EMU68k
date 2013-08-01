@@ -65,8 +65,42 @@ public class Chip68k implements Chip {
 		propChange.fireIndexedPropertyChange("Memory", address, null, data);
 	}
 	
+	public void writeMemory(int address, short data) {
+		
+	}
+	
+	public void writeMemory(int address, int data) {
+		
+	}
+	
 	public byte readMemory(int address) {
+		pc.write(address + 1);
 		return memory.read(address);
+	}
+	
+	public short readMemoryWord(int address) {
+		int contents = memory.read(address) & 0xFF;
+		contents = (contents << 8);
+		address++;
+		contents |= memory.read(address) & 0xFF;
+		contents = (contents << 8);
+		pc.write(address);
+		return (short)contents;
+	}
+	
+	public int readMemoryLongWord(int address) {
+		int contents = memory.read(address) & 0xFF;
+		contents = (contents << 8);
+		address++;
+		contents |= memory.read(address) & 0xFF;
+		contents = (contents << 8);
+		address++;
+		contents |= memory.read(address) & 0xFF;
+		contents = (contents << 8);
+		address++;
+		contents |= memory.read(address) & 0xFF;
+		address++;
+		return contents;
 	}
 	
 	

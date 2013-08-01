@@ -17,7 +17,10 @@ public class Decoder {
 			if (op/0xFFF == 0) {
 				
 			}
-			else return new Move(op);
+			else{
+				System.out.println("MOVE");
+				return new Move(op);
+			}
 			
 		}
 		else if (op/0xFFF == 0x4) {
@@ -36,9 +39,11 @@ public class Decoder {
 			
 		}
 		else if (op == 0xFFFF) {
+			System.out.println("HALT");
 			return null;
 		}
 		else {
+			System.out.println("Illegal");
 			throw new IllegalInstructionException();
 		}
 		

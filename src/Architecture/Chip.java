@@ -14,7 +14,15 @@ public interface Chip {
 	/** Memory **/
 	public void writeMemory(int address, byte data);
 	
+	public void writeMemory(int address, short data);
+	
+	public void writeMemory(int address, int data);
+	
 	public byte readMemory(int address);
+	
+	public short readMemoryWord(int address);
+	
+	public int readMemoryLongWord(int address);
 	
 	
 	/** PC **/
