@@ -22,7 +22,7 @@ public class Chip68k implements Chip {
 	
 	private PropertyChangeSupport propChange;
 	
-	private Register [] dataReg; //TODO use array instead
+	private Register [] dataReg;
 	private Register [] addressReg;
 	private Register a7s,pc;
 	private StatusRegister sr;
@@ -159,7 +159,7 @@ public class Chip68k implements Chip {
 	
 	public void setAddressRegister(int reg, short data) {
 		int contents = addressReg[reg].read() & 0xFFFF0000;
-		contents |= (data & 0xFFFF); //TODO need the and here????!?!
+		contents |= (data & 0xFFFF);
 		addressReg[reg].write(contents);
 		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg[reg].read());
 		

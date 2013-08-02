@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.event.ChangeListener;
+
 
 public abstract class EmulatorUI  { // if there is no non-abstract methods, turn into interface 
 
@@ -14,7 +16,9 @@ public abstract class EmulatorUI  { // if there is no non-abstract methods, turn
 	
 	public abstract void setStopListener(ActionListener listener);
 
-	public abstract void setOpenFileListener(ActionListener openFileListener);
+	public abstract void setOpenFileListener(ActionListener listener);
+	
+	public abstract void setSpeedListener(ChangeListener listener);
 	
 	public abstract void updateMemory(int address, byte data);
 	

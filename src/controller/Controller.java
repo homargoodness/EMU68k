@@ -11,8 +11,12 @@ import java.beans.IndexedPropertyChangeEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.lang.reflect.Method;
 
 import javax.swing.JButton;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import architecture.Chip;
 
@@ -24,10 +28,9 @@ public class Controller implements PropertyChangeListener {
 	
 	
 	private int speed = 1000; // speed of instruction execution
+	private boolean pause = false;
 	
 public Controller(EmulatorUI anInterface, Chip aChip) {
-		
-		
 		
 		model = aChip;
 		model.addListener(this);
@@ -39,6 +42,8 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		view.setOpenFileListener(new OpenFileListener());
 		
 		view.setStopListener(new StopButtonListener());
+		
+		view.setSpeedListener(new SpeedListener());
 	}
 	
 	public void start() {
@@ -54,6 +59,13 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 						}
 						else {
 							break;
+						}
+						
+						try {
+							Thread.sleep(speed);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
 				}
@@ -78,7 +90,7 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 	}
 	
 	public void setSpeed(int newSpeed) {
-		
+		speed = newSpeed;
 	}
 	
 	public void openFile() {
@@ -135,6 +147,20 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 	public class OpenFileListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			openFile();
+		}
+	}
+	
+	public class SpeedListener implements ChangeListener {
+		public void stateChanged(ChangeEvent e) {
+			JSlider source = (JSlider)e.getSource();
+			if (!source.getValueIsAdjusting()) {
+				speed = (int)source.getValue() * 1000;
+				System.out.println((int)source.getValue());
+				System.out.println(speed);
+			}
+			
+			
+			
 		}
 	}
 	

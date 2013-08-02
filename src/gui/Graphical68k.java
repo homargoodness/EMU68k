@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
@@ -433,21 +434,19 @@ public class Graphical68k extends EmulatorUI {
 		JPanel contPanel = new JPanel(new GridBagLayout());
 		contPanel.setBorder(new TitledBorder(new EtchedBorder(), "Emulator Controls"));
 		
-		
-		
 		startButton = new JButton("Start");
 		
 		stopButton = new JButton("Stop");
 		
-		speedSelect = new JSlider(JSlider.HORIZONTAL,1, 3, 3);
+		speedSelect = new JSlider(JSlider.HORIZONTAL,0, 2, 1);
 		speedSelect.setMajorTickSpacing(1);
 		speedSelect.setMinorTickSpacing(1);
 		speedSelect.setPaintTicks(true);
 		
 		Hashtable labelTable = new Hashtable();
-		labelTable.put(new Integer (1), new JLabel("Slow"));
-		labelTable.put(new Integer (2), new JLabel("Medium"));
-		labelTable.put(new Integer (3), new JLabel("Fast"));
+		labelTable.put(new Integer (2), new JLabel("Slow"));
+		labelTable.put(new Integer (1), new JLabel("Medium"));
+		labelTable.put(new Integer (0), new JLabel("Fast"));
 		speedSelect.setLabelTable(labelTable);
 		speedSelect.setPaintLabels(true);
 		
@@ -505,6 +504,15 @@ public class Graphical68k extends EmulatorUI {
 			openItem.addActionListener(listener);
 			}
 		});
+	}
+	
+	public void setSpeedListener(final ChangeListener listener) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				speedSelect.addChangeListener(listener);
+			}
+		});
+		
 	}
 	
 	public void setSource(final String source) {
