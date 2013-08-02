@@ -35,6 +35,7 @@ public class Decoder {
 		}
 		else if (op1 >= 0x5 && op1 <= 0x7) {
 			if (op1 == 7) {
+				System.out.println("MOVEQ");
 				return new MoveQ(op);
 			}
 			else {

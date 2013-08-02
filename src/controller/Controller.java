@@ -22,15 +22,6 @@ public class Controller implements PropertyChangeListener {
 	private EmulatorUI view;
 	private Chip model;
 	
-	private final int D0 = 0x0;
-	private final int D1 = 0x200;
-	private final int D2 = 0x400;
-	private final int D3 = 0x600;
-	private final int D4 = 0x800;
-	private final int D5 = 0xA00;
-	private final int D6 = 0xC00;
-	private final int D7 = 0xE00;
-	
 	
 	private int speed = 1000; // speed of instruction execution
 	
@@ -62,7 +53,6 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 							inst.execute(model);
 						}
 						else {
-							System.out.println("Finished");
 							break;
 						}
 					}
