@@ -4,6 +4,9 @@ To Do:
 	JTable row names
 	combine address and data registers into a single class
 	replace >> with >>> so that sign bit is not perserved
+	add interupts
+	add speed controls
+	add a rest method to gui and controller
 
 Implemented instuctions:
 	MOVE (partial)
