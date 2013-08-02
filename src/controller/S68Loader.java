@@ -1,13 +1,15 @@
 package controller;
 
+import gui.EmulatorUI;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Architecture.Chip;
-import GUI.EmulatorUI;
+import architecture.Chip;
+
 
 public class S68Loader implements Runnable {
 	
