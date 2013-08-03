@@ -33,15 +33,11 @@ public class Chip68k implements Chip {
 		propChange = new PropertyChangeSupport(this);
 		
 		dataReg = new Register [8];
-		for (int i = 0; i < 8; i++) {
-			dataReg[i] = new GeneralRegister32Bit();
-		}
-		
 		addressReg = new Register [8];
 		for (int i = 0; i < 8; i++) {
+			dataReg[i] = new GeneralRegister32Bit();
 			addressReg[i] = new GeneralRegister32Bit();
 		}
-		
 		
 		a7s = new GeneralRegister32Bit(); // shadow address register for system
 		
@@ -54,6 +50,17 @@ public class Chip68k implements Chip {
 	
 	public void addListener(PropertyChangeListener listener) {
 		propChange.addPropertyChangeListener(listener);
+	}
+	
+	public void reset() {
+		for (int i = 0; i < 8; i++) {
+			dataReg[i].write(0);
+			addressReg[i].write(0);
+		}
+		pc.write(0);
+		sr.write((short)0);
+		memory.reset();
+		propChange.firePropertyChange("Reset", null, 1);
 	}
 	
 	

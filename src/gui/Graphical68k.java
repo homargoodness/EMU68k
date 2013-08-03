@@ -512,7 +512,24 @@ public class Graphical68k extends EmulatorUI {
 				speedSelect.addChangeListener(listener);
 			}
 		});
-		
+	}
+	
+	public void reset() {//TODO dont need this!!!!!!!!!!!!!!!!!!!!!!!
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				for (int i = 0; i < 8; i++) {
+					dataRegisterField[i].setText("00000000");
+					addressRegisterField[i].setText("00000000");
+				}
+				pcField.setText("00000000");
+				xBitField.setText("0");
+				nBitField.setText("0");
+				zBitField.setText("0");
+				vBitField.setText("0");
+				cBitField.setText("0");
+				memTable.setModel(new MemoryTableModel());
+			}
+		});
 	}
 	
 	public void setSource(final String source) {

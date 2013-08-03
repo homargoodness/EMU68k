@@ -21,12 +21,10 @@ public class Memory {
 	
 	private List<MemoryLocation> memory;
 
-	private final int SIZE = 0xFFFFFF;
-	//private String[] mem; 
+	//private final int SIZE = 0xFFFFFF;
 
 	public Memory() {
 		memory = new ArrayList<MemoryLocation>();
-		//mem = new String[SIZE];
 	}
 
 	
@@ -45,15 +43,6 @@ public class Memory {
 		}
 		
 		return (byte)0xFF;
-		
-		
-		
-		//if (address > SIZE || address < 0) { // if address is not within addressable space
-			//System.out.println(address);
-			//throw new MemoryAccessException();
-		//}
-		//return mem[address];
-		
 	}
 	
 
@@ -75,15 +64,14 @@ public class Memory {
 		}
 		
 		memory.add(new MemoryLocation(address, data));
-		
-		//if (address >= SIZE || address < 0) { // if address is not within addressable space
-			//throw new MemoryAccessException();
-		//}
-		//if (data > 255 || data < 0) { // if data in location is not between 0 and 255
-			///throw new StorageException();
-		//}
-		//mem[address] = data;
+	}
 	
+	public void reset() {
+		int size = memory.size();
+		for (int i = 0; i < size; i++) {
+			write(memory.get(i).address, (byte)0);
+		}
+		memory.clear();
 	}
 	
 	private class MemoryLocation {

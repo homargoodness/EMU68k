@@ -10,6 +10,8 @@ public interface Chip {
 	
 	public void addListener(PropertyChangeListener listener);
 	
+	public void reset();
+	
 	
 	/** Memory **/
 	public void writeMemory(int address, byte data);

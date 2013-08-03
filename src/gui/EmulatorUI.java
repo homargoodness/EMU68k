@@ -20,6 +20,8 @@ public abstract class EmulatorUI  { // if there is no non-abstract methods, turn
 	
 	public abstract void setSpeedListener(ChangeListener listener);
 	
+	public abstract void reset();
+	
 	public abstract void updateMemory(int address, byte data);
 	
 	public abstract void setSource(String source);

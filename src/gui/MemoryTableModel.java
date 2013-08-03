@@ -62,6 +62,7 @@ public class MemoryTableModel extends AbstractTableModel {
 	}
 	
 	
+	
 	private class Cell {
 		
 		private String content;

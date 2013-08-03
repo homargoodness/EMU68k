@@ -26,6 +26,8 @@ public class Controller implements PropertyChangeListener {
 	private EmulatorUI view;
 	private Chip model;
 	
+	private String filename;
+	
 	
 	private int speed = 1000; // speed of instruction execution
 	private boolean pause = false;
@@ -47,7 +49,12 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 	}
 	
 	public void start() {
-		
+		/*
+		if (filename != null) {
+			System.out.println("Reset");
+			model.reset();
+		}
+		*/
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				try {
@@ -95,7 +102,7 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 	
 	public void openFile() {
 		
-		String filename = view.getFileName();
+		//String filename = view.getFileName();
 		if (filename != null) {
 			Thread th = new Thread(new S68Loader(filename, model, view));
 			th.start();
@@ -117,6 +124,9 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		}
 		else if (evt.getPropertyName().compareTo("StatusRegister") == 0) {
 			view.updateStatusRegister((short)evt.getNewValue());
+		}
+		else if (evt.getPropertyName().compareTo("Reset") == 0) {
+			view.reset();
 		}
 	}
 	
@@ -146,6 +156,11 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 	
 	public class OpenFileListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (filename != null) {
+				System.out.println("Reset");
+				model.reset();
+			}
+			filename = view.getFileName();
 			openFile();
 		}
 	}
