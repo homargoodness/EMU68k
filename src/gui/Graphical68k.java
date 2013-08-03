@@ -396,6 +396,7 @@ public class Graphical68k extends EmulatorUI {
 		pcPanel.add(new JLabel("PC"), c);
 		
 		pcField = new JTextField("00000000", 8);
+		pcField.setEditable(false);
 		c.gridx = 1;
 		pcPanel.add(pcField, c);
 		

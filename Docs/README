@@ -4,6 +4,7 @@ To Do:
 	add interupts
 	add speed controls
 	add a rest method to gui and controller
+	thread pool
 
 Implemented instuctions:
 	MOVE (partial)

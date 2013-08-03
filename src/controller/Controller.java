@@ -31,6 +31,7 @@ public class Controller implements PropertyChangeListener {
 	
 	private int speed = 1000; // speed of instruction execution
 	private boolean pause = false;
+	private boolean running = false;
 	
 public Controller(EmulatorUI anInterface, Chip aChip) {
 		
@@ -48,17 +49,12 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		view.setSpeedListener(new SpeedListener());
 	}
 	
-	public void start() {
-		/*
-		if (filename != null) {
-			System.out.println("Reset");
-			model.reset();
-		}
-		*/
+	public void startCpuLoop() {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				try {
 					for (;;) {
+						checkPause();
 						int opCode = (model.readMemoryWord(model.getPC()) & 0xFFFF);
 						Instruction inst = Decoder.decode(opCode);
 						if (inst != null) {
@@ -79,30 +75,38 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 				catch (IllegalInstructionException x) {
 					System.out.println("illegal instruction");
 				}
+				running = false;
 			}
 		});
 		
 		thread.start();
+	}
+	
+	public synchronized void checkPause() {
+		if (pause) {
+			try {
+				wait();
+			} catch (InterruptedException e) {}
+		}
+	
+	}
+	
+	public synchronized void setPause() {
+		if (pause) {
+			pause = false;
+			notifyAll();
+			System.out.println("RESUME");
+		}
+		else {
+			pause = true;
+			System.out.println("PAUSE");
+		}
 		
 	}
 	
-	public void reset() {
-		System.out.println("Stop");
-		
-	}
 	
-	public void pause() {
-		System.out.println("Pause");
-		
-	}
-	
-	public void setSpeed(int newSpeed) {
-		speed = newSpeed;
-	}
 	
 	public void openFile() {
-		
-		//String filename = view.getFileName();
 		if (filename != null) {
 			Thread th = new Thread(new S68Loader(filename, model, view));
 			th.start();
@@ -133,38 +137,32 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 	
 	
 	
-	
 	/** Inner classes **/
 	public class StartButtonListener implements ActionListener {
-
 		public void actionPerformed(ActionEvent e) {
-			
-			start();
-			
-			
-		}
-		
+			if (running) {
+				setPause();
+			}
+			else {
+				startCpuLoop();
+				running = true;
+			}
+		}	
 	}
 	
 	public class ResetButtonListener implements ActionListener {
-
 		public void actionPerformed(ActionEvent e) {
-			model.reset();
 			if (filename != null) {
-				System.out.println("Recreate memory");
+				System.out.println("Reset + Recreate memory");
+				model.reset();
 				openFile();
 			}
-			else  System.out.println("No program loaded");
-			
-			
 		}
-		
 	}
 	
 	public class OpenFileListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (filename != null) {
-				System.out.println("Reset");
 				model.reset();
 			}
 			filename = view.getFileName();
@@ -180,9 +178,6 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 				System.out.println((int)source.getValue());
 				System.out.println(speed);
 			}
-			
-			
-			
 		}
 	}
 	
