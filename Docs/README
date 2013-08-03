@@ -2,8 +2,6 @@ To Do:
 	thread safety
 	JTable row names
 	add interupts
-	add speed controls
-	add a rest method to gui and controller
 	thread pool
 	use locks in controller
 
