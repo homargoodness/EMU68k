@@ -49,7 +49,7 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		view.setSpeedListener(new SpeedListener());
 	}
 	
-	public void startCpuLoop() {
+	public synchronized void startCpuLoop() {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				try {
@@ -57,7 +57,7 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 						checkPause();
 						int opCode = (model.readMemoryWord(model.getPC()) & 0xFFFF);
 						Instruction inst = Decoder.decode(opCode);
-						if (inst != null) {
+						if (inst != null && running) {
 							inst.execute(model);
 						}
 						else {
@@ -66,10 +66,7 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 						
 						try {
 							Thread.sleep(speed);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						} catch (InterruptedException e) {}
 					}
 				}
 				catch (IllegalInstructionException x) {
@@ -88,7 +85,6 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 				wait();
 			} catch (InterruptedException e) {}
 		}
-	
 	}
 	
 	public synchronized void setPause() {
@@ -101,10 +97,7 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 			pause = true;
 			System.out.println("PAUSE");
 		}
-		
 	}
-	
-	
 	
 	public void openFile() {
 		if (filename != null) {
@@ -154,6 +147,8 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		public void actionPerformed(ActionEvent e) {
 			if (filename != null) {
 				System.out.println("Reset + Recreate memory");
+				running = false;
+				pause = false;
 				model.reset();
 				openFile();
 			}
