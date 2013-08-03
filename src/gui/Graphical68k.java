@@ -62,7 +62,7 @@ public class Graphical68k extends EmulatorUI {
 	JTextArea codeDisp;
 	
 	/** emulator controls */
-	private JButton startButton, stopButton;
+	private JButton startButton, resetButton;
 	private JSlider speedSelect;
 	
 	public Graphical68k() {
@@ -434,9 +434,9 @@ public class Graphical68k extends EmulatorUI {
 		JPanel contPanel = new JPanel(new GridBagLayout());
 		contPanel.setBorder(new TitledBorder(new EtchedBorder(), "Emulator Controls"));
 		
-		startButton = new JButton("Start");
+		startButton = new JButton("Start/Pause");
 		
-		stopButton = new JButton("Stop");
+		resetButton = new JButton("Reset");
 		
 		speedSelect = new JSlider(JSlider.HORIZONTAL,0, 2, 1);
 		speedSelect.setMajorTickSpacing(1);
@@ -456,7 +456,7 @@ public class Graphical68k extends EmulatorUI {
 		
 		contPanel.add(startButton, c);
 		c.gridx = 1;
-		contPanel.add(stopButton, c);
+		contPanel.add(resetButton, c);
 		c.gridy = 1;
 		c.gridx = 0;
 		c.gridwidth = 2;
@@ -489,10 +489,10 @@ public class Graphical68k extends EmulatorUI {
 		
 	}
 	
-	public void setStopListener(final ActionListener listener) {
+	public void setResetListener(final ActionListener listener) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				stopButton.addActionListener(listener);
+				resetButton.addActionListener(listener);
 			}
 		});
 		

@@ -14,7 +14,7 @@ public abstract class EmulatorUI  { // if there is no non-abstract methods, turn
 
 	public abstract void setStartListener(ActionListener listener);
 	
-	public abstract void setStopListener(ActionListener listener);
+	public abstract void setResetListener(ActionListener listener);
 
 	public abstract void setOpenFileListener(ActionListener listener);
 	

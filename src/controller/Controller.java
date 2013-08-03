@@ -43,7 +43,7 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		
 		view.setOpenFileListener(new OpenFileListener());
 		
-		view.setStopListener(new StopButtonListener());
+		view.setResetListener(new ResetButtonListener());
 		
 		view.setSpeedListener(new SpeedListener());
 	}
@@ -86,7 +86,7 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 		
 	}
 	
-	public void stop() {
+	public void reset() {
 		System.out.println("Stop");
 		
 	}
@@ -141,14 +141,21 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 			
 			start();
 			
+			
 		}
 		
 	}
 	
-	public class StopButtonListener implements ActionListener {
+	public class ResetButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			stop();
+			model.reset();
+			if (filename != null) {
+				System.out.println("Recreate memory");
+				openFile();
+			}
+			else  System.out.println("No program loaded");
+			
 			
 		}
 		
