@@ -57,6 +57,7 @@ public Controller(EmulatorUI anInterface, Chip aChip) {
 						checkPause();
 						int opCode = (model.readMemoryWord(model.getPC()) & 0xFFFF);
 						Instruction inst = Decoder.decode(opCode);
+						
 						if (inst != null && running) {
 							inst.execute(model);
 						}

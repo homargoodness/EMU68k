@@ -5,6 +5,7 @@ To Do:
 	add speed controls
 	add a rest method to gui and controller
 	thread pool
+	use locks in controller
 
 Implemented instuctions:
 	MOVE (partial)
