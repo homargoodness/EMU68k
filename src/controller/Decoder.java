@@ -60,6 +60,7 @@ public class Decoder {
 			
 		}
 		else if (op == 0xFFFF) {
+			
 			System.out.println("HALT");
 			return null;
 		}

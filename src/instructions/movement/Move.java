@@ -45,13 +45,14 @@ public class Move implements Instruction {
 			if (size == 1) { //byte
 				operand = model.getDataRegisterByte(source);
 			}
-			if (size == 2) { //word
+			if (size == 2) { //long word
 				operand = model.getDataRegisterLongWord(source);
 			}
-			if (size == 3) { //long
+			if (size == 3) { // word
+				operand = model.getDataRegisterWord(source);
 			}
 		}
-		else if (sourceMode == 1) {
+		else if (sourceMode == 1) {// address register
 
 		}
 		else if (sourceMode == 2) {
@@ -74,9 +75,7 @@ public class Move implements Instruction {
 			if (source == 4) { // immediate
 
 				if (size == 1) { // byte
-				
 					operand = model.readMemory(model.getPC()) & 0xFF;
-					
 				}
 				else if (size == 3) { // word
 					operand = model.readMemoryWord(model.getPC());
@@ -90,22 +89,25 @@ public class Move implements Instruction {
 		}
 		
 		
-
-
 		// Destination
 		if (destMode == 0) { //data reg
 			if (size == 1 ) {
 				model.setDataRegister(dest, (byte)operand);
 			}
-			else if (size == 3) {
-				model.setDataRegister(dest, (short)operand);
-			}
 			else if (size == 2) {
 				model.setDataRegister(dest, operand);
 			}
+			else if (size == 3) {
+				model.setDataRegister(dest, (short)operand);
+			}
 		}
 		else if (destMode == 1) {// address register
-			model.setAddressRegister(dest, operand);
+			if (size == 2) {
+				model.setAddressRegister(dest, (short)operand);
+			}
+			else if (size == 3) {
+				model.setAddressRegister(dest, operand);
+			}
 		}
 		
 		
