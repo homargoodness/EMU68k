@@ -71,11 +71,21 @@ public class Chip68k implements Chip {
 	}
 	
 	public void writeMemory(int address, short data) {
-		
+		memory.write(address, (byte)(data >>> 8));
+		propChange.fireIndexedPropertyChange("Memory", address, null, (byte)(data >>> 8));
+		memory.write(address + 1, (byte)(data & 0xFF));
+		propChange.fireIndexedPropertyChange("Memory", address + 1, null, (byte)(data & 0xFF));
 	}
 	
 	public void writeMemory(int address, int data) {
-		
+		memory.write(address, (byte)(data >>> 24));
+		propChange.fireIndexedPropertyChange("Memory", address, null, (byte)(data >>> 24));
+		memory.write(address + 1, (byte)((data >>> 16) & 0xFF));
+		propChange.fireIndexedPropertyChange("Memory", address + 1, null, (byte)((data >>> 16) & 0xFF));
+		memory.write(address + 2, (byte)((data >>> 8) & 0xFF));
+		propChange.fireIndexedPropertyChange("Memory", address + 2, null, (byte)((data >>> 8) & 0xFF));
+		memory.write(address + 3, (byte)(data & 0xFF));
+		propChange.fireIndexedPropertyChange("Memory", address + 3, null, (byte)(data & 0xFF));
 	}
 	
 	public byte readMemory(int address) {

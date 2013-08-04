@@ -20,6 +20,7 @@ public class Main {
 		
 		Controller controller = new Controller(view, model);
 		
+		
 		//model.writeMemory(0, (byte)0x70);
 		//model.writeMemory(1, (byte)0xA0);
 		/*
