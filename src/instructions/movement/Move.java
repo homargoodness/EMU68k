@@ -25,6 +25,10 @@ public class Move implements Instruction {
 
 	private int opCode;
 
+	/**
+	 * 
+	 * @param aCode
+	 */
 	public Move(int aCode) {
 		opCode = aCode;
 	}
