@@ -236,7 +236,11 @@ public class Chip68k implements Chip {
 
 	
 
-	
+	/**
+	 * Method to write a value to the lower word of the address register.
+	 * @param reg the register to write to
+	 * @param data the word of data to be written
+	 */
 	public void setAddressRegister(int reg, short data) {
 		int contents = addressReg[reg].read() & 0xFFFF0000;
 		contents |= (data & 0xFFFF);
@@ -245,30 +249,43 @@ public class Chip68k implements Chip {
 		
 	}
 
-	
+	/**
+	 * Method to write a long word to the specified address register.
+	 * @param reg the register to be written to
+	 * @param data the long word to be written 
+	 */
 	public void setAddressRegister(int reg, int data) {
 		addressReg[reg].write(data);
 		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg[reg].read());
 	}
 
-	
+	/**
+	 * Method to read the lower word of the specified address register.
+	 * @param reg the register to be read from
+	 */	
 	public short getAddressRegisterWord(int reg) {
 		int contents = addressReg[reg].read();
 		return (short) (contents & 0xFFFF);
 	}
 
-	
+	/**
+	 * Method to reutrn the contents of the specified address register
+	 * @param the register to be read from
+	 */	
 	public int getAddressRegisterLongWord(int reg) {
 		return addressReg[reg].read();
 	}
 	
 	
-	
-
+	/**
+	 * Method to return least significant (Carry bit) from the status register
+	 */
 	public int getSRCarryBit() {
 		return sr.read() & 0x1; //TODO set to mask
 	}
-
+	
+	/**
+	 */
 	public int getSROverflowBit() {
 		return sr.read() & 0x2;
 	}
