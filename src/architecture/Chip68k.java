@@ -149,8 +149,7 @@ public class Chip68k implements Chip {
 		contents = (contents << 8); // move bytes to create room for last byte
 		address++; // increment address
 		contents |= memory.read(address) & 0xFF; // read last byte
-		address++;
-		setPC(address); // update PC
+		setPC(address + 1); // update PC
 		return contents; // return long word
 	}
 	
@@ -161,15 +160,16 @@ public class Chip68k implements Chip {
 	 * @param address the value to be written to the PC
 	 */
 	public void setPC(int address) {
-		pc.write(address);
-		propChange.firePropertyChange("ProgramCounter", null, getPC());
+		pc.write(address); // write data to PC
+		propChange.firePropertyChange("ProgramCounter", null, getPC()); // notify listeners
 	}
 	
+
 	/**
 	 * Method to return the contents of the PC.
 	 */
 	public int getPC() {
-		return pc.read();
+		return pc.read(); // return contents of PC
 	}
 	
 	
@@ -179,10 +179,10 @@ public class Chip68k implements Chip {
 	 * @param data the byte of data to be written
 	 */
 	public void setDataRegister(int reg, byte data) {
-		int contents = dataReg[reg].read() & 0xFFFFFF00;
-		contents |= (data & 0xFF);
-		dataReg[reg].write(contents);
-		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg[reg].read());
+		int contents = dataReg[reg].read() & 0xFFFFFF00; // write data register to integer with lowest byte set to 0
+		contents |= (data & 0xFF); // write byte to lowest order byte in integer
+		dataReg[reg].write(contents); // write new vale to register
+		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg[reg].read()); // notify listeners
 	}
 
 	/**
@@ -191,10 +191,10 @@ public class Chip68k implements Chip {
 	 * @param data the word of data to be written
 	 */
 	public void setDataRegister(int reg, short data) {
-		int contents = dataReg[reg].read() & 0xFFFF0000;
-		contents |= (data & 0xFFFF);
-		dataReg[reg].write(contents);
-		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg[reg].read());
+		int contents = dataReg[reg].read() & 0xFFFF0000; // write data register to integer with low order word set to 0
+		contents |= (data & 0xFFFF); //write data to low order word in integer
+		dataReg[reg].write(contents); // write new value to register
+		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg[reg].read()); // notify listeners
 	}
 
 	/**
@@ -203,8 +203,8 @@ public class Chip68k implements Chip {
 	 * @param data the long word of data to be written
 	 */
 	public void setDataRegister(int reg, int data) {
-		dataReg[reg].write(data);
-		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg[reg].read());
+		dataReg[reg].write(data); // write value to register
+		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg[reg].read()); // notify listeners
 	}
 
 	/**
@@ -212,8 +212,8 @@ public class Chip68k implements Chip {
 	 * @param reg the register to read from
 	 */
 	public byte getDataRegisterByte(int reg) {
-		int contents = dataReg[reg].read();
-		return (byte) (contents & 0xFF);
+		int contents = dataReg[reg].read(); // read contents of register
+		return (byte) (contents & 0xFF); // return lowest byte of register
 	}
 
 	/**
@@ -221,8 +221,8 @@ public class Chip68k implements Chip {
 	 * @param reg the register to read from
 	 */
 	public short getDataRegisterWord(int reg) {
-		int contents = dataReg[reg].read();
-		return (short) (contents & 0xFFFF);
+		int contents = dataReg[reg].read(); // read contents of register
+		return (short) (contents & 0xFFFF); // return low order word of register
 	}
 	
 	/**
@@ -230,10 +230,8 @@ public class Chip68k implements Chip {
 	 * @param reg the register to read from
 	 */
 	public int getDataRegisterLongWord(int reg) {
-		return dataReg[reg].read();
+		return dataReg[reg].read(); // return contents of register
 	}
-
-	
 
 	/**
 	 * Method to write a value to the lower word of the address register.
