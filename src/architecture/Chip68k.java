@@ -117,7 +117,7 @@ public class Chip68k implements Chip {
 	 * @param address the address to be read from
 	 */
 	public byte readMemoryByte(int address) {
-		setPC(address + 1); // offset PC to read from low byte starting from given address
+		//setPC(address + 1); // offset PC to read from low byte starting from given address
 		return memory.read(address); // return contents
 	}
 	
@@ -130,7 +130,7 @@ public class Chip68k implements Chip {
 		contents = (contents << 8); // move bits to the first byte position
 		address++; // increment address to read from
 		contents |= (memory.read(address) & 0xFF); // read 8 bits to the low order byte
-		setPC(address + 1); // update PC
+		//setPC(address + 1); // update PC
 		return (short)contents; // return word
 	}
 	
@@ -149,7 +149,7 @@ public class Chip68k implements Chip {
 		contents = (contents << 8); // move bytes to create room for last byte
 		address++; // increment address
 		contents |= memory.read(address) & 0xFF; // read last byte
-		setPC(address + 1); // update PC
+		//setPC(address + 1); // update PC
 		return contents; // return long word
 	}
 	

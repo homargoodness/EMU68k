@@ -80,12 +80,15 @@ public class Move implements Instruction {
 
 				if (size == 1) { // byte
 					operand = model.readMemoryByte(model.getPC()) & 0xFF;
+					model.setPC(model.getPC() + 1);
 				}
 				else if (size == 3) { // word
 					operand = model.readMemoryWord(model.getPC());
+					model.setPC(model.getPC() + 2);
 				}
 				else if (size == 2) { // long word
 					operand = model.readMemoryLongWord(model.getPC());
+					model.setPC(model.getPC() + 4);
 					
 				}
 

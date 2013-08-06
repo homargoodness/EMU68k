@@ -115,6 +115,7 @@ public class Controller implements PropertyChangeListener {
 					for (;;) { // keep looping until HALT instruction or running is set to false
 						checkPause(); // pauses if pause flag is set to true
 						int opCode = (model.readMemoryWord(model.getPC()) & 0xFFFF); // fetches the next operation code
+						model.setPC(model.getPC() + 2);
 						Instruction inst = Decoder.decode(opCode); // decodes the op code and returns the appropriate instruction
 						
 						if (inst != null && running) { // if there is a valid instruction and emulation has not been stopped
