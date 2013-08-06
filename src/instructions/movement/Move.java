@@ -45,7 +45,7 @@ public class Move implements Instruction {
 		int operand = 0;
 		
 		// Source
-		if (sourceMode == 0) { //data reg
+		if (sourceMode == 0) { //data register direct
 			if (size == 1) { //byte
 				operand = model.getDataRegisterByte(source);
 			}
@@ -56,10 +56,10 @@ public class Move implements Instruction {
 				operand = model.getDataRegisterWord(source);
 			}
 		}
-		else if (sourceMode == 1) {// address register
+		else if (sourceMode == 1) {// address register direct
 
 		}
-		else if (sourceMode == 2) {
+		else if (sourceMode == 2) { // address register indirect
 
 		}
 		else if (sourceMode == 3) {
@@ -79,7 +79,7 @@ public class Move implements Instruction {
 			if (source == 4) { // immediate
 
 				if (size == 1) { // byte
-					operand = model.readMemory(model.getPC()) & 0xFF;
+					operand = model.readMemoryByte(model.getPC()) & 0xFF;
 				}
 				else if (size == 3) { // word
 					operand = model.readMemoryWord(model.getPC());

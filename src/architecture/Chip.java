@@ -20,7 +20,7 @@ public interface Chip {
 	
 	public void writeMemory(int address, int data);
 	
-	public byte readMemory(int address);
+	public byte readMemoryByte(int address);
 	
 	public short readMemoryWord(int address);
 	

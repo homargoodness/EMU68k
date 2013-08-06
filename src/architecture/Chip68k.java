@@ -116,7 +116,7 @@ public class Chip68k implements Chip {
 	 * Method to read a byte of data from memory at the specified address.
 	 * @param address the address to be read from
 	 */
-	public byte readMemory(int address) {
+	public byte readMemoryByte(int address) {
 		setPC(address + 1); // offset PC to read from low byte starting from given address
 		return memory.read(address); // return contents
 	}
