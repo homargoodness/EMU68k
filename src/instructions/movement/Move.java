@@ -42,25 +42,38 @@ public class Move implements Instruction {
 		int dest = (opCode >>> 0x9) & 0x7;
 		int sourceMode = (opCode >>> 0x3) & 0x7;
 		int source = opCode & 0x7;
-		int operand = 0;
+		int operand = 0;		
 		
-		// Source
+		// get the operand from the appropriate source
 		if (sourceMode == 0) { //data register direct
 			if (size == 1) { //byte
 				operand = model.getDataRegisterByte(source);
 			}
-			if (size == 2) { //long word
+			else if (size == 2) { //long word
 				operand = model.getDataRegisterLongWord(source);
 			}
-			if (size == 3) { // word
+			else if (size == 3) { // word
 				operand = model.getDataRegisterWord(source);
 			}
 		}
 		else if (sourceMode == 1) {// address register direct
-
+			if (size == 2) { //long word
+				operand = model.getAddressRegisterLongWord(source);
+			}
+			else if (size == 3) { // word
+				operand = model.getAddressRegisterWord(source);
+			}
 		}
 		else if (sourceMode == 2) { // address register indirect
-
+			if (size == 1) { //byte
+				operand = model.readMemoryByte(model.getAddressRegisterLongWord(source) & 0xFF);
+			}
+			else if (size == 2) { //long word
+				operand = model.readMemoryLongWord(model.getAddressRegisterLongWord(source));
+			}
+			else if (size == 3) { // word
+				operand = model.readMemoryWord(model.getAddressRegisterLongWord(source) & 0xFFFF);
+			}
 		}
 		else if (sourceMode == 3) {
 
@@ -96,7 +109,7 @@ public class Move implements Instruction {
 		}
 		
 		
-		// Destination
+		// write the operand to the appropriate destination
 		if (destMode == 0) { //data reg
 			if (size == 1 ) {
 				model.setDataRegister(dest, (byte)operand);
