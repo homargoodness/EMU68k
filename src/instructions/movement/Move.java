@@ -84,8 +84,22 @@ public class Move implements Instruction {
 				operand = model.readMemoryWord(model.getAddressRegisterLongWord(source) & 0xFFFF);
 			}
 		}
-		else if (sourceMode == 3) {
-
+		else if (sourceMode == 3) { // address register indirect with postincrement
+			if (size == 1) { // byte
+				int contents = model.getAddressRegisterLongWord(source);
+				model.setAddressRegister(source, contents + 1);
+				operand = model.readMemoryByte(contents);
+			}
+			else if (size == 2) { // long word
+				int contents = model.getAddressRegisterLongWord(source);
+				model.setAddressRegister(source, contents + 4);
+				operand = model.readMemoryLongWord(contents);
+			}
+			else if (size == 3) { // word
+				int contents = model.getAddressRegisterLongWord(source);
+				model.setAddressRegister(source, contents + 2);
+				operand = model.readMemoryWord(contents);
+			}
 		}
 		else if (sourceMode == 4) {
 
