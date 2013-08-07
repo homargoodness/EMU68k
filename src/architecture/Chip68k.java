@@ -239,10 +239,10 @@ public class Chip68k implements Chip {
 	 * @param data the word of data to be written
 	 */
 	public void setAddressRegister(int reg, short data) {
-		int contents = addressReg[reg].read() & 0xFFFF0000;
-		contents |= (data & 0xFFFF);
-		addressReg[reg].write(contents);
-		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg[reg].read());
+		int contents = addressReg[reg].read() & 0xFFFF0000; // set lower word to 0
+		contents |= (data & 0xFFFF); // write data to lower word
+		addressReg[reg].write(contents); // update register contents
+		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg[reg].read()); // notify listeners
 		
 	}
 
@@ -252,8 +252,8 @@ public class Chip68k implements Chip {
 	 * @param data the long word to be written 
 	 */
 	public void setAddressRegister(int reg, int data) {
-		addressReg[reg].write(data);
-		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg[reg].read());
+		addressReg[reg].write(data); // update register with new long word
+		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg[reg].read()); // notify listeners
 	}
 
 	/**
@@ -261,8 +261,8 @@ public class Chip68k implements Chip {
 	 * @param reg the register to be read from
 	 */	
 	public short getAddressRegisterWord(int reg) {
-		int contents = addressReg[reg].read();
-		return (short) (contents & 0xFFFF);
+		int contents = addressReg[reg].read(); // read contents of register
+		return (short) (contents & 0xFFFF); // return lower word of contents
 	}
 
 	/**
@@ -270,43 +270,42 @@ public class Chip68k implements Chip {
 	 * @param the register to be read from
 	 */	
 	public int getAddressRegisterLongWord(int reg) {
-		return addressReg[reg].read();
+		return addressReg[reg].read(); // return contents of register
 	}
-	
 	
 	/**
 	 * Method to return least significant (Carry bit) from the status register
 	 */
 	public int getSRCarryBit() {
-		return sr.read() & 0x1; //TODO set to mask
+		return sr.read() & 0x1; //TODO set to mask ** return SR with a mask hiding all bits apart from the first
 	}
 	
 	/**
 	 * Method to return the 2nd bit (Overflow bit) from the status register.
 	 */
 	public int getSROverflowBit() {
-		return sr.read() & 0x2;
+		return sr.read() & 0x2; // return SR with a mask hiding all bits apart from the second
 	}
 	
 	/**
 	 * Method to return the 3rd bit (Zero bit) from the status register.
 	 */
 	public int getSRZeroBit() {
-		return sr.read() & 0x4;
+		return sr.read() & 0x4; // return SR with all bits masked apart from 3rd bit
 	}
 
 	/**
 	 * Method to return the 4th bit (Nerative bit) from the status register.
 	 */
 	public int getSRNegativeBit() {
-		return sr.read() & 0x8;
+		return sr.read() & 0x8; // return SR with all bits masked apart from 4th bit
 	}
 
 	/**
 	 * Method to return the 5th bit (Extend bit) from the status register.
 	 */
 	public int getSRExtendBit() {
-		return sr.read() & 0x10;
+		return sr.read() & 0x10; // return SR with all bits masked apart from 5th bit
 	}
 
 	/**
@@ -314,12 +313,12 @@ public class Chip68k implements Chip {
 	 * @param bit the value the first bit should be set to
 	 */
 	public void setSRCarryBit(int bit) {
-		short contents = sr.read();
-		contents &= 0xFE;
-		contents |= (bit & 0x1);
-		sr.write(contents);
+		short contents = sr.read(); // get the current contents of SR
+		contents &= 0xFE; // make the C bit using a mask
+		contents |= (bit & 0x1); // set the C bit to the correct value
+		sr.write(contents); // write the contents back into SR
 	
-		propChange.firePropertyChange("StatusRegister", null, sr.read());
+		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of a change to SR
 	}
 
 	/**
@@ -327,12 +326,12 @@ public class Chip68k implements Chip {
 	 * @param bit the value the second bit should be set to
 	 */	
 	public void setSROverflowBit(int bit) { // blank the bit then AND
-		short contents = sr.read();
-		contents &= 0xFD;
-		contents |= (bit << 1);
-		sr.write(contents);
+		short contents = sr.read(); // get the current contents of SR
+		contents &= 0xFD; // set the V bit to 0 using mask
+		contents |= (bit << 1); // set the C bit to the correct value
+		sr.write(contents); // write the contents back into SR
 
-		propChange.firePropertyChange("StatusRegister", null, sr.read());
+		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of a change to SR
 		
 	}
 	
@@ -341,12 +340,12 @@ public class Chip68k implements Chip {
 	 * @param bit the value the third bit should be set to
 	 */
 	public void setSRZeroBit(int bit) {
-		short contents = sr.read();
-		contents &= 0xFB;
-		contents |= (bit << 2);
-		sr.write(contents);
+		short contents = sr.read(); // get current contents of SR
+		contents &= 0xFB; // set the Z bit to 0
+		contents |= (bit << 2); // set the Z bit to the correct value
+		sr.write(contents); // write the new value back into SR
 		
-		propChange.firePropertyChange("StatusRegister", null, sr.read());
+		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of a change to SR
 	}
 	
  	/**
@@ -354,12 +353,12 @@ public class Chip68k implements Chip {
 	 * @param bit the value the fourth bit should be set to
 	 */
 	public void setSRNegativeBit(int bit) {
-		short contents = sr.read();
-		contents &= 0xF7;
-		contents |= (bit << 3);
-		sr.write(contents);
+		short contents = sr.read(); // read the current contents of SR
+		contents &= 0xF7; // use mask to set the N bit to 0
+		contents |= (bit << 3); // write the new value of the N bit
+		sr.write(contents); // write the contents back into SR
 	
-		propChange.firePropertyChange("StatusRegister", null, sr.read());
+		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of change to SR
 	}
 
 	/**
@@ -367,12 +366,12 @@ public class Chip68k implements Chip {
 	 * @param bit the value the fifth bit should be set to
 	 */
 	public void setSRExtendBit(int bit) {
-		short contents = sr.read();
-		contents &= 0xEF;
-		contents |= (bit << 4);
-		sr.write(contents);
+		short contents = sr.read(); // read the current contents of SR
+		contents &= 0xEF; // use mask to set the X bit to 0
+		contents |= (bit << 4); // write the new value of X bit
+		sr.write(contents); // write contents back to SR
 	
-		propChange.firePropertyChange("StatusRegister", null, sr.read());
+		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of change to SR
 	}
 
 }
