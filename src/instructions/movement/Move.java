@@ -6,10 +6,8 @@ import instructions.Instruction;
 /**
  * This class implements the MOVE instruction for the MC68k mircoprocessor.
  *
- * TODO addressing modes
- * TODO flags affected
  */
-public class Move implements Instruction {
+public class Move extends Instruction {
 
 	//source mode 0 = data reg
 	//source mode 1 = address

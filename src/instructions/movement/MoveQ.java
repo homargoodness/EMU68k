@@ -5,7 +5,7 @@ import instructions.Instruction;
 
 
 
-public class MoveQ implements Instruction {
+public class MoveQ extends Instruction {
 	
 	private int opCode;
 	
