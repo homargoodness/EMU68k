@@ -9,6 +9,10 @@ import instructions.Instruction;
  */
 public class Move extends Instruction {
 
+	private final int SIZE_BYTE = 1;
+	private final int SIZE_LONG_WORD = 2;
+	private final int SIZE_WORD = 3;
+	
 	private int opCode; // stores the 16 bit operation code for the instruction
 
 	/**
