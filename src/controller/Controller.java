@@ -2,6 +2,7 @@ package controller;
 
 import gui.EmulatorUI;
 
+import instructions.IllegalInstructionException;
 import instructions.Instruction;
 
 import java.awt.EventQueue;
@@ -131,7 +132,7 @@ public class Controller implements PropertyChangeListener {
 					}
 				}
 				catch (IllegalInstructionException x) { // catches the exception thrown by Decoder class if an illegal instruction is read from memory
-					System.out.println("illegal instruction");
+					System.out.println(x.getMessage());
 				}
 				running = false; // indicate that the CP is no longer executing instructions
 			}
