@@ -15,6 +15,7 @@ public class Add extends Instruction {
 
 	private int opCode, direction, size, dataReg, eaMode, eaReg, operand1, operand2;
 	private Chip model;
+	private DataSize dataSize;
 
 	public Add(int aCode) {
 		opCode = aCode;
@@ -33,35 +34,71 @@ public class Add extends Instruction {
 		eaReg = opCode & 0x7;
 
 		operand1 = getSourceOperand();
+		operand2 = getDestinationOperand();
+		
+		
+		if (size == OPMODE_SIZE_BYTE) dataSize = DataSize.BYTE;
+		if (size == OPMODE_SIZE_WORD) dataSize = DataSize.WORD;
+		if (size == OPMODE_SIZE_LONG_WORD) dataSize = DataSize.LONGWORD;
 	}
 
 	private int getSourceOperand() throws IllegalInstructionException {
-		
-		
 		// get the source operand
 		if (direction == DIRECTION_DN_TO_EA) {
 			return getDataRegisterDirect(dataSize, dataReg, model);
 		}
 		else {
-			
-			if (eaMode == ADDRESS_REG_INDIRECT) {
-				return 1;
+			if (eaMode == DATA_REG_DIRECT) { // data register direct
+				return getDataRegisterDirect(dataSize, eaReg, model);
 			}
-			else throw new IllegalInstructionException();
-			/*
-			if (size == OPMODE_SIZE_BYTE) {
-				operand1 = super.getOperandUsingAddressingMode(SIZE_BYTE, eaMode, eaReg, model);
+			else if (eaMode == ADDRESS_REG_DIRECT) { // address register direct
+				return getAddressRegisterDirect(dataSize, eaReg, model);
 			}
-			else if (size == OPMODE_SIZE_WORD) {
-				operand1 = super.getOperandUsingAddressingMode(SIZE_WORD, eaMode, eaReg, model);
+			else if (eaMode == ADDRESS_REG_INDIRECT) { // address register indirect
+				return getAddressRegisterIndirect(dataSize, eaReg, model);
 			}
-			else {
-				operand1 = super.getOperandUsingAddressingMode(SIZE_LONG_WORD, eaMode, eaReg, model);
+			else if (eaMode == ADDRESS_REG_INDIRECT_W_POSTINC) { // address register indirect with postincrement
+				return getAddressRegisterIndirectWPostInc(dataSize, eaReg, model);
 			}
-			*/
+			else if (eaMode == ADDRESS_REG_INDIRECT_W_PREDEC) { // address register indirect with predecrement
+				return getAddressRegisterIndirectWPreDec(dataSize, eaReg, model);
+			}
+			else if (eaMode == ADDRESS_REG_INDIRECT_W_DISP) { // address register indirect with displacement
+				return getAddressRegisterIndirectWDisp(dataSize, eaReg, model);
+			}
+			else if (eaMode == ADDRESS_REG_INDIRECT_W_INDEX_8BIT_DISP) { // 6
+				throw new IllegalInstructionException();
+			}
+			else if (eaMode == IMMEDIATE_MODE_FIELD) { 
+
+				if (eaReg == IMMEDIATE_REG_FIELD) { // immediate addressing
+					return immediate(dataSize, eaReg, model);
+				}
+			}
 		}
-
-
+		throw new IllegalInstructionException("Invalid address mode in ADD instruction");
+	}
+	
+	private int getDestinationOperand() throws IllegalInstructionException {
+		if (direction == DIRECTION_EA_TO_DN) {
+			operand2 =  getDataRegisterDirect(dataSize, dataReg, model);
+			operand2 += operand1;
+			setDataRegisterDirect(dataSize, dataReg, operand2, model);
+		}
+		else {
+			if (eaMode == DATA_REG_DIRECT) {
+				throw new IllegalInstructionException("Data Register Direct is an invalid destination for ADD instruction");
+			}
+			else if (eaMode == ADDRESS_REG_DIRECT) { // address register direct
+				throw new IllegalInstructionException("Address Register Direct is an nvalid destination for ADD instruction");
+			}
+			else if (eaMode == ADDRESS_REG_INDIRECT) {
+				operand2 = getAddressRegisterIndirect(dataSize, eaReg, model);
+				operand2 += operand1;
+				setAddressRegisterIndirect(dataSize, eaReg, operand2, model);
+			}
+		}
+		throw new IllegalInstructionException("Invalid address mode in ADD instruction");
 	}
 
 
