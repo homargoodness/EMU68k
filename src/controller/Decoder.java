@@ -1,7 +1,8 @@
 package controller;
 
 import instructions.*;
-import instructions.arithmetic.Add;
+import instructions.arithmetic.*;
+import instructions.control.*;
 import instructions.movement.*;
 
 /**
@@ -18,11 +19,11 @@ public class Decoder {
 	 */
 	public static Instruction decode(int op) throws IllegalInstructionException {
 		
-		int op1 = (op >> 12);
+		int opMSB = (op >> 12); // the first 4 bits of the op code
 		
-		if (op1 <= 0x3) {
+		if (opMSB <= 0x3) {
 			
-			if (op1 == 0) {
+			if (opMSB == 0) {
 				throw new IllegalInstructionException("Not yet implemented in decoder");
 			}
 			else{
@@ -30,12 +31,23 @@ public class Decoder {
 				return new Move(op);
 			}
 		}
-		else if (op1 == 0x4) {
+		else if (opMSB == 0x4) {
+			if ((op & 0xFFF) == 0xE70) {
+				throw new IllegalInstructionException("RESET instruction not yet implemented");
+			}
+			else if ((op & 0xFFF) == 0xE71) {
+				throw new IllegalInstructionException("NOP instruction not yet implemented");
+			}
+			else if ((op & 0xFFF) == 0xE72) {
+				throw new IllegalInstructionException("STOP instruction not yet implemented");
+			}
+			else if (((op >>> 6) & 0x3F) == 0x3B) {
+				return new Jump(op);
+			}
 			throw new IllegalInstructionException("Not yet implemented in decoder");
-			
 		}
-		else if (op1 >= 0x5 && op1 <= 0x7) {
-			if (op1 == 7) {
+		else if (opMSB >= 0x5 && opMSB <= 0x7) {
+			if (opMSB == 7) {
 				System.out.println("MOVEQ");
 				return new MoveQ(op);
 			}
@@ -44,12 +56,12 @@ public class Decoder {
 			}
 			
 		}
-		else if (op1 >= 0x8 && op1 <= 0xA) {
+		else if (opMSB >= 0x8 && opMSB <= 0xA) {
 			throw new IllegalInstructionException("Not yet implemented in decoder");
 			
 		}
-		else if (op1 >= 0xC && op1 <= 0xD ) {
-			if (op1 == 0xD) { // TODO NEED TO BREAK THIS DOWN FURTHER
+		else if (opMSB >= 0xC && opMSB <= 0xD ) {
+			if (opMSB == 0xD) { // TODO NEED TO BREAK THIS DOWN FURTHER
 				System.out.println("ADD");
 				return new Add(op);
 			}
@@ -58,7 +70,7 @@ public class Decoder {
 			}
 			
 		}
-		else if (op1 == 0xE) {
+		else if (opMSB == 0xE) {
 			throw new IllegalInstructionException("Not yet implemented in decoder");
 			
 		}
