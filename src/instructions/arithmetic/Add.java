@@ -8,6 +8,9 @@ import instructions.addressingModes.AddressingMode;
 import instructions.addressingModes.DataRegisterDirect;
 import static instructions.StaticReferences.*;
 
+/**
+ * Class which contains the logic for the ADD instruction
+ */
 public class Add extends Instruction {
 
 	private final int DIRECTION_EA_TO_DN = 0;

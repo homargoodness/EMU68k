@@ -4,6 +4,11 @@ import instructions.StaticReferences.DataSize;
 import architecture.Chip;
 import static instructions.StaticReferences.*;
 
+/**
+ * Abstract class which all instruction classes must extend.
+ * Also contains methods which help instructions derive the new status flag values
+ * after an instruction has been performed.
+ */
 public abstract class Instruction {
 	
 	/**

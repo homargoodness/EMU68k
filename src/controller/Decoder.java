@@ -4,12 +4,16 @@ import instructions.*;
 import instructions.arithmetic.Add;
 import instructions.movement.*;
 
+/**
+ * Class which contains a single static method use to decode operation codes
+ */
 public class Decoder {
 	
 	/**
-	 * Checks the first 4 bits of opcode and branches
-	 * @param op
-	 * @return
+	 * Checks the first 4 or 8 bits (as appropriate) of the op code and returns the required
+	 * instruction object
+	 * @param op the opcode read in from memory
+	 * @return the instruction object
 	 * @throws IllegalInstructionException 
 	 */
 	public static Instruction decode(int op) throws IllegalInstructionException {
@@ -25,8 +29,6 @@ public class Decoder {
 				System.out.println("MOVE");
 				return new Move(op);
 			}
-			
-			
 		}
 		else if (op1 == 0x4) {
 			throw new IllegalInstructionException("Not yet implemented in decoder");

@@ -4,9 +4,18 @@ import instructions.addressingModes.*;
 import static instructions.StaticReferences.*;
 
 
-
+/**
+ * Class which contains a static method which returns the appropriate class of addressing mode according to the mode passed in.
+ */
 public class AddressingModeFactory {
 
+	/**
+	 * Checks the mode and register values and returns the appropriate class for the addressing mode required.
+	 * @param mode the instruction mode provided by the operation code
+	 * @param register the register indicated by the operation code
+	 * @return the correct addressing mode object
+	 * @throws IllegalInstructionException
+	 */
 	public static AddressingMode getMode(int mode, int register ) throws IllegalInstructionException {
 		
 		if (mode == DATA_REG_DIRECT ) {
