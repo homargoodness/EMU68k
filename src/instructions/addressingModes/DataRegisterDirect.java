@@ -24,13 +24,13 @@ public class DataRegisterDirect extends AddressingMode {
 	public void use(DataSize size, int reg, int value, Chip model) throws IllegalInstructionException {
 		switch (size) {
 		case BYTE:
-			model.setDataRegister(reg, (byte)value);
+			model.setDataRegisterByte(reg, value);
 			break;
 		case WORD:
-			model.setDataRegister(reg, (short)value);
+			model.setDataRegisterWord(reg, value);
 			break;
 		case LONGWORD:
-			model.setDataRegister(reg, value);
+			model.setDataRegisterLongWord(reg, value);
 			break;
 		default:
 			throw new IllegalInstructionException("invalid size for Data Register Direct write mode");

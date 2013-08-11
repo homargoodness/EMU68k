@@ -33,6 +33,7 @@ public class StaticReferences {
 	
 	public final static int BYTE_MASK = 0xFF;
 	public final static int WORD_MASK = 0xFFFF;
+	public final static int LONG_WORD_MASK = 0xFFFFFFFF;
 	
 	public static enum DataSize {BYTE, WORD, LONGWORD};
 

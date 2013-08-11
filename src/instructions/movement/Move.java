@@ -32,7 +32,6 @@ public class Move extends Instruction {
 	public void execute(Chip model) throws IllegalInstructionException {
 
 		int size = (opCode >>> 0xC) & 0x3; // calculate the size parameter of the instruction (b, w, or l)
-		
 		int destMode = (opCode >>> 0x6) & 0x7; // dictates how to find the destination of the move opoeration 
 		int dest = (opCode >>> 0x9) & 0x7; // calculate where to put the value which is being moved
 		int sourceMode = (opCode >>> 0x3) & 0x7; // dictates how to find the source of the value being moved
@@ -40,23 +39,25 @@ public class Move extends Instruction {
 		int operand = 0; // the value being moved TODO make into long
 		
 		DataSize dataSize = null;
-		int mask;
+		//int mask;
 		if (size == SIZE_BYTE) {
 			dataSize = DataSize.BYTE;
-			mask = BYTE_MASK;
+			//mask = BYTE_MASK;
 			
 		}
 		else if (size == SIZE_WORD) {
 			dataSize = DataSize.WORD;
-			mask = WORD_MASK;
+			//mask = WORD_MASK;
 		}
 		else if (size == SIZE_LONG_WORD) {
 			dataSize = DataSize.LONGWORD;
 		}
 		
+		// get the value to move
 		AddressingMode addressingMode = AddressingModeFactory.getMode(sourceMode, source);
 		operand = addressingMode.use(dataSize, source, model);
 		
+		// move the value to the appropriate destination
 		addressingMode = AddressingModeFactory.getMode(destMode, dest);
 		addressingMode.use(dataSize, dest, operand, model);
 		/*

@@ -542,7 +542,7 @@ public class Graphical68k extends EmulatorUI {
 		
 	}
 	
-	public void updateMemory(int address, byte data) {
+	public void updateMemory(int address, int data) {
 		final int row = address /16;
 		final int column = address % 16;
 		final String hexString = String.format("%02X", data);

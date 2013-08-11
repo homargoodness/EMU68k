@@ -26,10 +26,10 @@ public class AddressRegisterDirect extends AddressingMode {
 		case BYTE:
 			throw new IllegalInstructionException();
 		case WORD:
-			model.setAddressRegister(reg, (short)value);
+			model.setAddressRegisterWord(reg, value);
 			break;
 		case LONGWORD:
-			model.setAddressRegister(reg, value);
+			model.setAddressRegisterLongWord(reg, value);
 			break;
 		default:
 			throw new IllegalInstructionException("invalid size for Address Register Direct write mode");

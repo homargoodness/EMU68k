@@ -16,10 +16,9 @@ public class MoveQ extends Instruction {
 	@Override
 	public void execute(Chip model) {
 		int dest = (opCode >>> 9) & 0x7;
-		int data =(byte) (opCode & 0xFF);
+		int data = opCode & 0xFF;
 		
-		model.setDataRegister(dest, data);
-		System.out.println(data);
+		model.setDataRegisterByte(dest, data);
 		
 		// set SR flags
 		model.setSROverflowBit(0);

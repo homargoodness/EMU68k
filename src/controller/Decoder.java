@@ -1,6 +1,7 @@
 package controller;
 
 import instructions.*;
+import instructions.arithmetic.Add;
 import instructions.movement.*;
 
 public class Decoder {
@@ -18,8 +19,7 @@ public class Decoder {
 		if (op1 <= 0x3) {
 			
 			if (op1 == 0) {
-				System.out.println("Illegal");
-				throw new IllegalInstructionException();
+				throw new IllegalInstructionException("Not yet implemented in decoder");
 			}
 			else{
 				System.out.println("MOVE");
@@ -29,8 +29,7 @@ public class Decoder {
 			
 		}
 		else if (op1 == 0x4) {
-			System.out.println("Illegal");
-			throw new IllegalInstructionException();
+			throw new IllegalInstructionException("Not yet implemented in decoder");
 			
 		}
 		else if (op1 >= 0x5 && op1 <= 0x7) {
@@ -39,24 +38,26 @@ public class Decoder {
 				return new MoveQ(op);
 			}
 			else {
-				System.out.println("Illegal");
-				throw new IllegalInstructionException();
+				throw new IllegalInstructionException("Not yet implemented in decoder");
 			}
 			
 		}
 		else if (op1 >= 0x8 && op1 <= 0xA) {
-			System.out.println("Illegal");
-			throw new IllegalInstructionException();
+			throw new IllegalInstructionException("Not yet implemented in decoder");
 			
 		}
 		else if (op1 >= 0xC && op1 <= 0xD ) {
-			System.out.println("Illegal");
-			throw new IllegalInstructionException();
+			if (op1 == 0xD) { // TODO NEED TO BREAK THIS DOWN FURTHER
+				System.out.println("ADD");
+				return new Add(op);
+			}
+			else {
+				throw new IllegalInstructionException("Not yet implemented in decoder");
+			}
 			
 		}
 		else if (op1 == 0xE) {
-			System.out.println("Illegal");
-			throw new IllegalInstructionException();
+			throw new IllegalInstructionException("Not yet implemented in decoder");
 			
 		}
 		else if (op == 0xFFFF) {
@@ -65,8 +66,7 @@ public class Decoder {
 			return null;
 		}
 		else {
-			System.out.println("Illegal");
-			throw new IllegalInstructionException();
+			throw new IllegalInstructionException("Invalid operation code");
 		}
 		
 	

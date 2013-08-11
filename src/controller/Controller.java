@@ -183,7 +183,7 @@ public class Controller implements PropertyChangeListener {
 	 */
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().compareTo("Memory") == 0) { // if memory n model has been updated
-			view.updateMemory(((IndexedPropertyChangeEvent) evt).getIndex(), (byte)evt.getNewValue()); // call method in view to update display
+			view.updateMemory(((IndexedPropertyChangeEvent) evt).getIndex(), (int)evt.getNewValue()); // call method in view to update display
 		}
 		else if (evt.getPropertyName().compareTo("ProgramCounter") == 0) { // if program counter in model has been updated
 			view.updatePC((int)evt.getNewValue()); // call method in method in view to update display

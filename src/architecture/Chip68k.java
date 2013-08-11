@@ -50,6 +50,7 @@ public class Chip68k implements Chip {
 	 * @param listener the change listener to add to this class
 	 * 
 	 */
+	@Override
 	public void addListener(PropertyChangeListener listener) {
 		propChange.addPropertyChangeListener(listener);
 	}
@@ -57,6 +58,7 @@ public class Chip68k implements Chip {
 	/**
 	 * Method to reset all elements of this model and notify listeners of reset.
 	 */
+	@Override
 	public void reset() {
 		for (int i = 0; i < 8; i++) { // clear registers
 			dataReg[i].write(0);
@@ -73,8 +75,10 @@ public class Chip68k implements Chip {
 	 * @param address the address in memory to be written to
 	 * @param data the data to be written
 	 */
-	public void writeMemory(int address, byte data) {
-		memory.write(address, data);
+	@Override
+	public void writeMemoryByte(int address, int data) {
+		memory.write(address, (byte)data);
+		data &= 0xFF;
 		propChange.fireIndexedPropertyChange("Memory", address, null, data);
 	}
 	
@@ -84,7 +88,8 @@ public class Chip68k implements Chip {
 	 * @param address address the address in memory to be written to
 	 * @param data data the data to be written
 	 */
-	public void writeMemory(int address, short data) {
+	@Override
+	public void writeMemoryWord(int address, int data) {
 		memory.write(address, (byte)(data >>> 8)); // write most significant byte
 		propChange.fireIndexedPropertyChange("Memory", address, null, (byte)(data >>> 8)); // notify listeners
 		
@@ -98,7 +103,8 @@ public class Chip68k implements Chip {
 	 * @param address address the address in memory to be written to
 	 * @param data data the data to be written
 	 */
-	public void writeMemory(int address, int data) {
+	@Override
+	public void writeMemoryLongWord(int address, int data) {
 		memory.write(address, (byte)(data >>> 24)); // write most significant byte to memory
 		propChange.fireIndexedPropertyChange("Memory", address, null, (byte)(data >>> 24)); // notify listeners
 		
@@ -116,28 +122,31 @@ public class Chip68k implements Chip {
 	 * Method to read a byte of data from memory at the specified address.
 	 * @param address the address to be read from
 	 */
-	public byte readMemoryByte(int address) {
+	@Override
+	public int readMemoryByte(int address) {
 		//setPC(address + 1); // offset PC to read from low byte starting from given address
-		return memory.read(address); // return contents
+		return (memory.read(address) & 0xFF); // return contents
 	}
 	
 	/**
 	 * Method to read a word of data starting from memory the specified address.
 	 * @param address the start address to be read from
 	 */
-	public short readMemoryWord(int address) {
+	@Override
+	public int readMemoryWord(int address) {
 		int contents = memory.read(address) & 0xFF; // read the most significant byte into first 8 bits
 		contents = (contents << 8); // move bits to the first byte position
 		address++; // increment address to read from
 		contents |= (memory.read(address) & 0xFF); // read 8 bits to the low order byte
 		//setPC(address + 1); // update PC
-		return (short)contents; // return word
+		return contents; // return word
 	}
 	
 	/**
 	 * Method to read a long word of data starting from memory the specified address.
 	 * @param address the start address to be read from
 	 */
+	@Override
 	public int readMemoryLongWord(int address) {
 		int contents = memory.read(address) & 0xFF; // read the most significant byte into the lowest byte of integer
 		contents = (contents << 8); // move least significant byte to 2nd byte
@@ -159,6 +168,7 @@ public class Chip68k implements Chip {
 	 * Method to set the program counter.
 	 * @param address the value to be written to the PC
 	 */
+	@Override
 	public void setPC(int address) {
 		pc.write(address); // write data to PC
 		propChange.firePropertyChange("ProgramCounter", null, getPC()); // notify listeners
@@ -168,6 +178,7 @@ public class Chip68k implements Chip {
 	/**
 	 * Method to return the contents of the PC.
 	 */
+	@Override
 	public int getPC() {
 		return pc.read(); // return contents of PC
 	}
@@ -178,8 +189,9 @@ public class Chip68k implements Chip {
 	 * @param reg the register to be written to
 	 * @param data the byte of data to be written
 	 */
-	public void setDataRegister(int reg, byte data) {
-		int contents = dataReg[reg].read() & 0xFFFFFF00; // write data register to integer with lowest byte set to 0
+	@Override
+	public void setDataRegisterByte(int reg, int data) {
+		int contents = dataReg[reg].read() & 0xFFFFFF00; // copy data register to integer with lowest byte set to 0
 		contents |= (data & 0xFF); // write byte to lowest order byte in integer
 		dataReg[reg].write(contents); // write new vale to register
 		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg[reg].read()); // notify listeners
@@ -190,7 +202,8 @@ public class Chip68k implements Chip {
 	 * @param reg the register to be written to
 	 * @param data the word of data to be written
 	 */
-	public void setDataRegister(int reg, short data) {
+	@Override
+	public void setDataRegisterWord(int reg, int data) {
 		int contents = dataReg[reg].read() & 0xFFFF0000; // write data register to integer with low order word set to 0
 		contents |= (data & 0xFFFF); //write data to low order word in integer
 		dataReg[reg].write(contents); // write new value to register
@@ -202,7 +215,8 @@ public class Chip68k implements Chip {
 	 * @param reg the register to be written to
 	 * @param data the long word of data to be written
 	 */
-	public void setDataRegister(int reg, int data) {
+	@Override
+	public void setDataRegisterLongWord(int reg, int data) {
 		dataReg[reg].write(data); // write value to register
 		propChange.fireIndexedPropertyChange("DataRegister", reg, null, dataReg[reg].read()); // notify listeners
 	}
@@ -211,16 +225,18 @@ public class Chip68k implements Chip {
 	 * Method to read the lower bye of a specified data register.
 	 * @param reg the register to read from
 	 */
-	public byte getDataRegisterByte(int reg) {
+	@Override
+	public int getDataRegisterByte(int reg) {
 		int contents = dataReg[reg].read(); // read contents of register
-		return (byte) (contents & 0xFF); // return lowest byte of register
+		return (contents & 0xFF); // return lowest byte of register
 	}
 
 	/**
 	 * Method to read the lower word of a specified data register.
 	 * @param reg the register to read from
 	 */
-	public short getDataRegisterWord(int reg) {
+	@Override
+	public int getDataRegisterWord(int reg) {
 		int contents = dataReg[reg].read(); // read contents of register
 		return (short) (contents & 0xFFFF); // return low order word of register
 	}
@@ -229,6 +245,7 @@ public class Chip68k implements Chip {
 	 * Method to read the contents of a specified data register.
 	 * @param reg the register to read from
 	 */
+	@Override
 	public int getDataRegisterLongWord(int reg) {
 		return dataReg[reg].read(); // return contents of register
 	}
@@ -238,7 +255,8 @@ public class Chip68k implements Chip {
 	 * @param reg the register to write to
 	 * @param data the word of data to be written
 	 */
-	public void setAddressRegister(int reg, short data) {
+	@Override
+	public void setAddressRegisterWord(int reg, int data) {
 		int contents = addressReg[reg].read() & 0xFFFF0000; // set lower word to 0
 		contents |= (data & 0xFFFF); // write data to lower word
 		addressReg[reg].write(contents); // update register contents
@@ -251,7 +269,8 @@ public class Chip68k implements Chip {
 	 * @param reg the register to be written to
 	 * @param data the long word to be written 
 	 */
-	public void setAddressRegister(int reg, int data) {
+	@Override
+	public void setAddressRegisterLongWord(int reg, int data) {
 		addressReg[reg].write(data); // update register with new long word
 		propChange.fireIndexedPropertyChange("AddressRegister", reg, null, addressReg[reg].read()); // notify listeners
 	}
@@ -259,16 +278,18 @@ public class Chip68k implements Chip {
 	/**
 	 * Method to read the lower word of the specified address register.
 	 * @param reg the register to be read from
-	 */	
-	public short getAddressRegisterWord(int reg) {
+	 */
+	@Override
+	public int getAddressRegisterWord(int reg) {
 		int contents = addressReg[reg].read(); // read contents of register
-		return (short) (contents & 0xFFFF); // return lower word of contents
+		return (contents & 0xFFFF); // return lower word of contents
 	}
 
 	/**
 	 * Method to return the contents of the specified address register
 	 * @param the register to be read from
 	 */	
+	@Override
 	public int getAddressRegisterLongWord(int reg) {
 		return addressReg[reg].read(); // return contents of register
 	}
@@ -276,6 +297,7 @@ public class Chip68k implements Chip {
 	/**
 	 * Method to return least significant (Carry bit) from the status register
 	 */
+	@Override
 	public int getSRCarryBit() {
 		return sr.read() & 0x1; //TODO set to mask ** return SR with a mask hiding all bits apart from the first
 	}
@@ -283,6 +305,7 @@ public class Chip68k implements Chip {
 	/**
 	 * Method to return the 2nd bit (Overflow bit) from the status register.
 	 */
+	@Override
 	public int getSROverflowBit() {
 		return sr.read() & 0x2; // return SR with a mask hiding all bits apart from the second
 	}
@@ -290,6 +313,7 @@ public class Chip68k implements Chip {
 	/**
 	 * Method to return the 3rd bit (Zero bit) from the status register.
 	 */
+	@Override
 	public int getSRZeroBit() {
 		return sr.read() & 0x4; // return SR with all bits masked apart from 3rd bit
 	}
@@ -297,6 +321,7 @@ public class Chip68k implements Chip {
 	/**
 	 * Method to return the 4th bit (Nerative bit) from the status register.
 	 */
+	@Override
 	public int getSRNegativeBit() {
 		return sr.read() & 0x8; // return SR with all bits masked apart from 4th bit
 	}
@@ -304,6 +329,7 @@ public class Chip68k implements Chip {
 	/**
 	 * Method to return the 5th bit (Extend bit) from the status register.
 	 */
+	@Override
 	public int getSRExtendBit() {
 		return sr.read() & 0x10; // return SR with all bits masked apart from 5th bit
 	}
@@ -312,6 +338,7 @@ public class Chip68k implements Chip {
 	 * Method to set the 1st bit (Carry bit) of the status register.
 	 * @param bit the value the first bit should be set to
 	 */
+	@Override
 	public void setSRCarryBit(int bit) {
 		short contents = sr.read(); // get the current contents of SR
 		contents &= 0xFE; // make the C bit using a mask
@@ -324,7 +351,8 @@ public class Chip68k implements Chip {
 	/**
 	 * Method to set the 2nd bit (Overflow bit) of the status register.
 	 * @param bit the value the second bit should be set to
-	 */	
+	 */
+	@Override
 	public void setSROverflowBit(int bit) { // blank the bit then AND
 		short contents = sr.read(); // get the current contents of SR
 		contents &= 0xFD; // set the V bit to 0 using mask
@@ -339,6 +367,7 @@ public class Chip68k implements Chip {
 	 * Method to set the 3rd bit (Zero bit) of the status register.
 	 * @param bit the value the third bit should be set to
 	 */
+	@Override
 	public void setSRZeroBit(int bit) {
 		short contents = sr.read(); // get current contents of SR
 		contents &= 0xFB; // set the Z bit to 0
@@ -352,6 +381,7 @@ public class Chip68k implements Chip {
 	 * Method to set the 4th bit (Negative bit) of the status register.
 	 * @param bit the value the fourth bit should be set to
 	 */
+	@Override
 	public void setSRNegativeBit(int bit) {
 		short contents = sr.read(); // read the current contents of SR
 		contents &= 0xF7; // use mask to set the N bit to 0
@@ -365,6 +395,7 @@ public class Chip68k implements Chip {
 	 * Method to set the 5th bit (Extend bit) of the status register.
 	 * @param bit the value the fifth bit should be set to
 	 */
+	@Override
 	public void setSRExtendBit(int bit) {
 		short contents = sr.read(); // read the current contents of SR
 		contents &= 0xEF; // use mask to set the X bit to 0

@@ -41,7 +41,7 @@ public class S68Loader implements Runnable {
 				int dataLength = file.get(i).length() - 2;
 				address = Integer.parseInt(file.get(i).substring(4,8),16);
 				for (int p = 8; p < dataLength; p += 2) {
-					model.writeMemory(address, (byte)Integer.parseInt(file.get(i).substring(p, p + 2),16));
+					model.writeMemoryByte(address, Integer.parseInt(file.get(i).substring(p, p + 2),16));
 					address++;
 				}
 			}
@@ -50,7 +50,7 @@ public class S68Loader implements Runnable {
 				int dataLength = file.get(i).length() - 2;
 				address = Integer.parseInt(file.get(i).substring(4,10), 16);
 				for (int p = 10; p < dataLength; p += 2) {
-					model.writeMemory(address, (byte)Integer.parseInt(file.get(i).substring(p, p + 2),16));
+					model.writeMemoryByte(address, Integer.parseInt(file.get(i).substring(p, p + 2),16));
 					address++;
 				}
 			}

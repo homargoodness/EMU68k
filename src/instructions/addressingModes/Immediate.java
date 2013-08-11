@@ -11,9 +11,9 @@ public class Immediate extends AddressingMode {
 		int address;
 		switch (size) {
 		case BYTE:
-			address = model.getPC();
-			model.setPC(model.getPC() + 1); // update PC
-			return model.readMemoryByte(address) & 0xFF;
+			address = model.getPC() + 1;
+			model.setPC(model.getPC() + 2); // update PC by 2 despite only reading from first byte to keep PC on a word boundry (even address)
+			return model.readMemoryByte(address);
 		case WORD:
 			address = model.getPC();
 			model.setPC(model.getPC() + 2); // update PC

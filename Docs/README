@@ -4,7 +4,9 @@ To Do:
 	add interupts
 	thread pool
 	use locks in controller
+	overflow check method
+	extend check method
 
 Implemented instuctions:
 	MOVE (partial)
-	MOVEQ (complete
+	MOVEQ (completes

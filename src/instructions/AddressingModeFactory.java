@@ -1,11 +1,8 @@
 package instructions;
 
-import instructions.*;
 import instructions.addressingModes.*;
 import static instructions.StaticReferences.*;
 
-//import instructions.addressingModes.*;
-//import instructions.StaticReferences.DATA_REG_DIRECT;
 
 
 public class AddressingModeFactory {

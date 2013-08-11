@@ -44,21 +44,21 @@ public class AddressRegisterIndirectWDisplacement extends AddressingMode {
 			disp = model.readMemoryWord(model.getPC());
 			model.setPC(model.getPC() + 2); // update PC??????????????
 			contents += disp;
-			model.writeMemory(contents, (byte)value);
+			model.writeMemoryByte(contents, value);
 			break;
 		case WORD:
 			contents = model.getAddressRegisterLongWord(reg);
 			disp = model.readMemoryWord(model.getPC());
 			model.setPC(model.getPC() + 2); // update PC??????????????????
 			contents += disp;
-			model.writeMemory(contents, (short)value);
+			model.writeMemoryWord(contents, value);
 			break;
 		case LONGWORD:
 			contents = model.getAddressRegisterLongWord(reg);
 			disp = model.readMemoryWord(model.getPC());
 			model.setPC(model.getPC() + 2); // update PC???????????????????
 			contents += disp;
-			model.writeMemory(contents, value);
+			model.writeMemoryLongWord(contents, value);
 			break;
 		default:
 			throw new IllegalInstructionException("invalid size for Address Register Indirect with Displacement write mode");
