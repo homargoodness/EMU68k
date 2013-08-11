@@ -1,11 +1,12 @@
 package instructions.addressingModes;
 
 import instructions.IllegalInstructionException;
+import static instructions.StaticReferences.DataSize;
 import architecture.Chip;
 
 public abstract class AddressingMode {
 	
-	protected enum DataSize {BYTE, WORD, LONGWORD};
+	//public enum DataSize {BYTE, WORD, LONGWORD};
 	
 	public abstract int use(DataSize size, int reg, Chip model) throws IllegalInstructionException;
 	

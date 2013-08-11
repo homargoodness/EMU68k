@@ -2,7 +2,7 @@ package instructions.addressingModes;
 
 import architecture.Chip;
 import instructions.IllegalInstructionException;
-import instructions.addressingModes.AddressingMode;
+import static instructions.StaticReferences.DataSize;
 
 public class DataRegisterDirect extends AddressingMode {
 

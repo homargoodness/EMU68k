@@ -1,8 +1,12 @@
 package instructions.movement;
 
 import architecture.Chip;
-import instructions.IllegalInstructionException;
-import instructions.Instruction;
+import instructions.*;
+import instructions.addressingModes.AddressingMode;
+//import static instructions.StaticReferences.DataSize;
+//import static instructions.StaticReferences.BYTE_MASK;
+//import static instructions.StaticReferences.WORD_MASK;
+import static instructions.StaticReferences.*;
 
 /**
  * This class implements the MOVE instruction for the MC68k microprocessor.
@@ -36,10 +40,26 @@ public class Move extends Instruction {
 		int operand = 0; // the value being moved TODO make into long
 		
 		DataSize dataSize = null;
-		if (size == SIZE_BYTE) dataSize = DataSize.BYTE;
-		else if (size == SIZE_WORD) dataSize = DataSize.WORD;
-		else if (size == SIZE_LONG_WORD) dataSize = DataSize.LONGWORD;
+		int mask;
+		if (size == SIZE_BYTE) {
+			dataSize = DataSize.BYTE;
+			mask = BYTE_MASK;
+			
+		}
+		else if (size == SIZE_WORD) {
+			dataSize = DataSize.WORD;
+			mask = WORD_MASK;
+		}
+		else if (size == SIZE_LONG_WORD) {
+			dataSize = DataSize.LONGWORD;
+		}
 		
+		AddressingMode addressingMode = AddressingModeFactory.getMode(sourceMode, source);
+		operand = addressingMode.use(dataSize, source, model);
+		
+		addressingMode = AddressingModeFactory.getMode(destMode, dest);
+		addressingMode.use(dataSize, dest, operand, model);
+		/*
 		// get the operand from the appropriate source TODO abstract this to a seperate class which returns the appropriate address mode class????
 		if (sourceMode == DATA_REG_DIRECT) { // data register direct
 			operand = getDataRegisterDirect(dataSize, source, model);
@@ -94,6 +114,8 @@ public class Move extends Instruction {
 			throw new IllegalInstructionException();
 		}
 		else throw new IllegalInstructionException("MOVE destination addressing mode not found");
+		
+		*/
 		
 		// set SR flags
 		model.setSROverflowBit(0); // overflow bit is always set to 0

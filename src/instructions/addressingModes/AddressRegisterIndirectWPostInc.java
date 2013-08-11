@@ -1,6 +1,7 @@
 package instructions.addressingModes;
 
 import instructions.IllegalInstructionException;
+import static instructions.StaticReferences.DataSize;
 import architecture.Chip;
 
 public class AddressRegisterIndirectWPostInc extends AddressingMode {

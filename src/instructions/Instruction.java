@@ -4,8 +4,8 @@ import architecture.Chip;
 
 public abstract class Instruction {
 	
-	public enum DataSize {BYTE, WORD, LONGWORD};
-	
+	//public enum DataSize {BYTE, WORD, LONGWORD};
+	/*
 	protected final int DATA_REG_DIRECT = 0;
 	protected final int ADDRESS_REG_DIRECT = 1;
 	protected final int ADDRESS_REG_INDIRECT = 2;
@@ -34,11 +34,11 @@ public abstract class Instruction {
 	
 	protected final int IMMEDIATE_MODE_FIELD = 7;
 	protected final int IMMEDIATE_REG_FIELD = 4;
-	
+	*/
 	public abstract void execute(Chip model) throws IllegalInstructionException;
 	
 	// ADDRESSING MODES //
-	
+	/*
 	protected int getDataRegisterDirect(DataSize size, int reg, Chip model) throws IllegalInstructionException {
 		switch (size) {
 			case BYTE:
@@ -297,7 +297,7 @@ public abstract class Instruction {
 			throw new IllegalInstructionException("invalid size for Immediate Addressing mode");
 		}
 	}
-	
+	*/
 	
 	
 	
