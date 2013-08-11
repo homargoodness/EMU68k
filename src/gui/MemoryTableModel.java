@@ -12,7 +12,6 @@ import architecture.memory.MemoryAccessException;
 
 /**
  * TODO implement tool tip for each cell
- * @author admin
  *
  */
 public class MemoryTableModel extends AbstractTableModel {

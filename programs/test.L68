@@ -1,0 +1,35 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.12.25
+Created On: 11/08/2013 22:59:39
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7      ORG    $1000
+00001000                             8  START:                  ; first instruction of program
+00001000                             9  
+00001000                            10  * Put program code here
+00001000  103C 000A                 11      move.b  #10,d0
+00001004  223C 002BE008             12      move.l  #2875400,d1
+0000100A                            13      
+0000100A  207C 00000038             14      move.l  #56,a0
+00001010                            15      
+00001010  D280                      16      add.l d0,d1
+00001012                            17     
+00001012  FFFF FFFF                 18      SIMHALT             ; halt simulator
+00001016                            19  
+00001016                            20  * Put variables and constants here
+00001016                            21  
+00001016                            22      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+START               1000
