@@ -125,7 +125,6 @@ public class Controller implements PropertyChangeListener {
 						else { // else break out of CPU loop
 							break;
 						}
-						
 						try {
 							Thread.sleep(speed); // send thread to sleep according to the speed variable set by user
 						} catch (InterruptedException e) {}
