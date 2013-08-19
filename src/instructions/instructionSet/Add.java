@@ -9,7 +9,18 @@ import instructions.addressingModes.DataRegisterDirect;
 import static instructions.StaticReferences.*;
 
 /**
- * Class which contains the logic for the ADD instruction
+ * Class which implements the ADD instruction
+ * 
+ * Bits 7 to 9 define the opmode. Bit 9 defines the result is written to. If the bit is 1, the result is written to the location
+ * defined by the addressing mode. Bits 7 and 8 define the size of the instruction
+ * 
+ * Bits 10 to 12 define the data register to be used.
+ * 
+ * The first 6 bits define the addressing mode.
+ * 
+ * First 4 bits are always set to D for this instruction.
+ * 
+ * 
  */
 public class Add extends Instruction {
 
@@ -84,7 +95,7 @@ public class Add extends Instruction {
 	private void writeResult(int result) throws IllegalInstructionException {
 		if (direction == DIRECTION_EA_TO_DN) {
 			AddressingMode dataRegisterDirect = new DataRegisterDirect();
-			dataRegisterDirect.use(dataSize, eaReg, result, model);
+			dataRegisterDirect.use(dataSize, dataReg, result, model);
 		}
 		else {
 			AddressingMode addressMode = AddressingModeFactory.getMode(eaMode, eaReg);
@@ -92,6 +103,10 @@ public class Add extends Instruction {
 		}
 	}
 	
+	/**
+	 * Helper method which sets the flags for this instruction
+	 * @param result the reult off the add operation
+	 */
 	private void setFlags(long result) {
 		
 		model.setSRNegativeBit(super.evaluateNFlag(dataSize, result));

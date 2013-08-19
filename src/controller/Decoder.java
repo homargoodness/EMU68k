@@ -1,13 +1,7 @@
 package controller;
 
 import instructions.*;
-import instructions.arithmetic.*;
-import instructions.control.*;
-import instructions.instructionSet.Add;
-import instructions.instructionSet.Jump;
-import instructions.instructionSet.Move;
-import instructions.instructionSet.MoveQ;
-import instructions.movement.*;
+import instructions.instructionSet.*;
 
 /**
  * Class which contains a single static method use to decode operation codes
