@@ -1,4 +1,4 @@
-package instructions.control;
+package instructions.instructionSet;
 
 import architecture.Chip;
 import instructions.AddressingModeFactory;

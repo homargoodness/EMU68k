@@ -1,4 +1,4 @@
-package instructions.movement;
+package instructions.instructionSet;
 
 import architecture.Chip;
 import instructions.Instruction;
