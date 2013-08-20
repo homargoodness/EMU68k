@@ -61,39 +61,43 @@ public class Controller implements PropertyChangeListener {
 		
 		view = anInterface;
 		
+		// logic for the start button
 		view.setStartListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (running) {
-					setPause();
+				if (running) { // if emulation is currently running
+					setPause(); // call method to pause it if it's unpaused or play it if it's paused
 				}
-				else {
+				else { // else start emulation loop
 					startCpuLoop();
 					running = true;
 				}
 			}	
 		});
 		
+		// logic opening a new file
 		view.setOpenFileListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (filename != null) {
-					model.reset();
+				if (filename != null) { // if a file has previously been opened
+					model.reset(); // reset the model
 				}
-				filename = view.getFileName();
-				openFile();
+				filename = view.getFileName(); // get filename
+				openFile(); // call method to load file into memory
 			}
 		});
 		
+		// logic for the reset button
 		view.setResetListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (filename != null) {
 					running = false;
 					pause = false;
 					model.reset();
-					openFile();
+					openFile(); // reload program into memory
 				}
 			}
 		});
 		
+		// logic for setting the speed
 		view.setSpeedListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider)e.getSource();

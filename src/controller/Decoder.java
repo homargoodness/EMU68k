@@ -4,7 +4,7 @@ import instructions.*;
 import instructions.instructionSet.*;
 
 /**
- * Class which contains a single static method use to decode operation codes
+ * Class which contains a single static method used to decode operation codes
  */
 public class Decoder {
 	

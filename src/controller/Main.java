@@ -19,17 +19,6 @@ public class Main {
 		Graphical68k view = new Graphical68k();
 		
 		Controller controller = new Controller(view, model);
-		
-		
-		//model.writeMemory(0, (byte)0x70);
-		//model.writeMemory(1, (byte)0xA0);
-		/*
-		for (int i = 0; i < 100; i += 2) {
-			model.writeMemory(i, (byte)0x70);
-			model.writeMemory(i+ 1, (byte)0xA0);
-		}
-		*/
-				
 	}
 
 }

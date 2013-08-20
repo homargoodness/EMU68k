@@ -10,9 +10,10 @@ import architecture.registers.StatusRegister;
 
 
 /**
- * Model in MVC architecture
- * Contains classes which have state
- * No business logic
+ * Model in MVC architecture. Holds the 16 general purpose registers, PC, SR and memory.
+ * It manages reading and writing to the model depending on the size of the operation.
+ * 
+ * When any aspect of the model is changed registered listeners are notified.
  *
  */
 public class Chip68k implements Chip {
@@ -21,7 +22,7 @@ public class Chip68k implements Chip {
 	
 	private Register [] dataReg; // array of data registers
 	private Register [] addressReg; // array of address registers
-	private Register a7s; // shadow address register for sytem
+	private Register a7s; // shadow address register for system
 	private Register pc; // program counter
 	private StatusRegister sr; // status register
 	private Memory memory; // memory model
@@ -66,7 +67,7 @@ public class Chip68k implements Chip {
 		}
 		pc.write(0);
 		sr.write((short)0);
-		memory.reset();
+		memory.reset(); // method to reset memory
 		propChange.firePropertyChange("Reset", null, 1); // notify listeners of deletion
 	}
 	
@@ -78,8 +79,7 @@ public class Chip68k implements Chip {
 	@Override
 	public void writeMemoryByte(int address, int data) {
 		memory.write(address, (byte)data);
-		data &= 0xFF;
-		propChange.fireIndexedPropertyChange("Memory", address, null, data);
+		propChange.fireIndexedPropertyChange("Memory", address, null, (data & 0xFF)); // notify listeners of memory write
 	}
 	
 	/**

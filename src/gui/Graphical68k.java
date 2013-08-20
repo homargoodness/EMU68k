@@ -32,42 +32,42 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
+/**
+ * Class which implements the graphical user interface which includes textfields for the registers,
+ * a table for the memory and a text area which displays the source code if the file was found.
+ * 
+ *  This class also sends notifications through ActionEvents to registered listeners when the user interacts with the interface.
+ */
 public class Graphical68k extends EmulatorUI {
 	
 	private JFrame frame;
 	
-	/** main menu components **/
+	// menu bar items
 	private JMenuItem openItem;
 	private JMenuItem exitItem;
 	private JMenuItem aboutItem;
 	
-	/** data registers components **/
-	//private JTextField d0Field, d1Field, d2Field, d3Field, d4Field, d5Field, d6Field, d7Field;
-	JTextField [] dataRegisterField;
+	JTextField [] dataRegisterField; // array of data register display fields
 	
-	/** address registers components **/
-	//private JTextField a0Field, addressRegister[1], addressRegister[2], addressRegister[3], addressRegister[4], addressRegister[5], addressRegister[6], addressRegister[7];
-	JTextField [] addressRegisterField;
+	JTextField [] addressRegisterField; // array of address register display fields
 	
-	/** status register components */
-	private JTextField xBitField, nBitField, zBitField, vBitField, cBitField;
+	private JTextField xBitField, nBitField, zBitField, vBitField, cBitField; // status register flag display fields
 	
-	/** program counter component */
-	private JTextField pcField;
+	private JTextField pcField; // program counter display field
 	
-	/** memory table */
-	private JTable memTable;
+	private JTable memTable; // table which displays memory
 	
-	/** area which displays source code */
-	JTextArea codeDisp;
+	JTextArea codeDisp; // text area which displays source code
 	
-	/** emulator controls */
-	private JButton startButton, resetButton;
-	private JSlider speedSelect;
+	private JButton startButton, resetButton; // buttons to start, pause and reset the emulator
+	private JSlider speedSelect; // slider to allow user to select emulation speed
 	
+	/**
+	 * Constructor which initialises the display with helper methods in the EDT thread
+	 */
 	public Graphical68k() {
 		
-		EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Runnable() { // create a new runnable and run on EDT thread as Swing is not thread safe
 			public void run() {
 				frame = new JFrame();
 				
@@ -87,6 +87,9 @@ public class Graphical68k extends EmulatorUI {
 		
 	}
 	
+	/**
+	 * Helper method which lays out the menu bar
+	 */
 	private void layoutMenu() {
 		
 		JMenuBar mainMenu = new JMenuBar(); // TODO move back up to instance vars
@@ -115,11 +118,14 @@ public class Graphical68k extends EmulatorUI {
 		
 	}
 	
+	/**
+	 * Helper method that lays out east side of frame which holds register and control display
+	 */
 	private void layoutEast() {
 		
-		JPanel eastPanel = new JPanel(new BorderLayout());
+		JPanel eastPanel = new JPanel(new BorderLayout()); // create a new panel for east of frame
 		
-		JPanel regPanel = new JPanel(new GridBagLayout());
+		JPanel regPanel = new JPanel(new GridBagLayout()); // set Gridbag layout for new panel
 		regPanel.setBorder(new TitledBorder(new EtchedBorder(), "Internal Registers"));
 		
 		GridBagConstraints panelConst = new GridBagConstraints();
