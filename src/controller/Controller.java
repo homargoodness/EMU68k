@@ -120,6 +120,7 @@ public class Controller implements PropertyChangeListener {
 					for (;;) { // keep looping until HALT instruction or running is set to false
 						checkPause(); // pauses if pause flag is set to true
 						int opCode = (model.readMemoryWord(model.getPC()) & 0xFFFF); // fetches the next operation code
+						view.resetBackgroundColour();
 						model.setPC(model.getPC() + 2);
 						Instruction inst = Decoder.decode(opCode); // decodes the op code and returns the appropriate instruction
 						
@@ -133,6 +134,7 @@ public class Controller implements PropertyChangeListener {
 							Thread.sleep(speed); // send thread to sleep according to the speed variable set by user
 						} catch (InterruptedException e) {}
 					}
+					view.resetBackgroundColour();
 				}
 				catch (IllegalInstructionException x) { // catches the exception thrown by Decoder class if an illegal instruction is read from memory
 					System.out.println(x.getMessage());

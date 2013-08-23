@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -46,6 +47,8 @@ public class Graphical68k extends EmulatorUI {
 	private JMenuItem openItem;
 	private JMenuItem exitItem;
 	private JMenuItem aboutItem;
+	
+	Color originalColor;
 	
 	JTextField [] dataRegisterField; // array of data register display fields
 	
@@ -233,6 +236,8 @@ public class Graphical68k extends EmulatorUI {
 		dataRegisterField[7] = new JTextField("00000000", 8);
 		dataRegisterField[7].setEditable(false);
 		dataPanel.add(dataRegisterField[7], fields);
+		
+		originalColor = dataRegisterField[0].getBackground();
 		
 		return dataPanel;
 				
@@ -579,6 +584,7 @@ public class Graphical68k extends EmulatorUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				pcField.setText((String.format("%08x", address)).toUpperCase());
+				pcField.setBackground(Color.GREEN);
 			}
 		});
 		
@@ -588,6 +594,7 @@ public class Graphical68k extends EmulatorUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				dataRegisterField[register].setText((String.format("%08x", data)).toUpperCase());
+				dataRegisterField[register].setBackground(Color.GREEN);
 			}
 		});
 	}
@@ -596,6 +603,7 @@ public class Graphical68k extends EmulatorUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				addressRegisterField[register].setText((String.format("%08x", data)).toUpperCase());
+				addressRegisterField[register].setBackground(Color.GREEN);
 			}
 		});
 		
@@ -615,4 +623,22 @@ public class Graphical68k extends EmulatorUI {
 		});
 	}
 
+	@Override
+	public void resetBackgroundColour() {
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				for (int i = 0; i < 8; i++) {
+					dataRegisterField[i].setBackground(originalColor);
+					addressRegisterField[i].setBackground(originalColor);
+				}
+				pcField.setBackground(originalColor);
+				xBitField.setBackground(originalColor);
+				nBitField.setBackground(originalColor);
+				zBitField.setBackground(originalColor);
+				vBitField.setBackground(originalColor);
+				cBitField.setBackground(originalColor);
+			}
+		});
+	}
 }

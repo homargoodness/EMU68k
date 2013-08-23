@@ -83,5 +83,10 @@ public abstract class EmulatorUI  { // TODO if there is no non-abstract methods,
 	 */
 	public abstract void updateStatusRegister(short value);
 	
+	/**
+	 * Resets the background colour of all components
+	 */
+	public abstract void resetBackgroundColour();
+	
 
 }
