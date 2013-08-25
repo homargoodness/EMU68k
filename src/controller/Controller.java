@@ -48,6 +48,11 @@ public class Controller implements PropertyChangeListener {
 	private boolean pause = false; // indicated if the CPU should be paused
 	private boolean running = false; // indicates if the CPU is executing instructions
 	
+	// the pause between each successive instruction to control the speed
+	private final int FAST = 0;
+	private final int MEDIUM = 1000; 
+	private final int SLOW = 2000;
+	
 	/**
 	 * Constructor
 	 * 
@@ -103,7 +108,11 @@ public class Controller implements PropertyChangeListener {
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider)e.getSource();
 				if (!source.getValueIsAdjusting()) {
-					speed = (int)source.getValue() * 1000;
+					int value = (int)source.getValue();
+	
+					if (value == 0){ speed = FAST; }
+					else if (value == 1) { speed = MEDIUM; }
+					else { speed = SLOW; }
 				}
 			}
 		});

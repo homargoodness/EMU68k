@@ -429,17 +429,6 @@ public class Graphical68k extends EmulatorUI {
 		memoryPanel.add(scrollPane);
 		
 		frame.add(memoryPanel, BorderLayout.CENTER);
-		
-		
-		
-		/*
-		JTable mainTable = new JTable(...);
-		JScrollPane scrollPane = new JScrollPane(mainTable);
-		JTable rowTable = new RowNumberTable(mainTable);
-		scrollPane.setRowHeaderView(rowTable);
-		scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER,
-		    rowTable.getTableHeader());
-		*/
 	}
 	
 	private void layoutWest() {
