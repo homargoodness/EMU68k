@@ -17,6 +17,7 @@ import architecture.memory.MemoryAccessException;
 public class MemoryTableModel extends AbstractTableModel {
 	
 	private ArrayList<Cell> data;
+	private final String DEFAULT = "FF";
 	
 	
 	public MemoryTableModel() {
@@ -52,7 +53,7 @@ public class MemoryTableModel extends AbstractTableModel {
 			}
 		}
 		
-		return "FF";	
+		return DEFAULT;	
 	}
 	
 	public void setValueAt(Object value, int row, int col) {
