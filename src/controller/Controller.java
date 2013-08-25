@@ -92,6 +92,7 @@ public class Controller implements PropertyChangeListener {
 					running = false;
 					pause = false;
 					model.reset();
+					view.resetBackgroundColour();
 					openFile(); // reload program into memory
 				}
 			}
@@ -119,13 +120,16 @@ public class Controller implements PropertyChangeListener {
 				try {
 					for (;;) { // keep looping until HALT instruction or running is set to false
 						checkPause(); // pauses if pause flag is set to true
-						int opCode = (model.readMemoryWord(model.getPC()) & 0xFFFF); // fetches the next operation code
 						view.resetBackgroundColour();
-						model.setPC(model.getPC() + 2);
-						Instruction inst = Decoder.decode(opCode); // decodes the op code and returns the appropriate instruction
-						
-						if (inst != null && running) { // if there is a valid instruction and emulation has not been stopped
-							inst.execute(model); // execute the instruction
+
+						if (running) { // if there is a valid instruction and emulation has not been stopped
+							int opCode = (model.readMemoryWord(model.getPC()) & 0xFFFF); // fetches the next operation code
+							model.setPC(model.getPC() + 2);
+							Instruction inst = Decoder.decode(opCode); // decodes the op code and returns the appropriate instruction
+							if (inst != null) {
+								inst.execute(model); // execute the instruction
+							}
+							else break;
 						}
 						else { // else break out of CPU loop
 							break;
@@ -134,7 +138,7 @@ public class Controller implements PropertyChangeListener {
 							Thread.sleep(speed); // send thread to sleep according to the speed variable set by user
 						} catch (InterruptedException e) {}
 					}
-					view.resetBackgroundColour();
+					//view.resetBackgroundColour(); //TODO need to move this
 				}
 				catch (IllegalInstructionException x) { // catches the exception thrown by Decoder class if an illegal instruction is read from memory
 					System.out.println(x.getMessage());
