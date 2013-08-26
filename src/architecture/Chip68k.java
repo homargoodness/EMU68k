@@ -124,7 +124,6 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public int readMemoryByte(int address) {
-		//setPC(address + 1); // offset PC to read from low byte starting from given address
 		return (memory.read(address) & 0xFF); // return contents
 	}
 	
@@ -138,7 +137,6 @@ public class Chip68k implements Chip {
 		contents = (contents << 8); // move bits to the first byte position
 		address++; // increment address to read from
 		contents |= (memory.read(address) & 0xFF); // read 8 bits to the low order byte
-		//setPC(address + 1); // update PC
 		return contents; // return word
 	}
 	
@@ -158,7 +156,6 @@ public class Chip68k implements Chip {
 		contents = (contents << 8); // move bytes to create room for last byte
 		address++; // increment address
 		contents |= memory.read(address) & 0xFF; // read last byte
-		//setPC(address + 1); // update PC
 		return contents; // return long word
 	}
 	
@@ -307,7 +304,7 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public int getSROverflowBit() {
-		return sr.read() & 0x2; // return SR with a mask hiding all bits apart from the second
+		return (sr.read() >>> 1) & 0x1; // return SR with a mask hiding all bits apart from the second
 	}
 	
 	/**
@@ -315,7 +312,7 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public int getSRZeroBit() {
-		return sr.read() & 0x4; // return SR with all bits masked apart from 3rd bit
+		return (sr.read() >>> 2) & 0x1; // return SR with all bits masked apart from 3rd bit
 	}
 
 	/**
@@ -323,7 +320,7 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public int getSRNegativeBit() {
-		return sr.read() & 0x8; // return SR with all bits masked apart from 4th bit
+		return (sr.read() >>>3) & 0x1; // return SR with all bits masked apart from 4th bit
 	}
 
 	/**
@@ -331,7 +328,7 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public int getSRExtendBit() {
-		return sr.read() & 0x10; // return SR with all bits masked apart from 5th bit
+		return (sr.read() >>> 4) & 0x1; // return SR with all bits masked apart from 5th bit
 	}
 
 	/**

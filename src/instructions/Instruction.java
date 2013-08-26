@@ -28,17 +28,17 @@ public abstract class Instruction {
 	protected int evaluateNFlag(DataSize dataSize, long value) {
 		if (dataSize == DataSize.BYTE ) {
 			//set N bit
-			if ((value & 0x80) == 0) return 0;
+			if ((value & 0x80) < 0) return 0;
 			else return 1;
 		}
 		
 		else if (dataSize == DataSize.WORD ) {
-			if ((value & 0x8000) == 0) return 0;
+			if ((value & 0x8000) < 0) return 0;
 			else return 1;
 		}
 		
 		else {
-			if ((value & 0x80000000) == 0) return 0;
+			if ((value & 0x80000000) < 0) return 0;
 			else return 1;
 		}
 	}

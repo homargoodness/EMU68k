@@ -110,7 +110,7 @@ public class Controller implements PropertyChangeListener {
 				if (!source.getValueIsAdjusting()) {
 					int value = (int)source.getValue();
 	
-					if (value == 0){ speed = FAST; }
+					if (value == 2){ speed = FAST; }
 					else if (value == 1) { speed = MEDIUM; }
 					else { speed = SLOW; }
 				}

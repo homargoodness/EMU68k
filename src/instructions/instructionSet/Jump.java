@@ -1,7 +1,7 @@
 package instructions.instructionSet;
 
 import architecture.Chip;
-import instructions.AddressingModeFactory;
+import instructions.addressingModes.AddressingModeFactory;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
 import instructions.addressingModes.AddressingMode;
@@ -22,8 +22,8 @@ public class Jump extends Instruction {
 	
 	@Override
 	public void execute(Chip model) throws IllegalInstructionException {
-		int mode = ((opCode >>> 3) & 0x7);
-		int reg = (opCode & 0x7);
+		int mode = ((opCode >>> 3) & FIRST_3_BITS_MASK);
+		int reg = (opCode & FIRST_3_BITS_MASK);
 		
 		AddressingMode addressMode = AddressingModeFactory.getMode(mode, reg);
 		int operand = addressMode.use(DataSize.LONGWORD, reg, model);

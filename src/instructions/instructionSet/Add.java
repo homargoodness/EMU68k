@@ -1,7 +1,7 @@
 package instructions.instructionSet;
 
 import architecture.Chip;
-import instructions.AddressingModeFactory;
+import instructions.addressingModes.AddressingModeFactory;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
 import instructions.addressingModes.AddressingMode;
@@ -51,16 +51,13 @@ public class Add extends Instruction {
 		eaReg = opCode & 0x7;
 		
 		if (size == OPMODE_SIZE_BYTE) dataSize = DataSize.BYTE;
-		if (size == OPMODE_SIZE_WORD) dataSize = DataSize.WORD;
-		if (size == OPMODE_SIZE_LONG_WORD) dataSize = DataSize.LONGWORD;
+		else if (size == OPMODE_SIZE_WORD) dataSize = DataSize.WORD;
+		else dataSize = DataSize.LONGWORD;
 
 		operand1 = getDataRegisterOperand();
-		System.out.println(operand1);
 		operand2 = getEffectiveAddressOperand();
-		System.out.println(operand2);
-		
+	
 		long result = operand1 + operand2 ;
-		System.out.println("result " + result);
 		setFlags(result);
 		writeResult((int)result & 0xFFFFFFFF);
 	}

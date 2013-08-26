@@ -17,7 +17,7 @@ public class Decoder {
 	 */
 	public static Instruction decode(int op) throws IllegalInstructionException {
 		
-		int opMSB = (op >> 12); // the first 4 bits of the op code
+		int opMSB = (op >>> 12); // the first 4 bits of the op code
 		
 		if (opMSB <= 0x3) {
 			
@@ -45,6 +45,10 @@ public class Decoder {
 			throw new IllegalInstructionException("Not yet implemented in decoder");
 		}
 		else if (opMSB >= 0x5 && opMSB <= 0x7) {
+			if (opMSB == 6) {
+				System.out.println("BCC");
+				return new Bcc(op);
+			}
 			if (opMSB == 7) {
 				System.out.println("MOVEQ");
 				return new MoveQ(op);
@@ -54,7 +58,11 @@ public class Decoder {
 			}
 			
 		}
-		else if (opMSB >= 0x8 && opMSB <= 0xA) {
+		else if (opMSB >= 0x8 && opMSB <= 0xB) {
+			if (opMSB == 0xB) {
+				System.out.println("CMP");
+				return new CMP(op);
+			}
 			throw new IllegalInstructionException("Not yet implemented in decoder");
 			
 		}

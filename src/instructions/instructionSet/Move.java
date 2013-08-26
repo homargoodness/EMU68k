@@ -2,7 +2,8 @@ package instructions.instructionSet;
 
 import architecture.Chip;
 import instructions.*;
-import instructions.addressingModes.AddressingMode;
+import instructions.addressingModes.*;
+import instructions.addressingModes.AddressingModeFactory;
 //import static instructions.StaticReferences.DataSize;
 //import static instructions.StaticReferences.BYTE_MASK;
 //import static instructions.StaticReferences.WORD_MASK;

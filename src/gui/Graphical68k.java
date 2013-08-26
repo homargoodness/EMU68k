@@ -460,9 +460,9 @@ public class Graphical68k extends EmulatorUI {
 		speedSelect.setPaintTicks(true);
 		
 		Hashtable labelTable = new Hashtable();
-		labelTable.put(new Integer (2), new JLabel("Slow"));
+		labelTable.put(new Integer (2), new JLabel("Fastest"));
 		labelTable.put(new Integer (1), new JLabel("Medium"));
-		labelTable.put(new Integer (0), new JLabel("Fast"));
+		labelTable.put(new Integer (0), new JLabel("Slowest"));
 		speedSelect.setLabelTable(labelTable);
 		speedSelect.setPaintLabels(true);
 		
