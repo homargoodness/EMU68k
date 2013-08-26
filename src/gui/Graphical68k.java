@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -419,7 +420,29 @@ public class Graphical68k extends EmulatorUI {
 		JPanel memoryPanel = new JPanel(new GridLayout());
 		memoryPanel.setBorder(new TitledBorder(new EtchedBorder(), "Main Memory"));
 		
-		memTable = new JTable(new MemoryTableModel());
+		memTable = new JTable(new MemoryTableModel()) {
+			public String getToolTipText(MouseEvent e) {
+				java.awt.Point p = e.getPoint();
+				int row = rowAtPoint(p);
+				int col = columnAtPoint(p);
+				int value = Integer.parseInt((String) getValueAt(row,col),16);
+				StringBuilder tip = new StringBuilder();
+				tip.append("<html>");
+				tip.append("Address: " + ((row * 16) + col));
+				tip.append("<br>");
+				tip.append("Contents (Dec): " + value);
+				tip.append("<br>");
+				tip.append("Contents (Hex): " + Integer.toHexString(value));
+				tip.append("<br>");
+				tip.append("Contents (Hex): " + Integer.toBinaryString(value));
+				
+				return tip.toString();
+				
+			}
+		};
+		
+		
+		
 		JScrollPane scrollPane = new JScrollPane(memTable);
 		JTable rowTable = new RowNumberTable(memTable);
 		scrollPane.setRowHeaderView(rowTable);
