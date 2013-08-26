@@ -11,11 +11,11 @@ import static instructions.StaticReferences.*;
 /**
  * Class which implements the MC68k JUMP instruction
  */
-public class Jump extends Instruction {
+public class JMP extends Instruction {
 
 	int opCode;
 	
-	public Jump(int aCode) {
+	public JMP(int aCode) {
 		opCode = aCode;
 	}
 	

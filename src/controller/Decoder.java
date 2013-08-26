@@ -40,7 +40,7 @@ public class Decoder {
 				throw new IllegalInstructionException("STOP instruction not yet implemented");
 			}
 			else if (((op >>> 6) & 0x3F) == 0x3B) {
-				return new Jump(op);
+				return new JMP(op);
 			}
 			throw new IllegalInstructionException("Not yet implemented in decoder");
 		}
