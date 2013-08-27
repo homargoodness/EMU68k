@@ -17,7 +17,7 @@ import architecture.memory.MemoryAccessException;
 public class MemoryTableModel extends AbstractTableModel {
 	
 	private ArrayList<Cell> data;
-	private final String DEFAULT = "FF";
+	private final String DEFAULT = "00";
 	
 	
 	public MemoryTableModel() {

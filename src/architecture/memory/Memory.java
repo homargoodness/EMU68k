@@ -40,7 +40,7 @@ public class Memory {
 				return memory.get(i).contents; // return the byte of data held there
 			}
 		}
-		return (byte)0xFF; // otherwise return value 0xFF
+		return (byte)0x00; // otherwise return value 0xFF
 	}
 	
 
