@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import architecture.registers.GeneralRegister32Bit;
+import architecture.registers.GeneralRegister;
 import architecture.registers.StatusRegister;
 
 public class RegisterTests {
@@ -17,11 +17,11 @@ public class RegisterTests {
 	int maxValue = Integer.MAX_VALUE;
 	int minValue = Integer.MIN_VALUE;
 	
-	GeneralRegister32Bit reg;
+	GeneralRegister reg;
 
 	@Before
 	public void setUp() throws Exception {
-		 reg = new GeneralRegister32Bit();
+		 reg = new GeneralRegister();
 	}
 	
 	@Test

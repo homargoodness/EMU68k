@@ -4,7 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import architecture.memory.Memory;
-import architecture.registers.GeneralRegister32Bit;
+import architecture.registers.GeneralRegister;
 import architecture.registers.Register;
 import architecture.registers.StatusRegister;
 
@@ -36,12 +36,12 @@ public class Chip68k implements Chip {
 		dataReg = new Register [8];
 		addressReg = new Register [8];
 		for (int i = 0; i < 8; i++) { // instantiate registers
-			dataReg[i] = new GeneralRegister32Bit();
-			addressReg[i] = new GeneralRegister32Bit();
+			dataReg[i] = new GeneralRegister();
+			addressReg[i] = new GeneralRegister();
 		}
 		
-		a7s = new GeneralRegister32Bit();
-		pc = new GeneralRegister32Bit();
+		a7s = new GeneralRegister();
+		pc = new GeneralRegister();
 		sr = new StatusRegister();
 		memory = new Memory();
 	}
@@ -316,7 +316,7 @@ public class Chip68k implements Chip {
 	}
 
 	/**
-	 * Method to return the 4th bit (Nerative bit) from the status register.
+	 * Method to return the 4th bit (Negative bit) from the status register.
 	 */
 	@Override
 	public int getSRNegativeBit() {
@@ -337,10 +337,10 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public void setSRCarryBit(int bit) {
-		short contents = sr.read(); // get the current contents of SR
+		int contents = sr.read(); // get the current contents of SR
 		contents &= 0xFE; // make the C bit using a mask
 		contents |= (bit & 0x1); // set the C bit to the correct value
-		sr.write(contents); // write the contents back into SR
+		sr.write(contents & 0xFFFF); // write the contents back into SR
 	
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of a change to SR
 	}
@@ -351,10 +351,10 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public void setSROverflowBit(int bit) { // blank the bit then AND
-		short contents = sr.read(); // get the current contents of SR
+		int contents = sr.read(); // get the current contents of SR
 		contents &= 0xFD; // set the V bit to 0 using mask
 		contents |= (bit << 1); // set the C bit to the correct value
-		sr.write(contents); // write the contents back into SR
+		sr.write(contents & 0xFFFF); // write the contents back into SR
 
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of a change to SR
 		
@@ -366,10 +366,10 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public void setSRZeroBit(int bit) {
-		short contents = sr.read(); // get current contents of SR
+		int contents = sr.read(); // get current contents of SR
 		contents &= 0xFB; // set the Z bit to 0
 		contents |= (bit << 2); // set the Z bit to the correct value
-		sr.write(contents); // write the new value back into SR
+		sr.write(contents & 0xFFFF); // write the new value back into SR
 		
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of a change to SR
 	}
@@ -380,10 +380,10 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public void setSRNegativeBit(int bit) {
-		short contents = sr.read(); // read the current contents of SR
+		int contents = sr.read(); // read the current contents of SR
 		contents &= 0xF7; // use mask to set the N bit to 0
 		contents |= (bit << 3); // write the new value of the N bit
-		sr.write(contents); // write the contents back into SR
+		sr.write(contents & 0xFFFF); // write the contents back into SR
 	
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of change to SR
 	}
@@ -394,10 +394,10 @@ public class Chip68k implements Chip {
 	 */
 	@Override
 	public void setSRExtendBit(int bit) {
-		short contents = sr.read(); // read the current contents of SR
+		int contents = sr.read(); // read the current contents of SR
 		contents &= 0xEF; // use mask to set the X bit to 0
 		contents |= (bit << 4); // write the new value of X bit
-		sr.write(contents); // write contents back to SR
+		sr.write(contents & 0xFFFF); // write contents back to SR
 	
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of change to SR
 	}

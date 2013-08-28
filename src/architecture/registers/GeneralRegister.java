@@ -3,14 +3,14 @@ package architecture.registers;
 /**
  * Class which represents a 32 bit general purpose register
  */
-public class GeneralRegister32Bit implements Register {
+public class GeneralRegister implements Register {
 	
 	private int contents;
 	
 	/**
 	 * Constructor which initialises the contents to 0
 	 */
-	public GeneralRegister32Bit() {
+	public GeneralRegister() {
 		contents = 0;
 	}
 	

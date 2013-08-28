@@ -4,15 +4,15 @@ package architecture.registers;
  * Class which represents the 16 bit Status Register
  *
  */
-public class StatusRegister {
+public class StatusRegister implements Register {
 
-	short contents; 
+	int contents; 
 	
 	/**
 	 * Method to write a value to contents
 	 * @return the contents of the register
 	 */
-	public short read() {
+	public int read() {
 		return contents;
 	}
 	
@@ -20,7 +20,7 @@ public class StatusRegister {
 	 * Method to write a value to contents
 	 * @param data the contents to be written to register
 	 */
-	public void write(short data) {
+	public void write(int data) {
 		contents = data;
 	}
 

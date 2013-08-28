@@ -81,7 +81,7 @@ public abstract class EmulatorUI  { // TODO if there is no non-abstract methods,
 	 * Method to update the status register display
 	 * @param value the new value of the SR
 	 */
-	public abstract void updateStatusRegister(short value);
+	public abstract void updateStatusRegister(int value);
 	
 	/**
 	 * Resets the background colour of all components

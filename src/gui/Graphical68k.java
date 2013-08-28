@@ -621,7 +621,7 @@ public class Graphical68k extends EmulatorUI {
 	}
 
 	
-	public void updateStatusRegister(final short value) {
+	public void updateStatusRegister(final int value) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				cBitField.setText((value & 0x1) + "");
