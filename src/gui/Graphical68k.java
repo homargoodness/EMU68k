@@ -428,13 +428,14 @@ public class Graphical68k extends EmulatorUI {
 				int value = Integer.parseInt((String) getValueAt(row,col),16);
 				StringBuilder tip = new StringBuilder();
 				tip.append("<html>");
-				tip.append("Address: " + ((row * 16) + col));
-				tip.append("<br>");
-				tip.append("Contents (Dec): " + value);
-				tip.append("<br>");
-				tip.append("Contents (Hex): " + Integer.toHexString(value));
-				tip.append("<br>");
-				tip.append("Contents (Hex): " + Integer.toBinaryString(value));
+				tip.append("Address: <br>");
+//				+ Integer.toHexString((row * 16) + col).toUpperCase() + "(Hex), " + ((row * 16) + col) + "(Dec)");
+				tip.append(String.format("%02x", (row * 16) + col).toUpperCase() + "(Hex) <br>");
+				tip.append(((row * 16) + col) + "(Dec) <br><br>");
+				tip.append("Contents: <br>");
+				tip.append(value + "(Dec) <br>");
+				tip.append(String.format("%02x", value).toUpperCase() + "(Hex) <br>");
+				tip.append(String.format("%8s", Integer.toBinaryString(value)).replace(' ', '0') + "(Bin)");
 				
 				return tip.toString();
 				
