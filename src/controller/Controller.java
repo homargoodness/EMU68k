@@ -1,7 +1,7 @@
 package controller;
 
 import gui.EmulatorUI;
-
+import instructions.Decoder;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
 

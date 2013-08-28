@@ -3,7 +3,6 @@ package instructions.instructionSet;
 import architecture.ProcessorModel;
 import instructions.*;
 import instructions.addressingModes.*;
-import instructions.addressingModes.AddressingModeFactory;
 //import static instructions.StaticReferences.DataSize;
 //import static instructions.StaticReferences.BYTE_MASK;
 //import static instructions.StaticReferences.WORD_MASK;

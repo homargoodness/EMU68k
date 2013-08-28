@@ -3,12 +3,12 @@ package instructions.instructionSet;
 import org.ietf.jgss.Oid;
 
 import architecture.ProcessorModel;
+import instructions.AddressingMode;
+import instructions.AddressingModeFactory;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
 import static instructions.References.*;
 import instructions.References.DataSize;
-import instructions.addressingModes.AddressingMode;
-import instructions.addressingModes.AddressingModeFactory;
 
 public class CMP extends Instruction {
 

@@ -1,4 +1,4 @@
-package controller;
+package instructions;
 
 import instructions.*;
 import instructions.instructionSet.*;

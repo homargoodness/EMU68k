@@ -1,6 +1,5 @@
-package instructions.addressingModes;
+package instructions;
 
-import instructions.IllegalInstructionException;
 import static instructions.References.DataSize;
 import architecture.ProcessorModel;
 

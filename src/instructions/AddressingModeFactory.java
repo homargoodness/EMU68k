@@ -1,6 +1,12 @@
-package instructions.addressingModes;
+package instructions;
 
-import instructions.IllegalInstructionException;
+import instructions.addressingModes.AddressRegisterDirect;
+import instructions.addressingModes.AddressRegisterIndirect;
+import instructions.addressingModes.AddressRegisterIndirectWDisplacement;
+import instructions.addressingModes.AddressRegisterIndirectWPostInc;
+import instructions.addressingModes.AddressRegisterIndirectWPreDec;
+import instructions.addressingModes.DataRegisterDirect;
+import instructions.addressingModes.Immediate;
 import static instructions.References.*;
 
 public class AddressingModeFactory {

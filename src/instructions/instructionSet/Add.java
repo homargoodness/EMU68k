@@ -1,10 +1,10 @@
 package instructions.instructionSet;
 
 import architecture.ProcessorModel;
-import instructions.addressingModes.AddressingModeFactory;
+import instructions.AddressingMode;
+import instructions.AddressingModeFactory;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
-import instructions.addressingModes.AddressingMode;
 import instructions.addressingModes.DataRegisterDirect;
 import static instructions.References.*;
 
