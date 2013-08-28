@@ -6,7 +6,7 @@ import static instructions.References.DataSize;
 
 public class DataRegisterDirect implements AddressingMode {
 
-	//@Override
+	@Override
 	public int use(DataSize size, int reg, ProcessorModel model) throws IllegalInstructionException {
 		switch (size) {
 		case BYTE:
@@ -20,7 +20,7 @@ public class DataRegisterDirect implements AddressingMode {
 		}
 	}
 
-	//@Override
+	@Override
 	public void use(DataSize size, int reg, int value, ProcessorModel model) throws IllegalInstructionException {
 		switch (size) {
 		case BYTE:
