@@ -2,7 +2,7 @@ package instructions.instructionSet;
 
 import org.ietf.jgss.Oid;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
 import static instructions.StaticReferences.*;
@@ -23,7 +23,7 @@ public class CMP extends Instruction {
 	}
 	
 	@Override
-	public void execute(Chip model) throws IllegalInstructionException {
+	public void execute(ProcessorModel model) throws IllegalInstructionException {
 		int operand1;
 		int operand2;
 		

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import architecture.memory.Memory;
+import architecture.memory.Memory68k;
 import architecture.memory.MemoryAccessException;
 
 

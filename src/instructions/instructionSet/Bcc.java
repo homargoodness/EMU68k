@@ -1,6 +1,6 @@
 package instructions.instructionSet;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
 import static instructions.StaticReferences.*;
@@ -14,7 +14,7 @@ public class Bcc extends Instruction {
 	}
 
 	@Override
-	public void execute(Chip model) throws IllegalInstructionException {
+	public void execute(ProcessorModel model) throws IllegalInstructionException {
 		int condition = (opCode >>> 8) & FIRST_4_BITS_MASK;
 		int disp = opCode & BYTE_MASK;
 		

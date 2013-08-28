@@ -2,12 +2,12 @@ package instructions.addressingModes;
 
 import instructions.IllegalInstructionException;
 import static instructions.StaticReferences.DataSize;
-import architecture.Chip;
+import architecture.ProcessorModel;
 
 public class AddressRegisterIndirect extends AddressingMode {
 
 	@Override
-	public int use(DataSize size, int reg, Chip model) throws IllegalInstructionException {
+	public int use(DataSize size, int reg, ProcessorModel model) throws IllegalInstructionException {
 		switch (size) {
 		case BYTE:
 			return model.readMemoryByte(model.getAddressRegisterLongWord(reg) & 0xFF);
@@ -21,7 +21,7 @@ public class AddressRegisterIndirect extends AddressingMode {
 	}
 
 	@Override
-	public void use(DataSize size, int reg, int value, Chip model) throws IllegalInstructionException {
+	public void use(DataSize size, int reg, int value, ProcessorModel model) throws IllegalInstructionException {
 		int contents; // holds the contents of the address register referenced
 		switch (size) {
 		case BYTE:

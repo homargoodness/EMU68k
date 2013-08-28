@@ -1,6 +1,6 @@
 package instructions.instructionSet;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 import instructions.addressingModes.AddressingModeFactory;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
@@ -32,7 +32,7 @@ public class Add extends Instruction {
 	private final int OPMODE_SIZE_LONG_WORD = 2;
 
 	private int opCode, direction, size, dataReg, eaMode, eaReg, operand1, operand2;
-	private Chip model;
+	private ProcessorModel model;
 	private DataSize dataSize;
 
 	public Add(int aCode) {
@@ -40,7 +40,7 @@ public class Add extends Instruction {
 	}
 
 	@Override
-	public void execute(Chip aModel) throws IllegalInstructionException {
+	public void execute(ProcessorModel aModel) throws IllegalInstructionException {
 
 		model = aModel;
 

@@ -19,7 +19,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 
 /**
  * Controller class mediates interaction between the model and view
@@ -40,7 +40,7 @@ import architecture.Chip;
 public class Controller implements PropertyChangeListener {
 	
 	private EmulatorUI view;
-	private Chip model;
+	private ProcessorModel model;
 	
 	private String filename; // holds the filename of the program being run on the emulator
 	
@@ -59,7 +59,7 @@ public class Controller implements PropertyChangeListener {
 	 * @param anInterface - the view class
 	 * @param aChip - the model class
 	 */
-	public Controller(EmulatorUI anInterface, Chip aChip) {
+	public Controller(EmulatorUI anInterface, ProcessorModel aChip) {
 		
 		model = aChip;
 		model.addListener(this); // adds this class as a listener for property change events from model
@@ -213,7 +213,7 @@ public class Controller implements PropertyChangeListener {
 			view.updateAddressRegisterDisplay(((IndexedPropertyChangeEvent) evt).getIndex(), (int)evt.getNewValue()); // call method in method in view to update display
 		}
 		else if (evt.getPropertyName().compareTo("StatusRegister") == 0) { // if the status register in model has been updated
-			view.updateStatusRegister((short)evt.getNewValue()); // call method in method in view to update display
+			view.updateStatusRegister((int)evt.getNewValue()); // call method in method in view to update display
 		}
 		else if (evt.getPropertyName().compareTo("Reset") == 0) { // if view has been reset
 			view.reset(); // call method in method in view to update display

@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 import architecture.Chip68k;
 
 public class ChipTests {
 	
-	Chip model;
+	ProcessorModel model;
 
 	@Before
 	public void setUp() throws Exception {

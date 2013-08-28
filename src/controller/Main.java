@@ -4,7 +4,7 @@ import gui.Graphical68k;
 
 import java.awt.EventQueue;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 import architecture.Chip68k;
 
 
@@ -14,7 +14,7 @@ public class Main {
 		
 		// TODO factories for view
 		
-		Chip model = new Chip68k();
+		ProcessorModel model = new Chip68k();
 		
 		Graphical68k view = new Graphical68k();
 		

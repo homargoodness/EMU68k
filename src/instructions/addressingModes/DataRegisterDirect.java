@@ -1,13 +1,13 @@
 package instructions.addressingModes;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 import instructions.IllegalInstructionException;
 import static instructions.StaticReferences.DataSize;
 
 public class DataRegisterDirect extends AddressingMode {
 
 	//@Override
-	public int use(DataSize size, int reg, Chip model) throws IllegalInstructionException {
+	public int use(DataSize size, int reg, ProcessorModel model) throws IllegalInstructionException {
 		switch (size) {
 		case BYTE:
 			return model.getDataRegisterByte(reg);
@@ -21,7 +21,7 @@ public class DataRegisterDirect extends AddressingMode {
 	}
 
 	//@Override
-	public void use(DataSize size, int reg, int value, Chip model) throws IllegalInstructionException {
+	public void use(DataSize size, int reg, int value, ProcessorModel model) throws IllegalInstructionException {
 		switch (size) {
 		case BYTE:
 			model.setDataRegisterByte(reg, value);

@@ -8,7 +8,7 @@ import java.beans.PropertyChangeListener;
  * memory and contains the logic which controls access to them. This is the class which
  * instructions use to interact with the model
  */
-public interface Chip {
+public interface ProcessorModel {
 	
 	/**
 	 * Method to add a listener to this class which gets updated when the model changes

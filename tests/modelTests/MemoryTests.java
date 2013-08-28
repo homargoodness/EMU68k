@@ -3,12 +3,12 @@ package modelTests;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import architecture.memory.Memory;
+import architecture.memory.Memory68k;
 import architecture.memory.MemoryAccessException;
 
 public class MemoryTests {
 	
-	Memory mem;
+	Memory68k mem;
 	
 	byte [] nums = {Byte.MIN_VALUE, 0, 23, 
 			56, 78, -57, 120, Byte.MAX_VALUE};
@@ -18,7 +18,7 @@ public class MemoryTests {
 	@Before
 	public void setUp() throws Exception {
 		
-		mem = new Memory();
+		mem = new Memory68k();
 		
 	}
 

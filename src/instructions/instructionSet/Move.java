@@ -1,6 +1,6 @@
 package instructions.instructionSet;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 import instructions.*;
 import instructions.addressingModes.*;
 import instructions.addressingModes.AddressingModeFactory;
@@ -30,7 +30,7 @@ public class Move extends Instruction {
 	}
 
 	@Override
-	public void execute(Chip model) throws IllegalInstructionException {
+	public void execute(ProcessorModel model) throws IllegalInstructionException {
 
 		int size = (opCode >>> 0xC) & 0x3; // calculate the size parameter of the instruction (b, w, or l)
 		int destMode = (opCode >>> 0x6) & 0x7; // dictates how to find the destination of the move opoeration 

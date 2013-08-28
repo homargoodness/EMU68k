@@ -1,6 +1,6 @@
 package instructions.instructionSet;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 import instructions.Instruction;
 
 
@@ -14,7 +14,7 @@ public class MoveQ extends Instruction {
 	}
 
 	@Override
-	public void execute(Chip model) {
+	public void execute(ProcessorModel model) {
 		int dest = (opCode >>> 9) & 0x7;
 		int data = opCode & 0xFF;
 		

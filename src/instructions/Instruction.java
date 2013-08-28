@@ -1,7 +1,7 @@
 package instructions;
 
 import instructions.StaticReferences.DataSize;
-import architecture.Chip;
+import architecture.ProcessorModel;
 import static instructions.StaticReferences.*;
 
 /**
@@ -16,7 +16,7 @@ public abstract class Instruction {
 	 * @param model The model which is to be manipulated by the instruction
 	 * @throws IllegalInstructionException
 	 */
-	public abstract void execute(Chip model) throws IllegalInstructionException;
+	public abstract void execute(ProcessorModel model) throws IllegalInstructionException;
 	
 	/**
 	 * Method which evaluates the values passed to it and return the value that the 

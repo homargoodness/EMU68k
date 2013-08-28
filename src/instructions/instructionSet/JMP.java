@@ -1,6 +1,6 @@
 package instructions.instructionSet;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 import instructions.addressingModes.AddressingModeFactory;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
@@ -21,7 +21,7 @@ public class JMP extends Instruction {
 	
 	
 	@Override
-	public void execute(Chip model) throws IllegalInstructionException {
+	public void execute(ProcessorModel model) throws IllegalInstructionException {
 		int mode = ((opCode >>> 3) & FIRST_3_BITS_MASK);
 		int reg = (opCode & FIRST_3_BITS_MASK);
 		

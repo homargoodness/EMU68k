@@ -3,7 +3,7 @@ package architecture;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-import architecture.memory.Memory;
+import architecture.memory.Memory68k;
 import architecture.registers.GeneralRegister;
 import architecture.registers.Register;
 import architecture.registers.StatusRegister;
@@ -16,7 +16,7 @@ import architecture.registers.StatusRegister;
  * When any aspect of the model is changed registered listeners are notified.
  *
  */
-public class Chip68k implements Chip {
+public class Chip68k implements ProcessorModel {
 	
 	private PropertyChangeSupport propChange;
 	
@@ -25,7 +25,7 @@ public class Chip68k implements Chip {
 	private Register a7s; // shadow address register for system
 	private Register pc; // program counter
 	private StatusRegister sr; // status register
-	private Memory memory; // memory model
+	private Memory68k memory; // memory model
 	
 	/**
 	 * Constructor
@@ -43,7 +43,7 @@ public class Chip68k implements Chip {
 		a7s = new GeneralRegister();
 		pc = new GeneralRegister();
 		sr = new StatusRegister();
-		memory = new Memory();
+		memory = new Memory68k();
 	}
 	
 	/**

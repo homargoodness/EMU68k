@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import architecture.Chip;
+import architecture.ProcessorModel;
 
 /**
  * Runnable class which reads in a program from source code file and the compiled program (SRecord)
@@ -17,11 +17,11 @@ import architecture.Chip;
 public class S68Loader implements Runnable {
 	
 	private String filename; // names of the file to read
-	private Chip model;
+	private ProcessorModel model;
 	private EmulatorUI view;
 	private List<String> file; // lines in the SRecord
 	
-	public S68Loader (String aFilename, Chip aModel, EmulatorUI aView) {
+	public S68Loader (String aFilename, ProcessorModel aModel, EmulatorUI aView) {
 		view = aView;
 		model = aModel;
 		filename = aFilename;
