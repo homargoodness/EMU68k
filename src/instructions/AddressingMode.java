@@ -1,6 +1,6 @@
 package instructions;
 
-import static instructions.References.DataSize;
+import static static_variables.References.DataSize;
 import architecture.ProcessorModel;
 
 public interface AddressingMode {

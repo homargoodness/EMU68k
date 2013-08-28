@@ -1,9 +1,9 @@
-package instructions.instructionSet;
+package instructions.instruction_set;
 
 import architecture.ProcessorModel;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
-import static instructions.References.*;
+import static static_variables.References.*;
 
 public class Bcc extends Instruction {
 	

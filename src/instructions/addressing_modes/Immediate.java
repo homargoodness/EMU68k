@@ -1,8 +1,8 @@
-package instructions.addressingModes;
+package instructions.addressing_modes;
 
 import instructions.AddressingMode;
 import instructions.IllegalInstructionException;
-import static instructions.References.DataSize;
+import static static_variables.References.DataSize;
 import architecture.ProcessorModel;
 
 public class Immediate implements AddressingMode {

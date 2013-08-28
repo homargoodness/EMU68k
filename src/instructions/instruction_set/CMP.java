@@ -1,14 +1,14 @@
-package instructions.instructionSet;
+package instructions.instruction_set;
 
 import org.ietf.jgss.Oid;
 
+import static_variables.References.DataSize;
 import architecture.ProcessorModel;
 import instructions.AddressingMode;
 import instructions.AddressingModeFactory;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
-import static instructions.References.*;
-import instructions.References.DataSize;
+import static static_variables.References.*;
 
 public class CMP extends Instruction {
 

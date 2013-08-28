@@ -1,4 +1,4 @@
-package instructions;
+package static_variables;
 
 public class References {
 	

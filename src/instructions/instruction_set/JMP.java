@@ -1,11 +1,11 @@
-package instructions.instructionSet;
+package instructions.instruction_set;
 
 import architecture.ProcessorModel;
 import instructions.AddressingMode;
 import instructions.AddressingModeFactory;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
-import static instructions.References.*;
+import static static_variables.References.*;
 
 
 /**

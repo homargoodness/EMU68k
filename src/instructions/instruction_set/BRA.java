@@ -1,4 +1,4 @@
-package instructions.instructionSet;
+package instructions.instruction_set;
 
 import architecture.ProcessorModel;
 import instructions.IllegalInstructionException;

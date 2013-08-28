@@ -1,9 +1,9 @@
-package instructions.addressingModes;
+package instructions.addressing_modes;
 
 import architecture.ProcessorModel;
 import instructions.AddressingMode;
 import instructions.IllegalInstructionException;
-import static instructions.References.DataSize;
+import static static_variables.References.DataSize;
 
 public class DataRegisterDirect implements AddressingMode {
 

@@ -7,6 +7,7 @@ import architecture.memory.Memory68k;
 import architecture.registers.GeneralRegister;
 import architecture.registers.Register;
 import architecture.registers.StatusRegister;
+import static static_variables.References.*;
 
 
 /**
@@ -296,7 +297,7 @@ public class Chip68k implements ProcessorModel {
 	 */
 	@Override
 	public int getSRCarryBit() {
-		return sr.read() & 0x1; //TODO set to mask ** return SR with a mask hiding all bits apart from the first
+		return sr.read() & FIRST_BIT_MASK; //return SR with a mask hiding all bits apart from the first
 	}
 	
 	/**
@@ -304,7 +305,7 @@ public class Chip68k implements ProcessorModel {
 	 */
 	@Override
 	public int getSROverflowBit() {
-		return (sr.read() >>> 1) & 0x1; // return SR with a mask hiding all bits apart from the second
+		return (sr.read() >>> 1) & FIRST_BIT_MASK; // return SR with a mask hiding all bits apart from the second
 	}
 	
 	/**
@@ -312,7 +313,7 @@ public class Chip68k implements ProcessorModel {
 	 */
 	@Override
 	public int getSRZeroBit() {
-		return (sr.read() >>> 2) & 0x1; // return SR with all bits masked apart from 3rd bit
+		return (sr.read() >>> 2) & FIRST_BIT_MASK; // return SR with all bits masked apart from 3rd bit
 	}
 
 	/**
@@ -320,7 +321,7 @@ public class Chip68k implements ProcessorModel {
 	 */
 	@Override
 	public int getSRNegativeBit() {
-		return (sr.read() >>>3) & 0x1; // return SR with all bits masked apart from 4th bit
+		return (sr.read() >>>3) & FIRST_BIT_MASK; // return SR with all bits masked apart from 4th bit
 	}
 
 	/**
@@ -328,7 +329,7 @@ public class Chip68k implements ProcessorModel {
 	 */
 	@Override
 	public int getSRExtendBit() {
-		return (sr.read() >>> 4) & 0x1; // return SR with all bits masked apart from 5th bit
+		return (sr.read() >>> 4) & FIRST_BIT_MASK; // return SR with all bits masked apart from 5th bit
 	}
 
 	/**
@@ -339,8 +340,8 @@ public class Chip68k implements ProcessorModel {
 	public void setSRCarryBit(int bit) {
 		int contents = sr.read(); // get the current contents of SR
 		contents &= 0xFE; // make the C bit using a mask
-		contents |= (bit & 0x1); // set the C bit to the correct value
-		sr.write(contents & 0xFFFF); // write the contents back into SR
+		contents |= (bit & FIRST_BIT_MASK); // set the C bit to the correct value
+		sr.write(contents & WORD_MASK); // write the contents back into SR
 	
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of a change to SR
 	}
@@ -354,7 +355,7 @@ public class Chip68k implements ProcessorModel {
 		int contents = sr.read(); // get the current contents of SR
 		contents &= 0xFD; // set the V bit to 0 using mask
 		contents |= (bit << 1); // set the C bit to the correct value
-		sr.write(contents & 0xFFFF); // write the contents back into SR
+		sr.write(contents & WORD_MASK); // write the contents back into SR
 
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of a change to SR
 		
@@ -369,7 +370,7 @@ public class Chip68k implements ProcessorModel {
 		int contents = sr.read(); // get current contents of SR
 		contents &= 0xFB; // set the Z bit to 0
 		contents |= (bit << 2); // set the Z bit to the correct value
-		sr.write(contents & 0xFFFF); // write the new value back into SR
+		sr.write(contents & WORD_MASK); // write the new value back into SR
 		
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of a change to SR
 	}
@@ -383,7 +384,7 @@ public class Chip68k implements ProcessorModel {
 		int contents = sr.read(); // read the current contents of SR
 		contents &= 0xF7; // use mask to set the N bit to 0
 		contents |= (bit << 3); // write the new value of the N bit
-		sr.write(contents & 0xFFFF); // write the contents back into SR
+		sr.write(contents & WORD_MASK); // write the contents back into SR
 	
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of change to SR
 	}
@@ -397,7 +398,7 @@ public class Chip68k implements ProcessorModel {
 		int contents = sr.read(); // read the current contents of SR
 		contents &= 0xEF; // use mask to set the X bit to 0
 		contents |= (bit << 4); // write the new value of X bit
-		sr.write(contents & 0xFFFF); // write contents back to SR
+		sr.write(contents & WORD_MASK); // write contents back to SR
 	
 		propChange.firePropertyChange("StatusRegister", null, sr.read()); // notify listeners of change to SR
 	}

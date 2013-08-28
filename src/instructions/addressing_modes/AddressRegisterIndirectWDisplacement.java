@@ -1,56 +1,70 @@
-package instructions.addressingModes;
+package instructions.addressing_modes;
 
 import instructions.AddressingMode;
 import instructions.IllegalInstructionException;
-import static instructions.References.DataSize;
+import static static_variables.References.DataSize;
 import architecture.ProcessorModel;
 
-public class AddressRegisterIndirectWPostInc implements AddressingMode {
+public class AddressRegisterIndirectWDisplacement implements AddressingMode {
 
 	@Override
 	public int use(DataSize size, int reg, ProcessorModel model) throws IllegalInstructionException {
 		int contents; // holds the contents of the address register referenced
+		int disp;
 		switch (size) {
 		case BYTE:
 			contents = model.getAddressRegisterLongWord(reg);
-			model.setAddressRegisterLongWord(reg, contents + 1);
+			disp = model.readMemoryWord(model.getPC());
+			model.setPC(model.getPC() + 2); // update PC????????????????
+			contents += disp;
 			return model.readMemoryByte(contents);
 		case WORD:
 			contents = model.getAddressRegisterLongWord(reg);
-			model.setAddressRegisterLongWord(reg, contents + 2);
+			disp = model.readMemoryWord(model.getPC());
+			model.setPC(model.getPC() + 2); // update PC?????????????????
+			contents += disp;
 			return model.readMemoryWord(contents);
 		case LONGWORD:
 			contents = model.getAddressRegisterLongWord(reg);
-			model.setAddressRegisterLongWord(reg, contents + 4);
+			disp = model.readMemoryWord(model.getPC());
+			model.setPC(model.getPC() + 2); // update PC???????????????????????
+			contents += disp;
 			return model.readMemoryLongWord(contents);
 		default:
-			throw new IllegalInstructionException("invalid size for Address Register Indirect with Post Increment read mode");
+			throw new IllegalInstructionException("invalid size for Address Register Indirect with Displacement read mode");
 		}
 	}
 
 	@Override
 	public void use(DataSize size, int reg, int value, ProcessorModel model) throws IllegalInstructionException {
 		int contents; // holds the contents of the address register referenced
+		int disp;
 		switch (size) {
 		case BYTE:
 			contents = model.getAddressRegisterLongWord(reg);
+			disp = model.readMemoryWord(model.getPC());
+			model.setPC(model.getPC() + 2); // update PC??????????????
+			contents += disp;
 			model.writeMemoryByte(contents, value);
-			model.setAddressRegisterLongWord(reg, contents + 1);
 			break;
 		case WORD:
 			contents = model.getAddressRegisterLongWord(reg);
+			disp = model.readMemoryWord(model.getPC());
+			model.setPC(model.getPC() + 2); // update PC??????????????????
+			contents += disp;
 			model.writeMemoryWord(contents, value);
-			model.setAddressRegisterLongWord(reg, contents + 2);
 			break;
 		case LONGWORD:
 			contents = model.getAddressRegisterLongWord(reg);
+			disp = model.readMemoryWord(model.getPC());
+			model.setPC(model.getPC() + 2); // update PC???????????????????
+			contents += disp;
 			model.writeMemoryLongWord(contents, value);
-			model.setAddressRegisterLongWord(reg, contents + 4);
 			break;
 		default:
-			throw new IllegalInstructionException("invalid size for Address Register Indirect with Post Increment write mode");
+			throw new IllegalInstructionException("invalid size for Address Register Indirect with Displacement write mode");
 		}
-		
+
 	}
 
 }

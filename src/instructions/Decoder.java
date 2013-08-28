@@ -1,7 +1,7 @@
 package instructions;
 
 import instructions.*;
-import instructions.instructionSet.*;
+import instructions.instruction_set.*;
 
 /**
  * Class which contains a single static method used to decode operation codes
@@ -17,11 +17,13 @@ public class Decoder {
 	 */
 	public static Instruction decode(int op) throws IllegalInstructionException {
 		
-		int opMSB = (op >>> 12); // the first 4 bits of the op code
+		int firstNibble = (op >>> 12); // the first 4 bits of the op code
 		
-		if (opMSB <= 0x3) {
+		// analyse the first 4 bits of the op code to narrow down the instruction type
+		// after the first 4 bits have been checked the rest of the bits are checked until the instruction type is determined
+		if (firstNibble <= 0x3) {
 			
-			if (opMSB == 0) {
+			if (firstNibble == 0) {
 				throw new IllegalInstructionException("Not yet implemented in decoder");
 			}
 			else{
@@ -29,7 +31,7 @@ public class Decoder {
 				return new Move(op);
 			}
 		}
-		else if (opMSB == 0x4) {
+		else if (firstNibble == 0x4) {
 			if ((op & 0xFFF) == 0xE70) {
 				throw new IllegalInstructionException("RESET instruction not yet implemented");
 			}
@@ -44,12 +46,12 @@ public class Decoder {
 			}
 			throw new IllegalInstructionException("Not yet implemented in decoder");
 		}
-		else if (opMSB >= 0x5 && opMSB <= 0x7) {
-			if (opMSB == 6) {
+		else if (firstNibble >= 0x5 && firstNibble <= 0x7) {
+			if (firstNibble == 6) {
 				System.out.println("BCC");
 				return new Bcc(op);
 			}
-			if (opMSB == 7) {
+			if (firstNibble == 7) {
 				System.out.println("MOVEQ");
 				return new MoveQ(op);
 			}
@@ -58,16 +60,16 @@ public class Decoder {
 			}
 			
 		}
-		else if (opMSB >= 0x8 && opMSB <= 0xB) {
-			if (opMSB == 0xB) {
+		else if (firstNibble >= 0x8 && firstNibble <= 0xB) {
+			if (firstNibble == 0xB) {
 				System.out.println("CMP");
 				return new CMP(op);
 			}
 			throw new IllegalInstructionException("Not yet implemented in decoder");
 			
 		}
-		else if (opMSB >= 0xC && opMSB <= 0xD ) {
-			if (opMSB == 0xD) { // TODO NEED TO BREAK THIS DOWN FURTHER
+		else if (firstNibble >= 0xC && firstNibble <= 0xD ) {
+			if (firstNibble == 0xD) { // TODO NEED TO BREAK THIS DOWN FURTHER
 				System.out.println("ADD");
 				return new Add(op);
 			}
@@ -76,7 +78,7 @@ public class Decoder {
 			}
 			
 		}
-		else if (opMSB == 0xE) {
+		else if (firstNibble == 0xE) {
 			throw new IllegalInstructionException("Not yet implemented in decoder");
 			
 		}

@@ -1,13 +1,13 @@
 package instructions;
 
-import instructions.addressingModes.AddressRegisterDirect;
-import instructions.addressingModes.AddressRegisterIndirect;
-import instructions.addressingModes.AddressRegisterIndirectWDisplacement;
-import instructions.addressingModes.AddressRegisterIndirectWPostInc;
-import instructions.addressingModes.AddressRegisterIndirectWPreDec;
-import instructions.addressingModes.DataRegisterDirect;
-import instructions.addressingModes.Immediate;
-import static instructions.References.*;
+import instructions.addressing_modes.AddressRegisterDirect;
+import instructions.addressing_modes.AddressRegisterIndirect;
+import instructions.addressing_modes.AddressRegisterIndirectWDisplacement;
+import instructions.addressing_modes.AddressRegisterIndirectWPostInc;
+import instructions.addressing_modes.AddressRegisterIndirectWPreDec;
+import instructions.addressing_modes.DataRegisterDirect;
+import instructions.addressing_modes.Immediate;
+import static static_variables.References.*;
 
 public class AddressingModeFactory {
 	
@@ -32,7 +32,7 @@ public class AddressingModeFactory {
 			return new AddressRegisterIndirectWDisplacement();
 		}
 		else if (mode == ADDRESS_REG_INDIRECT_W_INDEX_8BIT_DISP) { // 6
-			
+			//TODO
 		}
 		else if (mode == IMMEDIATE_MODE_FIELD) { 
 

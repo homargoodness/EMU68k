@@ -1,11 +1,11 @@
-package instructions.addressingModes;
+package instructions.addressing_modes;
 
 import instructions.AddressingMode;
 import instructions.IllegalInstructionException;
-import static instructions.References.DataSize;
+import static static_variables.References.DataSize;
 import architecture.ProcessorModel;
 
-public class AddressRegisterIndirectWPreDec implements AddressingMode {
+public class AddressRegisterIndirectWPostInc implements AddressingMode {
 
 	@Override
 	public int use(DataSize size, int reg, ProcessorModel model) throws IllegalInstructionException {
@@ -13,21 +13,18 @@ public class AddressRegisterIndirectWPreDec implements AddressingMode {
 		switch (size) {
 		case BYTE:
 			contents = model.getAddressRegisterLongWord(reg);
-			contents -= 1;
-			model.setAddressRegisterLongWord(reg, contents);
+			model.setAddressRegisterLongWord(reg, contents + 1);
 			return model.readMemoryByte(contents);
 		case WORD:
 			contents = model.getAddressRegisterLongWord(reg);
-			contents -= 2;
-			model.setAddressRegisterLongWord(reg, contents);
+			model.setAddressRegisterLongWord(reg, contents + 2);
 			return model.readMemoryWord(contents);
 		case LONGWORD:
 			contents = model.getAddressRegisterLongWord(reg);
-			contents -= 4;
-			model.setAddressRegisterLongWord(reg, contents);
+			model.setAddressRegisterLongWord(reg, contents + 4);
 			return model.readMemoryLongWord(contents);
 		default:
-			throw new IllegalInstructionException("invalid size for Address Register Indirect with Pre Decrement read mode");
+			throw new IllegalInstructionException("invalid size for Address Register Indirect with Post Increment read mode");
 		}
 	}
 
@@ -37,26 +34,23 @@ public class AddressRegisterIndirectWPreDec implements AddressingMode {
 		switch (size) {
 		case BYTE:
 			contents = model.getAddressRegisterLongWord(reg);
-			contents -= 1;
 			model.writeMemoryByte(contents, value);
-			model.setAddressRegisterLongWord(reg, contents);
+			model.setAddressRegisterLongWord(reg, contents + 1);
 			break;
 		case WORD:
 			contents = model.getAddressRegisterLongWord(reg);
-			contents -= 2;
 			model.writeMemoryWord(contents, value);
-			model.setAddressRegisterLongWord(reg, contents);
+			model.setAddressRegisterLongWord(reg, contents + 2);
 			break;
 		case LONGWORD:
 			contents = model.getAddressRegisterLongWord(reg);
-			contents -= 4;
 			model.writeMemoryLongWord(contents, value);
-			model.setAddressRegisterLongWord(reg, contents);
+			model.setAddressRegisterLongWord(reg, contents + 4);
 			break;
 		default:
-			throw new IllegalInstructionException("invalid size for Address Register Indirect with Pre Decrement write mode");
+			throw new IllegalInstructionException("invalid size for Address Register Indirect with Post Increment write mode");
 		}
-
+		
 	}
 
 }

@@ -1,8 +1,8 @@
 package instructions;
 
-import instructions.References.DataSize;
+import static_variables.References.DataSize;
 import architecture.ProcessorModel;
-import static instructions.References.*;
+import static static_variables.References.*;
 
 /**
  * Abstract class which all instruction classes must extend.
