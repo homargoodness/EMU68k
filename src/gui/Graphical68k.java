@@ -429,7 +429,6 @@ public class Graphical68k extends EmulatorUI {
 				StringBuilder tip = new StringBuilder();
 				tip.append("<html>");
 				tip.append("Address: <br>");
-//				+ Integer.toHexString((row * 16) + col).toUpperCase() + "(Hex), " + ((row * 16) + col) + "(Dec)");
 				tip.append(String.format("%02x", (row * 16) + col).toUpperCase() + "(Hex) <br>");
 				tip.append(((row * 16) + col) + "(Dec) <br><br>");
 				tip.append("Contents: <br>");
@@ -438,7 +437,6 @@ public class Graphical68k extends EmulatorUI {
 				tip.append(String.format("%8s", Integer.toBinaryString(value)).replace(' ', '0') + "(Bin)");
 				
 				return tip.toString();
-				
 			}
 		};
 		
