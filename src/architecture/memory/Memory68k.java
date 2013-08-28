@@ -11,7 +11,7 @@ import java.util.List;
  * Each memory location is represented by the MemoryLocation inner class which holds the address
  * and memory contents
  * 
- * The contents are held in an arraylist. When a new valueis written to memory, the list is checked
+ * The contents are held in an arraylist. When a new values written to memory, the list is checked
  * to see if there is already a value in the memory location, if there is it is overwritten, otherwise
  * a new element is added to the list. When reading from memory, first the list is checked, if the address is 
  * populated, the contents are returned otherwise a default value of 0xFF is returned.
@@ -47,14 +47,14 @@ public class Memory68k implements Memory{
 
 	/**
 	 * Method to write a byte to memory. If the memory location already exists in the list, the value is overwritten 
-	 * with the new value, otherise a new element is added to list
+	 * with the new value, otherwise a new element is added to list
 	 * @param data the byte to be written to memory
 	 * @param address the location to write the data
 	 */
 	@Override
 	public void write(int address, byte data) {
 		
-		for (int i = 0; i < memory.size(); i++) { // loop through all memeory locations held in list
+		for (int i = 0; i < memory.size(); i++) { // loop through all memory locations held in list
 			if (memory.get(i).address == address) { // if the address is found
 				memory.get(i).contents = data; // overwrite the contents
 				return; // end method

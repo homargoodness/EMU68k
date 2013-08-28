@@ -5,8 +5,8 @@ import org.ietf.jgss.Oid;
 import architecture.ProcessorModel;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
-import static instructions.StaticReferences.*;
-import instructions.StaticReferences.DataSize;
+import static instructions.References.*;
+import instructions.References.DataSize;
 import instructions.addressingModes.AddressingMode;
 import instructions.addressingModes.AddressingModeFactory;
 

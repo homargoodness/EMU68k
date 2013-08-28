@@ -1,10 +1,10 @@
 package instructions.addressingModes;
 
 import instructions.IllegalInstructionException;
-import static instructions.StaticReferences.DataSize;
+import static instructions.References.DataSize;
 import architecture.ProcessorModel;
 
-public class AddressRegisterIndirectWDisplacement extends AddressingMode {
+public class AddressRegisterIndirectWDisplacement implements AddressingMode {
 
 	@Override
 	public int use(DataSize size, int reg, ProcessorModel model) throws IllegalInstructionException {

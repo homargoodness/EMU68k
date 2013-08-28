@@ -7,7 +7,7 @@ import instructions.addressingModes.AddressingModeFactory;
 //import static instructions.StaticReferences.DataSize;
 //import static instructions.StaticReferences.BYTE_MASK;
 //import static instructions.StaticReferences.WORD_MASK;
-import static instructions.StaticReferences.*;
+import static instructions.References.*;
 
 /**
  * This class implements the MOVE instruction for the MC68k microprocessor.

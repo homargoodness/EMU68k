@@ -1,6 +1,6 @@
 package instructions;
 
-public class StaticReferences {
+public class References {
 	
 	public final static int DATA_REG_DIRECT = 0;
 	public final static int ADDRESS_REG_DIRECT = 1;

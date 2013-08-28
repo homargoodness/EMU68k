@@ -5,7 +5,7 @@ import instructions.addressingModes.AddressingModeFactory;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
 import instructions.addressingModes.AddressingMode;
-import static instructions.StaticReferences.*;
+import static instructions.References.*;
 
 
 /**

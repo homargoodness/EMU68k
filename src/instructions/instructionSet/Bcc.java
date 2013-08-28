@@ -3,7 +3,7 @@ package instructions.instructionSet;
 import architecture.ProcessorModel;
 import instructions.IllegalInstructionException;
 import instructions.Instruction;
-import static instructions.StaticReferences.*;
+import static instructions.References.*;
 
 public class Bcc extends Instruction {
 	

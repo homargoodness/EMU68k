@@ -2,9 +2,9 @@ package instructions.addressingModes;
 
 import architecture.ProcessorModel;
 import instructions.IllegalInstructionException;
-import static instructions.StaticReferences.DataSize;
+import static instructions.References.DataSize;
 
-public class DataRegisterDirect extends AddressingMode {
+public class DataRegisterDirect implements AddressingMode {
 
 	//@Override
 	public int use(DataSize size, int reg, ProcessorModel model) throws IllegalInstructionException {

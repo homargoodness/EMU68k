@@ -6,7 +6,7 @@ import instructions.IllegalInstructionException;
 import instructions.Instruction;
 import instructions.addressingModes.AddressingMode;
 import instructions.addressingModes.DataRegisterDirect;
-import static instructions.StaticReferences.*;
+import static instructions.References.*;
 
 /**
  * Class which implements the ADD instruction
