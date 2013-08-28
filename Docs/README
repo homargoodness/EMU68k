@@ -6,6 +6,8 @@ To Do:
 	use locks in controller
 	overflow check method
 	extend check method
+	proper stateful notifications
+	change abst class to interface
 
 Implemented instuctions:
 	MOVE (partial)
