@@ -17,9 +17,7 @@ public class MemoryTests {
 
 	@Before
 	public void setUp() throws Exception {
-		
 		mem = new Memory68k();
-		
 	}
 
 	@Test
@@ -30,7 +28,6 @@ public class MemoryTests {
 			
 			assertEquals(nums[i], mem.read(i));
 		}
-		
 	}
 	
 	@Test
@@ -41,13 +38,6 @@ public class MemoryTests {
 			
 			assertEquals(nums[i], mem.read(locs[i]));
 		}
-		
 	}
 	
-	@Test(expected = MemoryAccessException.class)
-	public void testNegativeLocation() {
-		mem.write(-10, (byte)6);
-	}
-		
-
 }

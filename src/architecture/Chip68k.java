@@ -236,7 +236,7 @@ public class Chip68k implements ProcessorModel {
 	@Override
 	public int getDataRegisterWord(int reg) {
 		int contents = dataReg[reg].read(); // read contents of register
-		return (short) (contents & 0xFFFF); // return low order word of register
+		return (contents & 0xFFFF); // return low order word of register
 	}
 	
 	/**
@@ -339,7 +339,7 @@ public class Chip68k implements ProcessorModel {
 	@Override
 	public void setSRCarryBit(int bit) {
 		int contents = sr.read(); // get the current contents of SR
-		contents &= 0xFE; // make the C bit using a mask
+		contents &= ~FIRST_BIT_MASK; // make the C bit 0 using a mask
 		contents |= (bit & FIRST_BIT_MASK); // set the C bit to the correct value
 		sr.write(contents & WORD_MASK); // write the contents back into SR
 	
