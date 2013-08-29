@@ -6,7 +6,6 @@ import java.beans.PropertyChangeSupport;
 import architecture.memory.Memory68k;
 import architecture.registers.GeneralRegister;
 import architecture.registers.Register;
-import architecture.registers.StatusRegister;
 import static static_variables.References.*;
 
 
@@ -25,7 +24,7 @@ public class Chip68k implements ProcessorModel {
 	private Register [] addressReg; // array of address registers
 	private Register a7s; // shadow address register for system
 	private Register pc; // program counter
-	private StatusRegister sr; // status register
+	private Register sr; // status register
 	private Memory68k memory; // memory model
 	
 	/**
@@ -43,7 +42,7 @@ public class Chip68k implements ProcessorModel {
 		
 		a7s = new GeneralRegister();
 		pc = new GeneralRegister();
-		sr = new StatusRegister();
+		sr = new GeneralRegister();
 		memory = new Memory68k();
 	}
 	

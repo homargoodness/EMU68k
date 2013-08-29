@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import architecture.registers.GeneralRegister;
-import architecture.registers.StatusRegister;
 
 public class RegisterTests {
 	
@@ -64,33 +63,6 @@ public class RegisterTests {
 	public void testMinValue() {
 		reg.write(minValue);
 		assertEquals(minValue, reg.read());
-	}
-	
-	@Test
-	public void testSRPositive() {
-		StatusRegister sr = new StatusRegister();
-		
-		sr.write((short)positive);
-		
-		assertEquals(positive, sr.read());
-	}
-	
-	@Test
-	public void testSRZero() {
-		StatusRegister sr = new StatusRegister();
-		
-		sr.write((short)zero);
-		
-		assertEquals(zero, sr.read());
-	}
-	
-	@Test
-	public void testSRNegative() {
-		StatusRegister sr = new StatusRegister();
-		
-		sr.write((short)negative);
-		
-		assertEquals(negative, sr.read());
 	}
 
 }
