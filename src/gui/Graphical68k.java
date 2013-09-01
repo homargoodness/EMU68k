@@ -130,16 +130,16 @@ public class Graphical68k extends EmulatorUI {
 		JPanel eastPanel = new JPanel(new BorderLayout()); // create a new panel for east of frame
 		
 		JPanel regPanel = new JPanel(new GridBagLayout()); // set Gridbag layout for new panel
-		regPanel.setBorder(new TitledBorder(new EtchedBorder(), "Internal Registers"));
+		regPanel.setBorder(new TitledBorder(new EtchedBorder(), "Internal Registers")); // add a titled border
 		
-		GridBagConstraints panelConst = new GridBagConstraints();
+		GridBagConstraints panelConst = new GridBagConstraints(); // create new contraints to add to components
 		panelConst.gridx = 0;
 		panelConst.gridy = 0;
 		panelConst.fill = GridBagConstraints.HORIZONTAL;
 		panelConst.insets = new Insets(5,0,5,0);
 		panelConst.anchor = GridBagConstraints.FIRST_LINE_START;
 		
-		regPanel.add(layoutDataRegisters(), panelConst);
+		regPanel.add(layoutDataRegisters(), panelConst); // add components to the register panel
 		panelConst.gridy = 1;
 		regPanel.add(layoutAddressRegisters(), panelConst);
 		panelConst.gridy = 2;
@@ -151,18 +151,23 @@ public class Graphical68k extends EmulatorUI {
 		eastPanel.add(regPanel, BorderLayout.NORTH);
 		eastPanel.add(layoutControlArea(), BorderLayout.CENTER);
 		
-		frame.add(eastPanel,BorderLayout.EAST);
+		frame.add(eastPanel,BorderLayout.EAST); // add the panel to the frame
 		
 	}
 	
+	/**
+	 * Helper method which adds the data register displays to a panel and returns the panel
+	 * @return the panel complete with components
+	 */
 	private JPanel layoutDataRegisters() {
 		
-		dataRegisterField = new JTextField[8];
+		dataRegisterField = new JTextField[8]; // instantiate the data register displays
 		
+		// create new panel and decorate it
 		JPanel dataPanel = new JPanel(new GridBagLayout());
 		dataPanel.setBorder(new TitledBorder(new EtchedBorder(), "Data Registers"));
 		
-		GridBagConstraints labels = new GridBagConstraints();
+		GridBagConstraints labels = new GridBagConstraints(); // create constraints for the labels
 		labels.ipadx = 5;
 		labels.ipady = 10;
 		labels.weightx = 1;
@@ -171,12 +176,13 @@ public class Graphical68k extends EmulatorUI {
 		labels.gridx = 0;
 		labels.gridy = 0;
 		
-		GridBagConstraints fields = new GridBagConstraints();
+		GridBagConstraints fields = new GridBagConstraints(); //  create constraints for the text fields
 		fields.ipadx = 5;
 		fields.ipady = 10;
 		fields.gridx = 0;
 		fields.gridy = 0;
 		
+		// layout each label and display in the panel
 		dataPanel.add(new JLabel("D0", 2),labels);
 		fields.gridx= 1;
 		dataRegisterField[0] = new JTextField("00000000", 8);
@@ -238,20 +244,24 @@ public class Graphical68k extends EmulatorUI {
 		dataRegisterField[7].setEditable(false);
 		dataPanel.add(dataRegisterField[7], fields);
 		
-		originalColor = dataRegisterField[0].getBackground();
+		originalColor = dataRegisterField[0].getBackground(); // gets the original background colour of the register field so it can be reset
 		
-		return dataPanel;
+		return dataPanel; // return completed panel
 				
 	}
 	
+	/**
+	 * Helper method which adds the address register displays to a panel and returns the panel
+	 * @return the panel complete with components
+	 */
 	private JPanel layoutAddressRegisters() {
 		
-		addressRegisterField = new JTextField [8];
+		addressRegisterField = new JTextField [8]; // instantiates the address register displays
 		
 		JPanel addressPanel = new JPanel(new GridBagLayout());
 		addressPanel.setBorder(new TitledBorder(new EtchedBorder(), "Address Registers"));
 		
-		GridBagConstraints labels = new GridBagConstraints();
+		GridBagConstraints labels = new GridBagConstraints(); // create constraints for the labels
 		labels.ipadx = 5;
 		labels.ipady = 10;
 		labels.weightx = 1;
@@ -260,12 +270,13 @@ public class Graphical68k extends EmulatorUI {
 		labels.gridx = 0;
 		labels.gridy = 0;
 		
-		GridBagConstraints fields = new GridBagConstraints();
+		GridBagConstraints fields = new GridBagConstraints(); // create constraints for the display fields
 		fields.ipadx = 5;
 		fields.ipady = 10;
 		fields.gridx = 0;
 		fields.gridy = 0;
 		
+		// add each address display
 		addressPanel.add(new JLabel("A0", 2),labels);
 		fields.gridx= 1;
 		addressRegisterField[0] = new JTextField("00000000", 8);
@@ -327,16 +338,20 @@ public class Graphical68k extends EmulatorUI {
 		addressRegisterField[7].setEditable(false);
 		addressPanel.add(addressRegisterField[7], fields);
 		
-		return addressPanel;
+		return addressPanel; // return completed panel
 		
 	}
 	
+	/**
+	 * Helper method which adds the status register flags to a panel and returns the panel
+	 * @return the panel complete with components
+	 */
 	private JPanel layoutStatusRegister() {
 		
 		JPanel srPanel = new JPanel(new GridBagLayout());
 		srPanel.setBorder(new TitledBorder(new EtchedBorder(), "Status Register"));
 		
-		GridBagConstraints labels = new GridBagConstraints();
+		GridBagConstraints labels = new GridBagConstraints(); // create constraints for the labels
 		labels.ipadx = 0;
 		labels.ipady = 0;
 		labels.anchor = GridBagConstraints.PAGE_END;
@@ -344,13 +359,14 @@ public class Graphical68k extends EmulatorUI {
 		labels.gridx = 0;
 		labels.gridy = 0;
 		
-		GridBagConstraints fields = new GridBagConstraints();
+		GridBagConstraints fields = new GridBagConstraints(); // create constraints for the display fields
 		fields.ipadx = 0;
 		fields.ipady = 0;
 		fields.insets = new Insets(0,10,0,10);
 		fields.gridx = 0;
 		fields.gridy = 1;
 		
+		// add each label and display
 		srPanel.add(new JLabel("X"), labels);
 		
 		xBitField = new JTextField("0", 1);
@@ -389,9 +405,13 @@ public class Graphical68k extends EmulatorUI {
 		fields.gridx = 4;
 		srPanel.add(cBitField, fields);
 		
-		return srPanel;
+		return srPanel; //  return completed panel
 	}
 	
+	/**
+	 * Helper method which adds the program counter register display to a panel and returns the panel
+	 * @return the panel complete with components
+	 */
 	private JPanel layoutPCRegister() {
 		
 		JPanel pcPanel = new JPanel(new GridBagLayout());
@@ -400,7 +420,6 @@ public class Graphical68k extends EmulatorUI {
 		GridBagConstraints c = new GridBagConstraints();
 		c.ipadx = 5;
 		c.ipady = 0;
-		//c.anchor = GridBagConstraints.PAGE_END;
 		c.insets = new Insets(0,0,0,0);
 		c.gridx = 0;
 		c.gridy = 0;
@@ -412,22 +431,25 @@ public class Graphical68k extends EmulatorUI {
 		c.gridx = 1;
 		pcPanel.add(pcField, c);
 		
-		return pcPanel;
+		return pcPanel; //  return completed panel
 	}
 	
+	/**
+	 * Helper method which lays out the memory display in the centre panel
+	 */
 	private void layoutCenter() {
 		
-		JPanel memoryPanel = new JPanel(new GridLayout());
-		memoryPanel.setBorder(new TitledBorder(new EtchedBorder(), "Main Memory"));
+		JPanel memoryPanel = new JPanel(new GridLayout()); // create new panel
+		memoryPanel.setBorder(new TitledBorder(new EtchedBorder(), "Main Memory")); //  create named border
 		
-		memTable = new JTable(new MemoryTableModel()) {
-			public String getToolTipText(MouseEvent e) {
-				java.awt.Point p = e.getPoint();
-				int row = rowAtPoint(p);
-				int col = columnAtPoint(p);
-				int value = Integer.parseInt((String) getValueAt(row,col),16);
-				StringBuilder tip = new StringBuilder();
-				tip.append("<html>");
+		memTable = new JTable(new MemoryTableModel()) { //  create new table for the memory using a custom table model
+			public String getToolTipText(MouseEvent e) { // method to create a custom tool tip for the table
+				java.awt.Point p = e.getPoint(); // get the cell the mouse is hovering over
+				int row = rowAtPoint(p); // get the row number
+				int col = columnAtPoint(p); // get the column numner
+				int value = Integer.parseInt((String) getValueAt(row,col),16); // get the value in that cell
+				StringBuilder tip = new StringBuilder(); // the text in the tool tip
+				tip.append("<html>"); // append the text
 				tip.append("Address: <br>");
 				tip.append(String.format("%02x", (row * 16) + col).toUpperCase() + "(Hex) <br>");
 				tip.append(((row * 16) + col) + "(Dec) <br><br>");
@@ -436,23 +458,24 @@ public class Graphical68k extends EmulatorUI {
 				tip.append(String.format("%02x", value).toUpperCase() + "(Hex) <br>");
 				tip.append(String.format("%8s", Integer.toBinaryString(value)).replace(' ', '0') + "(Bin)");
 				
-				return tip.toString();
+				return tip.toString(); // return tooltip
 			}
 		};
 		
-		
-		
-		JScrollPane scrollPane = new JScrollPane(memTable);
-		JTable rowTable = new RowNumberTable(memTable);
+		JScrollPane scrollPane = new JScrollPane(memTable); // new scroll bar for table
+		JTable rowTable = new RowNumberTable(memTable); // create a new table which has row numbers
 		scrollPane.setRowHeaderView(rowTable);
 		scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER,
 			    rowTable.getTableHeader());
 		
-		memoryPanel.add(scrollPane);
+		memoryPanel.add(scrollPane); // add table and scroll pane to panel
 		
-		frame.add(memoryPanel, BorderLayout.CENTER);
+		frame.add(memoryPanel, BorderLayout.CENTER); // add panel to frame
 	}
 	
+	/**
+	 * helper method which lays out the source code display
+	 */
 	private void layoutWest() {
 		
 		JPanel codePanel = new JPanel(new GridLayout());
@@ -467,6 +490,10 @@ public class Graphical68k extends EmulatorUI {
 		frame.add(codePanel, BorderLayout.WEST);
 	}
 	
+	/**
+	 * helper method which lays out the emulator controls and returns the panel
+	 * @return the panel complete with controls
+	 */
 	private JPanel layoutControlArea() {
 		
 		JPanel contPanel = new JPanel(new GridBagLayout());
@@ -552,7 +579,7 @@ public class Graphical68k extends EmulatorUI {
 		});
 	}
 	
-	public void reset() {//TODO dont need this!!!!!!!!!!!!!!!!!!!!!!!
+	public void reset() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				for (int i = 0; i < 8; i++) {
